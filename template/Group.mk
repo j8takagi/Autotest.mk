@@ -33,7 +33,7 @@ checkeach:
 	@for target in $(TESTS); do $(MAKE) check -C $$target; done
 
 $(GROUP_LOG_FILE):
-	@for target in $(TESTS); do cat <$$target/$(LOG_FILE) >>$@ || echo $$target ": no log." >>$@; done
+	@for target in $(TESTS); do (echo<$$target/$(LOG_FILE) && cat <$$target/$(LOG_FILE)) >>$@ || echo $$target ": no log." >>$@; done
 
 report: $(GROUP_LOG_FILE)
 	@echo "$(GROUP): $(SUCCESS_TEST) / $(ALL_TEST) tests passed. Details in `pwd`/$(GROUP_LOG_FILE)"; \
