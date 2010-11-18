@@ -1,6 +1,34 @@
 # autotest.mk > template > Group.mk
 # テストグループのMakefile
-#
+
+######################################################################
+# テストグループの定義
+######################################################################
+
+include Define.mk
+
+# グループディレクトリー
+GROUP_DIR := $(shell pwd)
+
+# グループ名。ディレクトリ名から取得
+GROUP := $(notdir $(GROUP_DIR))
+
+# テスト名。カレントディレクトリー内の、名前が大文字または.以外で始まるディレクトリー
+TESTS := $(notdir $(shell find -maxdepth 1 -name "[^A-Z.]*" -type d))
+
+# 成功したテストの数。テストグループログファイルから取得
+SUCCESS_TEST = $(shell grep "^[^A-Z.].*: Test Success" $(GROUP_LOG_FILE) | wc -l)
+
+# 失敗したテストの数。テストグループログファイルから取得
+FAIL_TEST = $(shell grep "^[^A-Z.].*: Test Failure" $(GROUP_LOG_FILE) | wc -l)
+
+# すべてのテストの数
+ALL_TEST = $(shell expr $(SUCCESS_TEST) + $(FAIL_TEST))
+
+#テストグループ計時ファイル
+GROUP_TIME_FILE = $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
+
+######################################################################
 # オペレーター
 # make         : すべてのテストを実施し、ログファイルを作成
 # make check   : ↓
@@ -10,39 +38,44 @@
 # make report  : ログファイルから、テストの結果をレポート
 # make clean   : すべてのテストで、"make" で生成されたファイルをクリア
 # make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
-
-include Define.mk
+######################################################################
 
 .PHONY: check create set checkeach report clean cleanall
 
 check: checkeach report
 
 create:
-ifndef TEST
-	@echo "no test created. set TEST."
-else
-	@mkdir $(TEST)
-	@for ifile in $(DEF_FILE) $(TEST_MAKEFILE); do echo "include ../$$ifile" >>$(TEST)/Makefile; done
-endif
+	@$(call chk_var_null,TEST)
+	@$(call chk_file_ext,TEST)
+	@$(MKDIR) $(TEST)
+	@$(call create_testmkfile,$(TEST)/$(MAKEFILE))
 
-set:
-	@for target in $(TESTS); do $(MAKE) set -C $$target; done
+set: $(TESTS)
+	$(MAKE) set -C $^
 
-checkeach:
-	@rm -f $(GROUP_LOG_FILE)
-	@for target in $(TESTS); do $(MAKE) check -C $$target; done
+checkeach: $(TESTS)
+	@$(RM) $(GROUP_LOG_FILE)
+	TARGET=check
 
-$(GROUP_LOG_FILE):
-	@for target in $(TESTS); do (echo<$$target/$(LOG_FILE) && cat <$$target/$(LOG_FILE)) >>$@ || echo $$target ": no log." >>$@; done
+$(GROUP_LOG_FILE): $(TESTS)
+	@$(LOG_GROUP)
 
 report: $(GROUP_LOG_FILE)
-	@echo "$(GROUP): $(SUCCESS_TEST) / $(ALL_TEST) tests passed. Details in `pwd`/$(GROUP_LOG_FILE)"; \
-         if test $(FAIL_TEST) -eq 0; then echo "$(GROUP): All tests are succeded."; fi
+	@$(REPORT_GROUP)
 
-clean:
-	@for target in $(TESTS); do $(MAKE) clean -C $$target; done
-	@rm -f $(GROUP_LOG_FILE)
+time: timeeach $(GROUP_TIME_FILE)
+	@$(CAT) $(GROUP_TIME_FILE)
 
-cleanall:
-	@for target in $(TESTS); do $(MAKE) cleanall -C $$target; done
-	@rm -f $(GROUP_LOG_FILE)
+$(GROUP_TIME_FILE): $(TESTS)
+	@$(LOG_TIME_REPORT)
+
+timeeach: $(TESTS)
+	@$(MAKE) time -C $^
+
+clean: $(TESTS)
+	@echo $^ && $(MAKE) clean -C $^
+	@$(RM) $(GROUP_LOG_FILE)
+
+$(TESTS):
+	@echo $@
+	@$(MAKE) $(TARGET) -C $@

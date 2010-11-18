@@ -11,7 +11,7 @@
 # make clean   : すべてのテストで、"make" で生成されたファイルをクリア
 # make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
 
-include Define.mk
+include Define.beta.mk
 
 .PHONY: check create set checkeach report clean cleanall
 

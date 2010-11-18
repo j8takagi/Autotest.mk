@@ -2,12 +2,14 @@
 #define YYSTYPE double          /* data type of yacc stack */
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 %}
 
 %token  NUMBER
 %left   '+' '-'                 /* left associative, same precedence */
 %left   '*' '/' '%'             /* left associative, higher precedence */
 %left   UNARYMINUS UNARYPLUS
+%right  '^'
 %%
 list:                           /* nothing */
         | list '\n'
@@ -19,6 +21,7 @@ expr:   NUMBER          { $$ = $1; }
         | expr '*' expr { $$ = $1 * $3; }
         | expr '/' expr { $$ = $1 / $3; }
         | expr '%' expr { $$ = (int)$1 % (int)$3; }
+        | expr '^' expr { $$ = pow($1, $3); }
         | '(' expr ')'{ $$ = $2; }
         | '-' expr %prec UNARYMINUS { $$ = -$2; }
         | '+' expr %prec UNARYPLUS { $$ = $2; }

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g
+CFLAGS = -g -lm
 .PHPNY: clean
 hoc1: hoc.o
 	$(CC) $(CFLAGS) -o $@ $^

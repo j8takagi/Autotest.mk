@@ -1,0 +1,1 @@
+make -s utest && cat 0.mk

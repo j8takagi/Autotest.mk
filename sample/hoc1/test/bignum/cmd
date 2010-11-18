@@ -1,0 +1,1 @@
+cat in.txt && ../../hoc1 < in.txt

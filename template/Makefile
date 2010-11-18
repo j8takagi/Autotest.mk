@@ -5,14 +5,17 @@
 # make            : テストグループディレクトリーを作成
 # make creategroup: ↓
 
+# 変数やマクロの定義
 include Define.mk
 
+# テストグループのMakefileとしてコピーされるファイル
+GROUP_MAKEFILE := Group.mk
+
+# テストグループディレクトリーを作成
 creategroup:
-ifndef GROUPDIR
-	@echo "no test group created. set GROUPDIR."
-else
-	@mkdir $(GROUPDIR)
-	@cp $(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
-	@cp $(TEST_MAKEFILE) $(GROUPDIR)/
-	@cp $(DEF_FILE) $(GROUPDIR)/
-endif
+	@$(call err_var_null,GROUPDIR)
+	@$(call err_file_ext,GROUPDIR)
+	@$(MKDIR) $(GROUPDIR)
+	@$(CP) $(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
+	@$(CP) $(TEST_MAKEFILE) $(GROUPDIR)/
+	@$(CP) $(DEF_FILE) $(GROUPDIR)/

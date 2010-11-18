@@ -10,6 +10,9 @@ TEST_MAKEFILE := Test.mk
 # テストグループログファイル
 GROUP_LOG_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]').log
 
+# テストグループ実行時間ファイル
+GROUP_TIME_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
+
 ######################################################################
 # テストのディレクトリー
 ######################################################################
@@ -68,11 +71,12 @@ CHMOD := chmod
 # TESTディレクトリーのMakefileを作成
 # 用例: $(call create_testmakefile,file)
 define create_testmkfile
+    $(RM) $1
     $(foreach mkfile, $(DEF_FILE) $(TEST_MAKEFILE), $(ECHO) "include ../$(mkfile)" >>$1; )
 endef
 
 # 説明ファイルの内容を、引数のファイルに出力。
-# 用例: $(call desc_log,file)
+# 用例: $(call desc_log,file_out)
 define desc_log
     $(if $(wildcard $(DESC_FILE)),$(CAT) $(DESC_FILE) >>$1)
 endef
