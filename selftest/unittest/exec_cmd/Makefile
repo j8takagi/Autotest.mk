@@ -1,5 +1,6 @@
-include ../Define.beta.mk
+include ../Define.mk
 include ../Test.mk
 
 utest:
-	$(call exec_cmd,cmd0,00.txt,uerr.txt)
+	$(RM) 0.log
+	$(call exec_cmd,cmd0,00.txt,err.txt)

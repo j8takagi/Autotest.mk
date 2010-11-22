@@ -11,43 +11,84 @@
 # make clean   : すべてのテストで、"make" で生成されたファイルをクリア
 # make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
 
-include Define.beta.mk
+######################################################################
+# テストグループの定義
+######################################################################
 
-.PHONY: check create set checkeach report clean cleanall
+include Define.mk
 
-check: checkeach report
+# グループディレクトリー
+GROUP_DIR := $(shell pwd)
+
+# グループ名。ディレクトリ名から取得
+GROUP := $(notdir $(GROUP_DIR))
+
+# テスト名。カレントディレクトリー内の、名前が大文字または.以外で始まるディレクトリー
+TESTS = $(notdir $(shell find -maxdepth 1 -name "[^A-Z.]*" -type d))
+
+# テストごとのログファイル
+TEST_LOG_FILES := $(foreach test,$(TESTS),$(test)/$(LOG_FILE))
+
+# テストグループログファイル
+GROUP_LOG_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]').log
+
+# テストグループレポートファイル
+GROUP_REPORT_FILE := Report.log
+
+# 成功したテストの数。テストグループログファイルから取得
+SUCCESS_TEST = $(shell grep "^[^A-Z.].*: Test Success" $(GROUP_LOG_FILE) | wc -l)
+
+# 失敗したテストの数。テストグループログファイルから取得
+FAIL_TEST = $(shell grep "^[^A-Z.].*: Test Failure" $(GROUP_LOG_FILE) | wc -l)
+
+# すべてのテストの数
+ALL_TEST = $(shell expr $(SUCCESS_TEST) + $(FAIL_TEST))
+
+# テストごとの実行時間ファイル
+TEST_TIME_FILES := $(foreach test,$(TESTS),$(test)/$(TIME_FILE))
+
+# テストグループ実行時間ファイル
+GROUP_TIME_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
+
+######################################################################
+# ターゲット
+######################################################################
+
+.PHONY: check report create time clean cleanall
+
+check: clean report
+
+report: $(GROUP_REPORT_FILE)
+	@$(CAT) $^
+
+$(GROUP_REPORT_FILE): $(GROUP_LOG_FILE)
+	@$(call group_report,$(GROUP),$^,$@)
+
+$(GROUP_LOG_FILE): $(TEST_LOG_FILES)
+	@$(call group_log,$^,$@)
+
+$(TEST_LOG_FILES):
+	@$(MAKE) check -sC $(call dir,$@)
 
 create:
-ifndef TEST
-	@$(ECHO) "no test created. set TEST."
-else
-	@$(MKDIR) $(TEST)
-	@for ifile in $(DEF_FILE) $(TEST_MAKEFILE); do $(ECHO) "include ../$$ifile" >>$(TEST)/Makefile; done
-endif
+	@$(call create_testdir,$(TEST))
+	@$(call create_testmkfile,$(TEST)/$(MAKEFILE))
 
-set:
-	@for target in $(TESTS); do $(MAKE) set -C $$target; done
+time: cleantime time_report
 
-checkeach:
-	@$(RM) $(GROUP_LOG_FILE)
-	@for target in $(TESTS); do $(MAKE) check -C $$target; done
+time_report: $(GROUP_TIME_FILE)
+	@$(CAT) $^
 
-$(GROUP_LOG_FILE):
-	@for target in $(TESTS); do ($(ECHO) <$$target/$(LOG_FILE) && $(CAT) <$$target/$(LOG_FILE)) >>$@ || $(ECHO) $$target ": no log." >>$@; done
+$(GROUP_TIME_FILE): $(TEST_TIME_FILES)
+	@$(call group_log,$^,$@)
 
-report: $(GROUP_LOG_FILE)
-	@$(ECHO) "$(GROUP): $(SUCCESS_TEST) / $(ALL_TEST) tests passed. Details in `pwd`/$(GROUP_LOG_FILE)"; \
-         if test $(FAIL_TEST) -eq 0; then $(ECHO) "$(GROUP): All tests are succeded."; fi
+$(TEST_TIME_FILES):
+	@$(MAKE) time -sC $(call dir,$@)
 
-time: timeeach $(GROUP_TIME_FILE)
-	@$(CAT) $(GROUP_TIME_FILE)
-
-$(GROUP_TIME_FILE):
-	@for target in $(TESTS); do ($(ECHO)<$$target/$(LOG_FILE) && $(CAT) <$$target/$(TIME_FILE)) >>$@ || $(ECHO) $$target ": no time." >>$@; done
-
-timeeach:
-	@for target in $(TESTS); do $(MAKE) time -C $$target; done
+cleantime:
+	@$(call make_tests,$(TESTS),$@)
+	@$(RM) $(GROUP_TIME_FILE)
 
 clean:
-	@for target in $(TESTS); do $(MAKE) clean -C $$target; done
-	@$(RM) $(GROUP_LOG_FILE)
+	@$(call make_tests,$(TESTS),$@)
+	@$(RM) $(GROUP_REPORT_FILE) $(GROUP_LOG_FILE)

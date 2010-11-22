@@ -1,4 +1,4 @@
-include ../Define.beta.mk
+include ../Define.mk
 include ../Test.mk
 
 utest:

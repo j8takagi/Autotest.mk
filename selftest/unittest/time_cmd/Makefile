@@ -2,4 +2,4 @@ include ../Define.mk
 include ../Test.mk
 
 utest:
-	$(call create_testmkfile,0.mk)
+	$(call time_cmd,$(TEST),cmd0,00.txt)
