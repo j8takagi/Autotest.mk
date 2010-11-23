@@ -11,6 +11,8 @@
 # make clean   : すべてのテストで、"make" で生成されたファイルをクリア
 # make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
 
+SHELL = /bin/sh
+
 ######################################################################
 # テストグループの定義
 ######################################################################
@@ -54,41 +56,38 @@ GROUP_TIME_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
 # ターゲット
 ######################################################################
 
-.PHONY: check report create time clean cleanall
+.PHONY: check checkall time create clean cleantime
 
-check: clean report
+check checkall: clean $(GROUP_REPORT_FILE)
+	@$(CAT) $(GROUP_REPORT_FILE)
 
-report: $(GROUP_REPORT_FILE)
-	@$(CAT) $^
-
-$(GROUP_REPORT_FILE): $(GROUP_LOG_FILE)
-	@$(call group_report,$(GROUP),$^,$@)
-
-$(GROUP_LOG_FILE): $(TEST_LOG_FILES)
-	@$(call group_log,$^,$@)
-
-$(TEST_LOG_FILES):
-	@$(MAKE) check -sC $(call dir,$@)
+time: cleantime $(GROUP_TIME_FILE)
+	@$(CAT) $(GROUP_TIME_FILE)
 
 create:
-	@$(call create_testdir,$(TEST))
-	@$(call create_testmkfile,$(TEST)/$(MAKEFILE))
+	@$(call create_dir,$(TEST))
+	@$(call create_makefile,$(TEST)/$(MAKEFILE))
 
-time: cleantime time_report
-
-time_report: $(GROUP_TIME_FILE)
-	@$(CAT) $^
-
-$(GROUP_TIME_FILE): $(TEST_TIME_FILES)
-	@$(call group_log,$^,$@)
-
-$(TEST_TIME_FILES):
-	@$(MAKE) time -sC $(call dir,$@)
+clean:
+	@$(call make_tests,$(TESTS),$@)
+	@$(RM) $(GROUP_REPORT_FILE) $(GROUP_LOG_FILE) $(GROUP_TIME_FILE)
 
 cleantime:
 	@$(call make_tests,$(TESTS),$@)
 	@$(RM) $(GROUP_TIME_FILE)
 
-clean:
-	@$(call make_tests,$(TESTS),$@)
-	@$(RM) $(GROUP_REPORT_FILE) $(GROUP_LOG_FILE)
+$(GROUP_REPORT_FILE): $(GROUP_LOG_FILE)
+	@$(call group_report,$(GROUP),$^,$@)
+
+$(GROUP_LOG_FILE): $(TEST_LOG_FILES)
+	@$(call make_tests,$(TESTS),$(MAKECMDGOALS))
+	@$(call group_log,$^,$@)
+
+$(GROUP_TIME_FILE): cleantime $(TEST_TIME_FILES)
+	@$(call group_log,$(TEST_TIME_FILES),$@)
+
+$(TEST_LOG_FILES):
+	@$(MAKE) check -sC $(dir $@)
+
+$(TEST_TIME_FILES):
+	@$(MAKE) time -sC $(dir $@)
