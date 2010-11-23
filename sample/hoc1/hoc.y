@@ -5,15 +5,15 @@
 #include <math.h>
 %}
 
-%token  NUMBER
+%token  NUMBER EOL
 %left   '+' '-'                 /* left associative, same precedence */
 %left   '*' '/' '%'             /* left associative, higher precedence */
 %left   UNARYMINUS UNARYPLUS
 %right  '^'
 %%
 list:                           /* nothing */
-        | list '\n'
-        | list expr '\n'        { printf("\t%.8g\n", $2); }
+        | list EOL
+        | list expr EOL        { printdouble($2); }
 ;
 expr:   NUMBER          { $$ = $1; }
         | expr '+' expr { $$ = $1 + $3; }
@@ -36,6 +36,14 @@ int main(int argc, char *argv[]) {
     yyparse();
 }
 
+int printdouble(double f) {
+    if((f > 0 && f < 1e-15) || (f < 0 && f > -1e-15)) {
+        printf("\t%.20e\n", f);
+    } else {
+        printf("\t%.20f\n", f);
+    }
+}
+
 int yylex(){
     int c;
     while((c = getchar()) == ' ' || c == '\t') {
@@ -50,8 +58,11 @@ int yylex(){
         scanf("%lf", &yylval);
         return NUMBER;
     }
-    if(c == '\n') {
-        lineno++;
+    if(c == '\n' || c == ';') {
+        if(c == '\n') {
+            lineno++;
+        }
+        return EOL;
     }
     return c;
 }

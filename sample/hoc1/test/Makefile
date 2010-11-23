@@ -1,5 +1,17 @@
 # autotest.mk > template > Group.mk
 # テストグループのMakefile
+#
+# オペレーター
+# make         : すべてのテストを実施し、ログファイルを作成
+# make check   : ↓
+# make create  : TESTNAMEで指定されたテストを新規に作成
+# make set     : すべてのテストの、想定結果を出力
+# make checkeach: すべてのテストを実施
+# make report  : ログファイルから、テストの結果をレポート
+# make clean   : すべてのテストで、"make" で生成されたファイルをクリア
+# make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
+
+SHELL = /bin/sh
 
 ######################################################################
 # テストグループの定義
@@ -14,7 +26,16 @@ GROUP_DIR := $(shell pwd)
 GROUP := $(notdir $(GROUP_DIR))
 
 # テスト名。カレントディレクトリー内の、名前が大文字または.以外で始まるディレクトリー
-TESTS := $(notdir $(shell find -maxdepth 1 -name "[^A-Z.]*" -type d))
+TESTS = $(notdir $(shell find -maxdepth 1 -name "[^A-Z.]*" -type d))
+
+# テストごとのログファイル
+TEST_LOG_FILES := $(foreach test,$(TESTS),$(test)/$(LOG_FILE))
+
+# テストグループログファイル
+GROUP_LOG_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]').log
+
+# テストグループレポートファイル
+GROUP_REPORT_FILE := Report.log
 
 # 成功したテストの数。テストグループログファイルから取得
 SUCCESS_TEST = $(shell grep "^[^A-Z.].*: Test Success" $(GROUP_LOG_FILE) | wc -l)
@@ -25,57 +46,48 @@ FAIL_TEST = $(shell grep "^[^A-Z.].*: Test Failure" $(GROUP_LOG_FILE) | wc -l)
 # すべてのテストの数
 ALL_TEST = $(shell expr $(SUCCESS_TEST) + $(FAIL_TEST))
 
-#テストグループ計時ファイル
-GROUP_TIME_FILE = $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
+# テストごとの実行時間ファイル
+TEST_TIME_FILES := $(foreach test,$(TESTS),$(test)/$(TIME_FILE))
+
+# テストグループ実行時間ファイル
+GROUP_TIME_FILE := $(shell echo $(GROUP) | tr '[a-z]' '[A-Z]')_time.log
 
 ######################################################################
-# オペレーター
-# make         : すべてのテストを実施し、ログファイルを作成
-# make check   : ↓
-# make create  : TESTNAMEで指定されたテストを新規に作成
-# make set     : すべてのテストの、想定結果を出力
-# make checkeach: すべてのテストを実施
-# make report  : ログファイルから、テストの結果をレポート
-# make clean   : すべてのテストで、"make" で生成されたファイルをクリア
-# make cleanall: すべてのテストで、"make" と "make set" で生成されたファイルをクリア
+# ターゲット
 ######################################################################
 
-.PHONY: check create set checkeach report clean cleanall
+.PHONY: check checkall time create clean cleantime
 
-check: checkeach report
+check checkall: clean $(GROUP_REPORT_FILE)
+	@$(CAT) $(GROUP_REPORT_FILE)
 
-create:
-	@$(call chk_var_null,TEST)
-	@$(call chk_file_ext,TEST)
-	@$(MKDIR) $(TEST)
-	@$(call create_testmkfile,$(TEST)/$(MAKEFILE))
-
-set: $(TESTS)
-	$(MAKE) set -C $^
-
-checkeach: $(TESTS)
-	@$(RM) $(GROUP_LOG_FILE)
-	TARGET=check
-
-$(GROUP_LOG_FILE): $(TESTS)
-	@$(LOG_GROUP)
-
-report: $(GROUP_LOG_FILE)
-	@$(REPORT_GROUP)
-
-time: timeeach $(GROUP_TIME_FILE)
+time: cleantime $(GROUP_TIME_FILE)
 	@$(CAT) $(GROUP_TIME_FILE)
 
-$(GROUP_TIME_FILE): $(TESTS)
-	@$(LOG_TIME_REPORT)
+create:
+	@$(call create_dir,$(TEST))
+	@$(call create_makefile,$(TEST)/$(MAKEFILE))
 
-timeeach: $(TESTS)
-	@$(MAKE) time -C $^
+clean:
+	@$(call make_tests,$(TESTS),$@)
+	@$(RM) $(GROUP_REPORT_FILE) $(GROUP_LOG_FILE) $(GROUP_TIME_FILE)
 
-clean: $(TESTS)
-	@echo $^ && $(MAKE) clean -C $^
-	@$(RM) $(GROUP_LOG_FILE)
+cleantime:
+	@$(call make_tests,$(TESTS),$@)
+	@$(RM) $(GROUP_TIME_FILE)
 
-$(TESTS):
-	@echo $@
-	@$(MAKE) $(TARGET) -C $@
+$(GROUP_REPORT_FILE): $(GROUP_LOG_FILE)
+	@$(call group_report,$(GROUP),$^,$@)
+
+$(GROUP_LOG_FILE): $(TEST_LOG_FILES)
+	@$(call make_tests,$(TESTS),$(MAKECMDGOALS))
+	@$(call group_log,$^,$@)
+
+$(GROUP_TIME_FILE): cleantime $(TEST_TIME_FILES)
+	@$(call group_log,$(TEST_TIME_FILES),$@)
+
+$(TEST_LOG_FILES):
+	@$(MAKE) check -sC $(dir $@)
+
+$(TEST_TIME_FILES):
+	@$(MAKE) time -sC $(dir $@)
