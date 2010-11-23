@@ -13,13 +13,23 @@
 # make clean   : "make" で作成されたファイルをクリア
 # make cleanall: "make" と "make set" で作成されたファイルをクリア
 
+SHELL = /bin/sh
+
+# テスト名。カレントディレクトリー名から取得
+TEST = $(notdir $(shell pwd))
+
 .PHONY: check set reset time cleantime clean cleanall
 
 check: clean $(LOG_FILE)
 
+checkall: check $(TIME_FILE)
+	@$(CAT) $(TIME_FILE) >>$(LOG_FILE)
+
 set: $(TEST0_FILE)
+	@$(CAT) $^
 
 reset: cleanall $(TEST0_FILE)
+	@$(CAT) $(TEST0_FILE)
 
 time: cleantime $(TIME_FILE)
 
@@ -32,15 +42,20 @@ clean:
 cleanall: clean
 	@$(RM) $(TEST0_FILE)
 
-$(TEST0_FILE) $(TEST1_FILE): $(CMD_FILE)
-	@-$(CMD)
+$(CMD_FILE):
+	@$(call chk_file_notext,$@)
+	@$(CHMOD) u+x $@
 
-$(DIFF_FILE): $(TEST1_FILE)
-	@-$(DIFF) $(TEST0_FILE) $(TEST1_FILE) >$@ 2>&1
+$(TEST0_FILE) $(TEST1_FILE): $(CMD_FILE)
+	@-$(call exec_cmd,$^,$@,$(ERR_FILE))
+
+$(DIFF_FILE): $(TEST0_FILE) $(TEST1_FILE)
+	@-$(call diff_files,$^,$@)
 
 $(LOG_FILE): $(DIFF_FILE)
-	@$(DESC)
-	@$(REPORT_TEST)
+	@$(RM) $@
+	@$(call desc_log,$@)
+	@$(call test_log,$(TEST),$^,$@)
 
 $(TIME_FILE): $(CMD_FILE)
-	@$(TIME) ./$(CMD_FILE) 1>/dev/null && $(CAT) $@
+	@-$(call time_cmd,$(TEST),$^,$@)
