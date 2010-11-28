@@ -1,1 +1,2 @@
+マクロ create_makefile のテスト
 TESTディレクトリーのMakefileを作成

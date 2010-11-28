@@ -1,51 +1,17 @@
 # autotest.mk > test_template > Define.mk
 # 自動テスト用の変数、マクロ定義
 
-SHELL=/bin/sh
-
-######################################################################
-# テストグループのディレクトリー
-######################################################################
-
-# テストグループとテストの両方で使う変数を定義したファイル
-DEF_FILE := Define.mk
-
-# テストのMakefileにインクルードするファイル
-TEST_MAKEFILE := Test.mk
-
-######################################################################
-# テストのディレクトリー
-######################################################################
-
-# Makefile
-MAKEFILE ?= Makefile
+ifndef DEFINE_INCLUDED
+DEFINE_INCLUDED = 1
 
 # 現在の日時
 DATE = $(shell date +"%F %T")
 
-# テストコマンドファイル
-CMD_FILE ?= cmd
+# 現在のディレクトリー
+CURRDIR = $(shell pwd)
 
-# テスト説明ファイル
-DESC_FILE ?= desc.txt
-
-# テスト想定結果ファイル
-TEST0_FILE ?= 0.txt
-
-# テスト結果ファイル
-TEST1_FILE ?= 1.txt
-
-# テストの、想定結果と結果の差分ファイル
-DIFF_FILE ?= diff.txt
-
-# テストエラーファイル
-ERR_FILE ?= err.txt
-
-# テストログファイル
-LOG_FILE ?= test.log
-
-# 実行時間ファイル
-TIME_FILE ?= time.log
+# Makefile
+MAKEFILE := Makefile
 
 ######################################################################
 # コマンド
@@ -69,8 +35,17 @@ DEV_NULL ?= /dev/null
 
 CHMOD ?= chmod
 
+GREP ?= grep
+
+LINECOUNT ?= wc -l
+
+FIND ?= find
+
+TR ?= tr
+
+EXPR ?= expr
 ######################################################################
-# エラー
+# テストグループとテストでの共通マクロ
 ######################################################################
 
 # chk_var_null: 引数がNULLの場合、エラー
@@ -82,111 +57,69 @@ endef
 # chk_file_ext: 指定されたファイルが実在する場合、エラー
 # 用例: $(call chk_file_ext,file)
 define chk_file_ext
-    $(if $(wildcard $1),$(error $1 exists in $(shell pwd)))
+    $(if $(wildcard $1),$(error $1 exists in $(CURRDIR)))
 endef
 
 # chk_file_notext: 指定されたファイルが実在しない場合、エラー
 # 用例: $(call chk_file_notext,file)
 define chk_file_notext
-    if test ! -s $1; then $(error $1 not exists in $(shell pwd)); fi
+    $(if $(wildcard $1),,$(error $1 not exists in $(CURRDIR)))
 endef
 
 ######################################################################
-# マクロ
+# テストグループのディレクトリー
 ######################################################################
 
-# 指定したディレクトリーを作成
-# 用例: $(call create_dir,name)
-define create_dir
-    $(call chk_var_null,$1)
-    $(call chk_file_ext,$1)
-    $(MKDIR) $1
-endef
+# テストグループとテストの変数を定義したMakefile
+DEF_FILE := Define.mk
 
-# テストごとのMakefileを作成
-# 用例: $(call create_makefile,file)
-define create_makefile
-    $(RM) $1
-    $(foreach mkfile,$(DEF_FILE) $(TEST_MAKEFILE),$(ECHO) "include ../$(mkfile)" >>$1; )
-endef
+# テストグループの変数を定義したMakefile
+DEF_GROUP_FILE := Define_group.mk
 
-# リストで指定したディレクトリーでmakeを実行
-# 用例: $(call make_tests,list_dir,target)
-define make_tests
-    $(foreach dir,$1,$(call make_test_each,$(dir),$2))
-endef
+# テストの変数を定義したMakefile
+DEF_TEST_FILE := Define_test.mk
 
-# 指定したディレクトリーでMakeを実行
-# 用例: $(call make_test_each,tests,target)
-define make_test_each
-    $(MAKE) $2 -sC $1;
+# テストのターゲットを定義したMakefile
+TEST_MAKEFILE := Test.mk
 
-endef
+# すべてのMakefile群
+MAKEFILES := $(DEF_FILE) $(DEF_GROUP_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
 
-# 引数のファイルをチェックし、内容がない場合は削除
-# 用例: $(call rm_null,file)
-define rm_null
-    if test ! -s $1; then $(RM) $1; fi
-endef
+# テストごとのMakefileでインクルードするMakefile群
+TEST_MAKEFILES := $(DEF_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
 
-# 説明ファイルの内容を、引数のファイルに出力。
-# 用例: $(call desc_log,file_out)
-define desc_log
-    if test -s $(DESC_FILE); then $(CAT) $(DESC_FILE) >>$1; fi
-endef
+######################################################################
+# テストのディレクトリー
+######################################################################
 
-# テスト実行の経過時間を、ファイルに出力して表示。
-# 引数は、テスト名、コマンドファイル、出力ファイル
-# 用例: $(call time_cmd,name,file_cmd,file_out)
-define time_cmd
-    $(TIME) -f"$1: %E" -o $3 ./$2 >$(DEV_NULL) 2>&1
-endef
+# テストコマンドファイル
+CMD_FILE := cmd
 
-# テスト実行コマンド。引数は、コマンドファイル、出力ファイル、エラーファイル
-# ファイルの内容と、CMD_FILE実行の標準出力を、出力ファイルに保存。
-# エラー発生時は、エラー出力を出力ファイルとエラーファイルに保存。
-# 用例: $(call exec_cmd,file_cmd,file_out,file_err)
-define exec_cmd
-    $(CAT) $1 >$2
-    ./$1 >>$2 2>$3
-    if test -s $3; then $(CAT) $3 >>$2; fi
-    $(call rm_null,$3)
-endef
+# テスト説明ファイル
+DESC_FILE := desc.txt
 
-# 2つのファイルを比較し、差分ファイルを作成。
-# 引数は、2ファイルのリスト、差分ファイル
-# 用例: $(call diff_files,files,file_out)
-define diff_files
-    $(DIFF) $1 >$2 2>&1
-    $(call rm_null,$2)
-endef
+# テスト想定結果ファイル
+TEST0_FILE := 0.txt
 
-# 差分ファイルの内容をログファイルに出力。
-# 引数は、テスト名、差分ファイル、ログファイル
-# 用例: $(call test_log,name,file_diff,file_log)
-define test_log
-    if test ! -s $2; then RES=Success; else RES=Failure; fi; $(ECHO) "$1: Test $$RES $(DATE)" >>$3
-endef
+# テスト結果ファイル
+TEST1_FILE := 1.txt
 
-# テストごとのファイルをグループファイルに出力
-# 引数は、テストのリスト、グループファイル、テストファイル
-# 用例: $(call group_log,files_test_log,file_group_log)
-define group_log
-    $(foreach target,$1,$(call group_log_each,$(target),$2))
-endef
+# テストの、想定結果と結果の差分ファイル
+DIFF_FILE := diff.txt
 
-# テストのログファイルをグループログファイルに出力。引数は、テスト、グループログファイル
-# 用例: $(call group_log_each,file_test_log,file_group_log)
-define group_log_each
-    if test -s $1; then $(CAT) $1 >>$2; else $(ECHO) $(dir $1)": no log" >>$2; fi
-    echo >>$2;
+# テストエラーファイル
+ERR_FILE := err.txt
 
-endef
+# テストログファイル
+LOG_FILE := test.log
 
-# テストの結果を、グループログファイルを元にレポート。
-# 引数は、グループログファイル
-# 用例: $(call group_report,name,file_log,file_report)
-define group_report
-    $(ECHO) "$1: $(SUCCESS_TEST) / $(ALL_TEST) tests passed. Details in $2" >$3;
-    if test $(FAIL_TEST) -eq 0; then $(ECHO) "$1: All tests are succeded." >>$3; fi
-endef
+# 実行時間ファイル
+TIME_FILE := time.log
+
+# テスト詳細レポートファイル
+DETAIL_FILE := detail.log
+
+# テストの結果として作成されるファイル群
+TEST_RES_FILES := $(TEST1_FILE) $(DIFF_FILE) $(ERR_FILE) $(LOG_FILE) $(DETAIL_FILE) $(TIME_FILE)
+
+endif

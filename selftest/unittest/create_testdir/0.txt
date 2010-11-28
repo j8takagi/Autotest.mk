@@ -1,9 +1,0 @@
-make -s clean_utest
-make -s utest 2>&1 && ls | grep atest
-make -s utest_err 2>&1 && ls | grep atest
-make -s utest 2>&1 && ls | grep atest
-echo
-atest
-Makefile:8: *** NULL argument.  Stop.
-Makefile:5: *** atest exists.  Stop.
-

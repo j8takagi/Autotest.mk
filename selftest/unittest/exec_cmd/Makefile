@@ -1,6 +1,11 @@
 include ../Define.mk
+include ../Define_test.mk
 include ../Test.mk
 
-utest:
-	$(RM) 0.log
+.PHONY: utest clean_utest
+
+utest: clean_utest
 	$(call exec_cmd,cmd0,00.txt,err.txt)
+
+clean_utest:
+	$(RM) 00.txt err.txt

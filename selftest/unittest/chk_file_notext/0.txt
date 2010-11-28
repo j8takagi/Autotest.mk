@@ -1,0 +1,5 @@
+a: exist
+a/a.txt: exist
+Makefile:14: *** b not exists in /home/kazubito/2010_11/autotest.mk/selftest/unittest/chk_file_notext.  中止.
+Makefile:18: *** b/b.txt not exists in /home/kazubito/2010_11/autotest.mk/selftest/unittest/chk_file_notext.  中止.
+

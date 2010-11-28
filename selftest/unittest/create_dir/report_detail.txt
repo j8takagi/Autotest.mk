@@ -1,0 +1,13 @@
+引数として指定したディレクトリーを作成
+引数が指定されない場合は、エラー終了
+ディレクトリーが既存の場合は、エラー終了
+create_dir: Test Success 2010-11-28 19:06:19
+make -s clean_utest
+make -s utest 2>&1 && ls | grep atest
+make -s utest_err 2>&1 && ls | grep atest
+make -s utest 2>&1 && ls | grep atest
+echo
+atest
+Makefile:15: *** NULL argument.  中止.
+Makefile:12: *** atest exists in /home/kazubito/2010_11/autotest.mk/selftest/unittest/create_dir.  中止.
+

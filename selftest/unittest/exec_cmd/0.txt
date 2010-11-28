@@ -1,3 +1,1 @@
-make -s utest && cat 00.txt
-expr 2 + 3
 5

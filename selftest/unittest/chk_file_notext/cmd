@@ -1,0 +1,4 @@
+make -s utest 2>&1
+make -s utest_err1 2>&1
+make -s utest_err2 2>&1
+echo

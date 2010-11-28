@@ -1,0 +1,2 @@
+make -s utest && cat detail.log
+

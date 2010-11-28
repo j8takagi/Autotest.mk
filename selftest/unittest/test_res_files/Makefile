@@ -2,6 +2,7 @@ include ../Define.mk
 include ../Define_test.mk
 include ../Test.mk
 
+.PHONY: utest
+
 utest:
-	$(RM) 0.log
-	$(call desc_log,0.log)
+	@$(ECHO) $(TEST_RES_FILES)

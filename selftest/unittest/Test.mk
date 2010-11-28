@@ -1,7 +1,7 @@
 # autotest.mk > test_template > Test.mk
 # 自動テスト用のMakefile
 #
-# 要: Define.mk
+# 要: Define.mk Define_test.mk
 #
 # オペレーター
 # make         : CMDの標準出力をTEST1_FILEに保存したあと、TEST0_FILEとの差分を比較し、結果をLOG_FILEに出力
@@ -16,14 +16,16 @@
 SHELL = /bin/sh
 
 # テスト名。カレントディレクトリー名から取得
-TEST = $(notdir $(shell pwd))
+TEST = $(notdir $(CURRDIR))
 
 .PHONY: check set reset time cleantime clean cleanall
 
-check: clean $(LOG_FILE)
+check: clean $(DETAIL_FILE)
+	@$(call disp_test_log,$(LOG_FILE))
 
 checkall: check $(TIME_FILE)
 	@$(CAT) $(TIME_FILE) >>$(LOG_FILE)
+	@$(call disp_test_log,$(LOG_FILE))
 
 set: $(TEST0_FILE)
 	@$(CAT) $^
@@ -37,7 +39,7 @@ cleantime:
 	@$(RM) $(TIME_FILE)
 
 clean:
-	@$(RM) $(TEST1_FILE) $(DIFF_FILE) $(LOG_FILE) $(ERR_FILE) $(TIME_FILE)
+	@$(RM) $(TEST_RES_FILES)
 
 cleanall: clean
 	@$(RM) $(TEST0_FILE)
@@ -50,12 +52,14 @@ $(TEST0_FILE) $(TEST1_FILE): $(CMD_FILE)
 	@-$(call exec_cmd,$^,$@,$(ERR_FILE))
 
 $(DIFF_FILE): $(TEST0_FILE) $(TEST1_FILE)
+	@$(call chk_file_notext,$(TEST0_FILE))
 	@-$(call diff_files,$^,$@)
 
 $(LOG_FILE): $(DIFF_FILE)
-	@$(RM) $@
-	@$(call desc_log,$@)
 	@$(call test_log,$(TEST),$^,$@)
+
+$(DETAIL_FILE): $(LOG_FILE)
+	@$(call report_files,$(LOG_FILE) $(CMD_FILE) $(TEST0_FILE) $(ERR_FILE) $(DIFF_FILE) $(TEST1_FILE),$@)
 
 $(TIME_FILE): $(CMD_FILE)
 	@-$(call time_cmd,$(TEST),$^,$@)

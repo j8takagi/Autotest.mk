@@ -1,2 +1,1 @@
-make -s utest && cat 00.txt
 time_cmd: 0:03.00

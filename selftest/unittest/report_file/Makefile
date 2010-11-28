@@ -1,0 +1,19 @@
+include ../Define.mk
+include ../Define_test.mk
+include ../Test.mk
+
+.PHONY: utest utest_err1 utest_err2 clean_utest
+
+override TEST_RES_FILES := $(TEST_RES_FILES) atest
+
+utest: clean_utest
+	$(call report_file,Makefile,detail.log)
+
+utest_err1: clean_utest
+	$(call report_file,,detail.log)
+
+utest_err2: clean_utest
+	$(call report_file,NOEXT,detail.log)
+
+clean_utest:
+	$(RM) detail.log
