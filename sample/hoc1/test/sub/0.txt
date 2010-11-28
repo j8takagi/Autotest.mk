@@ -1,4 +1,3 @@
-cat in.txt && ../../hoc1 < in.txt
 2 - 1
 2 - 2
 2 - 3

@@ -12,4 +12,3 @@ clean:
 
 check:
 	$(MAKE) -sC test
-
