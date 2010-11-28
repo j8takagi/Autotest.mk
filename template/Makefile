@@ -2,8 +2,10 @@
 # テストグループ作成のMakefile
 #
 # オペレーター
-# make            : テストグループディレクトリーを作成
-# make creategroup: ↓
+# make               : テストグループディレクトリーを作成し、Makefile群をコピー
+# make creategroup   : ↓
+# make creategroupdir: テストグループディレクトリーを作成
+# make copymakefile  : Makefile群をコピー
 
 # 変数やマクロの定義
 include Define.mk
@@ -11,11 +13,15 @@ include Define.mk
 # テストグループのMakefileとしてコピーされるファイル
 GROUP_MAKEFILE := Group.mk
 
-# テストグループディレクトリーを作成
-creategroup:
+.PHONY: creategroup creategroupdir copymakefiles
+
+creategroup: creategroupdir copymakefiles
+
+creategroupdir:
 	@$(call err_var_null,GROUPDIR)
 	@$(call err_file_ext,GROUPDIR)
 	@$(MKDIR) $(GROUPDIR)
+
+copymakefiles:
 	@$(CP) $(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
-	@$(CP) $(TEST_MAKEFILE) $(GROUPDIR)/
-	@$(CP) $(DEF_FILE) $(GROUPDIR)/
+	@$(CP) $(MAKEFILES) $(GROUPDIR)/
