@@ -44,6 +44,9 @@ FIND ?= find
 TR ?= tr
 
 EXPR ?= expr
+
+LINK ?= ln -s
+
 ######################################################################
 # テストグループとテストでの共通マクロ
 ######################################################################
@@ -84,6 +87,8 @@ TEST_MAKEFILE := Test.mk
 
 # すべてのMakefile群
 MAKEFILES := $(DEF_FILE) $(DEF_GROUP_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
+
+MAKEFILES_ABS := $(foreach file,$(MAKEFILES),$(CURRDIR)/$(file))
 
 # テストごとのMakefileでインクルードするMakefile群
 TEST_MAKEFILES := $(DEF_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)

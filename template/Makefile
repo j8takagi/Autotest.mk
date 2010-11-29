@@ -13,15 +13,21 @@ include Define.mk
 # テストグループのMakefileとしてコピーされるファイル
 GROUP_MAKEFILE := Group.mk
 
-.PHONY: creategroup creategroupdir copymakefiles
+.PHONY: creategroup creategroupdir copymakefiles linkmakefiles
 
-creategroup: creategroupdir copymakefiles
+MKFILE_METHOD = $(if $(LINK),linkmk,copymk)
+
+creategroup: creategroupdir $(MKFILE_METHOD)
 
 creategroupdir:
 	@$(call err_var_null,GROUPDIR)
 	@$(call err_file_ext,GROUPDIR)
 	@$(MKDIR) $(GROUPDIR)
 
-copymakefiles:
+copymk:
 	@$(CP) $(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
 	@$(CP) $(MAKEFILES) $(GROUPDIR)/
+
+linkmk:
+	@$(LINK) $(CURRDIR)/$(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
+	@$(LINK) $(MAKEFILES_ABS) $(GROUPDIR)/
