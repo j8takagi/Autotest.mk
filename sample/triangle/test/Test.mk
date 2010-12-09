@@ -1,0 +1,1 @@
+/Users/kazubito/2010_12/autotest.mk/template/Test.mk
