@@ -21,7 +21,7 @@ CP ?= cp
 
 CAT ?= cat
 
-MKDIR ?= mkdir
+MKDIR ?= mkdir -p
 
 RM ?= rm -f
 
@@ -45,7 +45,7 @@ TR ?= tr
 
 EXPR ?= expr
 
-LINK ?= ln -s
+LN ?= ln -s
 
 ######################################################################
 # テストグループとテストでの共通マクロ
@@ -88,6 +88,7 @@ TEST_MAKEFILE := Test.mk
 # すべてのMakefile群
 MAKEFILES := $(DEF_FILE) $(DEF_GROUP_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
 
+# すべてのMakefile群の絶対パス
 MAKEFILES_ABS := $(foreach file,$(MAKEFILES),$(CURRDIR)/$(file))
 
 # テストごとのMakefileでインクルードするMakefile群
