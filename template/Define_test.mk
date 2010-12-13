@@ -18,8 +18,7 @@ endef
 # 引数は、テスト名、コマンドファイル、出力ファイル
 # 用例: $(call time_cmd,name,file_cmd,file_out)
 define time_cmd
-    $(call chk_file_notext,$2)
-    $(CHMOD) u+x $2
+    if test ! -x $2; then $(CHMOD) u+x $2; fi
     $(TIME) -f"$1: %E" -o $3 ./$2 >$(DEV_NULL) 2>&1
 endef
 
@@ -28,8 +27,7 @@ endef
 # エラー発生時は、エラー出力を出力ファイルとエラーファイルに保存。
 # 用例: $(call exec_cmd,file_cmd,file_out,file_err)
 define exec_cmd
-    $(call chk_file_notext,$1)
-    $(CHMOD) u+x $1
+    @if test ! -x $1; then $(CHMOD) u+x $1; fi
     ./$1 >>$2 2>$3
     if test -s $3; then $(CAT) $3 >>$2; fi
     $(call rm_null,$3)

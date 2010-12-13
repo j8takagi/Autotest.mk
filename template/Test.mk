@@ -18,6 +18,10 @@ SHELL = /bin/sh
 # テスト名。カレントディレクトリー名から取得
 TEST = $(notdir $(CURRDIR))
 
+# コマンドファイルのソース
+#CMDSRC_FILE := $(CMD_FILE)
+CMDSRC_FILE := $(CMD_FILE).c
+
 .PHONY: check set reset time cleantime clean cleanall
 
 check: clean $(DETAIL_FILE)
@@ -44,22 +48,18 @@ clean:
 cleanall: clean
 	@$(RM) $(TEST0_FILE)
 
-$(CMD_FILE):
-	@$(call chk_file_notext,$@)
-	@$(CHMOD) u+x $@
-
 $(TEST0_FILE) $(TEST1_FILE): $(CMD_FILE)
 	@-$(call exec_cmd,$^,$@,$(ERR_FILE))
 
 $(DIFF_FILE): $(TEST0_FILE) $(TEST1_FILE)
-	@$(call chk_file_notext,$(TEST0_FILE))
 	@-$(call diff_files,$^,$@)
 
 $(LOG_FILE): $(DIFF_FILE)
 	@$(call test_log,$(TEST),$^,$@)
 
 $(DETAIL_FILE): $(LOG_FILE)
-	@$(call report_files,$(LOG_FILE) $(CMD_FILE) $(TEST0_FILE) $(ERR_FILE) $(DIFF_FILE) $(TEST1_FILE),$@)
+	@$(call report_files,$(LOG_FILE) $(CMDSRC_FILE) $(TEST0_FILE) $(ERR_FILE) $(DIFF_FILE) $(TEST1_FILE),$@)
 
 $(TIME_FILE): $(CMD_FILE)
+	@if test ! -x $^; then $(CHMOD) u+x $^; fi
 	@-$(call time_cmd,$(TEST),$^,$@)
