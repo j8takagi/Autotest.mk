@@ -30,5 +30,5 @@ copymk:
 	@$(CP) $(MAKEFILES) $(GROUPDIR)/
 
 linkmk:
-	@$(LINK) $(CURRDIR)/$(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
-	@$(LINK) $(MAKEFILES_ABS) $(GROUPDIR)/
+	@$(LN) $(CURRDIR)/$(GROUP_MAKEFILE) $(GROUPDIR)/Makefile
+	@$(LN) $(MAKEFILES_ABS) $(GROUPDIR)/

@@ -1,0 +1,81 @@
+body {
+    margin-left: 6em;
+    margin-right: 12em;
+    color: black;
+    background-color: #EEE;
+}
+
+h1, h2 {
+    margin-left: -2em;
+}
+
+.node{
+    margin-left: -3em;
+}
+
+h2 {
+    padding: 0.25em;
+    color: white;
+    background-color: navy;
+}
+
+h3, h4 {
+    color: navy;
+    margin-left: -1em;
+}
+
+p {
+    line-height: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+.command {
+    font-family: monospace;
+}
+
+table.cartouche {
+    width: 60%;
+}
+
+pre.example {
+    padding: 0.5em 1em 0.5em 1em;
+    color: #CCC;
+    background: black;
+    font-size: 90%;
+}
+
+a {
+    text-decoration: none;
+}
+
+blockquote.p {
+    margin-top:0;
+    padding-top:0;
+    line-height: 100%;
+}
+
+table, th, td {
+    border: 1px solid #CCC;
+    border-collapse: collapse; /* 枠線の表示方法 */
+}
+
+table.cartouche, table.cartouche th, table.cartouche td  {
+    border: none;
+}
+
+pre.example .command, pre.example .option {
+    font-weight: bold;
+    background-color: inherit;
+    color: white;
+}
+
+pre.example strong {
+    font: inherit;
+    border: 2px solid green;
+}

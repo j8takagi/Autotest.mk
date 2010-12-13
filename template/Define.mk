@@ -21,7 +21,7 @@ CP ?= cp
 
 CAT ?= cat
 
-MKDIR ?= mkdir
+MKDIR ?= mkdir -p
 
 RM ?= rm -f
 
@@ -45,7 +45,7 @@ TR ?= tr
 
 EXPR ?= expr
 
-LINK ?= ln -s
+LN ?= ln -s
 
 ######################################################################
 # テストグループとテストでの共通マクロ
@@ -61,12 +61,6 @@ endef
 # 用例: $(call chk_file_ext,file)
 define chk_file_ext
     $(if $(wildcard $1),$(error $1 exists in $(CURRDIR)))
-endef
-
-# chk_file_notext: 指定されたファイルが実在しない場合、エラー
-# 用例: $(call chk_file_notext,file)
-define chk_file_notext
-    $(if $(wildcard $1),,$(error $1 not exists in $(CURRDIR)))
 endef
 
 ######################################################################
@@ -88,6 +82,7 @@ TEST_MAKEFILE := Test.mk
 # すべてのMakefile群
 MAKEFILES := $(DEF_FILE) $(DEF_GROUP_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
 
+# すべてのMakefile群の絶対パス
 MAKEFILES_ABS := $(foreach file,$(MAKEFILES),$(CURRDIR)/$(file))
 
 # テストごとのMakefileでインクルードするMakefile群
