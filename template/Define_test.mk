@@ -20,7 +20,7 @@ endef
 define time_cmd
     $(call chk_file_notext,$2)
     $(CHMOD) u+x $2
-    $(TIME) -f"$1: %E" -o $3 ./$2 >$(DEV_NULL) 2>&1
+    { $(TIME) ./$2 >$(DEV_NULL) 2>&1; } 2>&1 | $(GREP) ^real >>$3
 endef
 
 # テスト実行コマンド。引数は、コマンドファイル、出力ファイル、エラーファイル
@@ -63,7 +63,7 @@ endef
 # 引数は、対象ファイル群、出力ファイル
 # 用例: $(call report_files,list_file_target,file_out)
 define report_files
-    $(call chk_file_ext,$2)
+    $(RM) $2
     $(foreach tfile,$1,$(call report_file,$(tfile),$2))
 endef
 
