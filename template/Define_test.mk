@@ -61,7 +61,6 @@ endef
 # 引数は、対象ファイル群、出力ファイル
 # 用例: $(call report_files,list_file_target,file_out)
 define report_files
-    $(call chk_file_ext,$2)
     $(foreach tfile,$1,$(call report_file,$(tfile),$2))
 endef
 
