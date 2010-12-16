@@ -13,7 +13,7 @@
 # make clean   : "make" で作成されたファイルをクリア
 # make cleanall: "make" と "make set" で作成されたファイルをクリア
 
-SHELL = /bin/sh
+SHELL = /bin/bash
 
 # テスト名。カレントディレクトリー名から取得
 TEST = $(notdir $(CURRDIR))
@@ -61,4 +61,4 @@ $(DETAIL_FILE): $(LOG_FILE)
 	@$(call report_files,$(LOG_FILE) $(CMDSRC_FILE) $(TEST0_FILE) $(ERR_FILE) $(DIFF_FILE) $(TEST1_FILE),$@)
 
 $(TIME_FILE): $(CMD_FILE)
-	@-$(call time_cmd,$(TEST),$^,$@)
+	$(call time_cmd,$^,$@)
