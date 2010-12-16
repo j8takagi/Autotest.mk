@@ -1,0 +1,326 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@ifnottex
+@documentlanguage ja_JP
+@end ifnottex
+@setfilename autotest_mk.info
+@documentencoding UTF-8
+@settitle autotest_mk - Linux上のCASL II処理系
+@firstparagraphindent none
+@paragraphindent 1
+@c %**end of header
+
+@copying
+Copyright @copyright{} 2010 j8takagi
+@end copying
+
+@exampleindent 2
+
+@dircategory Basics
+@direntry
+* Autotest.mk: (autotest_mk).
+@end direntry
+
+@titlepage
+@title Autotest.mk
+@subtitle GNU Makeを利用したテスト自動化ツール
+@author j8takagi
+@insertcopying
+@end titlepage
+
+@ifnottex
+@node Top, About, (dir), (dir)
+@end ifnottex
+
+@menu
+* About::
+* Install::
+* Tutorial::
+* Manual::
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Autotest.mkのインストール
+
+* Download::
+* Verify::
+* Expand::
+
+Autotest.mkチュートリアル
+
+* Preapre::                     
+* Create Group::                
+
+@end detailmenu
+@end menu
+
+@contents
+
+@node About, Install, Top, Top
+@chapter Autotest.mkの概要
+
+Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、プログラムのテスト結果を表す実行ファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、いつでもテストを実行できます。テストの実行結果は、ログに出力されます。
+
+Autotest.mkでは、次の3つの概念を使います。
+
+@table @option
+@item テンプレート
+テストグループとテストのテンプレートです。
+
+@item テストグループ
+複数のテストを含むグループです。
+
+@item テスト
+テスト個々の内容と結果を表します。
+@end table
+
+@unnumberedsec 要件
+Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
+
+@itemize @bullet
+
+@item
+Ubuntu Linux 10.10
+
+@item
+Mac OS X バージョン 10.6.5
+@end itemize
+
+Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}をインストールしてください。
+
+@node Install, Tutorial, About, Top
+@chapter Autotest.mkのインストール
+
+@menu
+* Download::
+* Verify::
+* Expand::
+@end menu
+
+Autotest.mkをインストールするには、次の作業をします。
+
+
+@enumerate
+@item
+Autotest.mkファイルのダウンロード
+
+@item
+Autotest.mkファイルの検証
+
+@item
+Autotest.mkファイルの展開
+@end enumerate
+
+@node Download, Verify, Install, Install
+@section ダウンロード
+
+@uref{http://github.com/j8takagi/autotest_mk, GitHub/j8takagi/autotest_mk}の@uref{http://github.com/j8takagi/autotest_mk/downloads, ダウンロードページ}から最新版のtgzファイルをダウンロードします。
+
+続けて、対応する@file{md5sum}フィルをダウンロードします。
+
+@node Verify, Expand, Download, Install
+@section ファイルの検証
+
+ダウンロードが完了したら、@kbd{md5sum}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
+
+@example
+$ @kbd{md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -}
+Files autotest_mk.tar.gz.md5sum and - are identical
+@end example
+
+@node Expand,  , Verify, Install
+@section ファイルの展開
+
+@file{autotest_mk}ファイルをダウンロードしたら、次のコマンドで展開します。
+
+@example
+$ @kbd{tar xvzf autotest_mk.tar.gz}
+@end example
+
+展開したら、Autotest.mkは使える状態です。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（@kbd{./configure}や@kbd{make}、@kbd{make install}）は必要ありません。
+
+@node Tutorial, Manual, Install, Top
+@chapter Autotest.mkチュートリアル
+
+Autotest.mkを使ったテストの手順は、次のとおりです。
+
+@enumerate
+@item
+グループディレクトリーの作成
+
+@item
+テストディレクトリーの作成
+
+@item
+テスト用コマンドファイルの作成
+
+@item
+テスト想定結果の作成と検証
+
+@item
+テストの実行とログの確認
+@end enumerate
+
+ここでは、簡易電卓プログラムcalcをテストする手順を取り上げます。
+
+@menu
+* Preapre::                     
+* Create Group::                
+* Create Test::                 
+* Edit cmd::                    
+* Test Set::                    
+* Test Execute::                
+@end menu
+
+@node Preapre, Create Group, Tutorial, Tutorial
+@section サンプルプログラムの準備
+
+まず、Autotest.mkのパッケージに含まれている@file{sample/calc}を任意のフォルダーへコピーします。
+
+@example
+$ @kbd{cd ~/autotest.mk}
+$ @kbd{cp ~r ~/sample/calc ~/calc}
+@end example
+
+@node Create Group
+@section グループディレクトリーの作成
+
+テンプレートディレクトリーで、@kbd{make}を実行します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。
+
+指定したディレクトリーが作成されます。
+
+@example
+$ @kbd{cd ~/autotest.mk/template}
+$ @kbd{make GROUPDIR=~/calc/calc_test}
+@end example
+
+次のコマンドでグループディレクトリーに移動し、その中を確認します。
+
+テストを実行するためのMakefileが作成されます。
+
+@example
+$ @kbd{cd ~/autotest.mk/template}
+$ @kbd{make GROUPDIR=~/calc/calc_test}
+@end example
+
+@node Create Test, Edit cmd, Create Group, Tutorial
+@section テストディレクトリーの作成
+
+@node Edit cmd, Test Set, Create Test, Tutorial
+@section テスト用コマンドファイルの作成
+
+@node Test Set, Test Execute, Edit cmd, Tutorial
+@section テスト想定結果の作成と検証
+
+@node Test Execute,  , Test Set, Tutorial
+@section テストの実行とログの確認
+
+@node Manual,  , Tutorial, Top
+@chapter Autotest.mkマニュアル
+
+@menu
+* Template Dir::                
+* Group Dir::                   
+* Test Dir::                    
+@end menu
+
+@node Template Dir, Group Dir, Manual, Manual
+@section テンプレートディレクトリー
+
+テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された@code{template}ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
+
+@menu
+* make group::                  
+* Template Files::              
+@end menu
+
+@node make group, Template Files, Template Dir, Template Dir
+@subsection @kbd{make}または@kbd{make group} グループの作成
+
+変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要な次のファイルをコピーします。
+
+@node Template Files,  , make group, Template Dir
+@subsection テンプレートのファイル
+
+@node Group Dir, Test Dir, Template Dir, Manual
+@section グループディレクトリー
+
+@menu
+* make create::                 
+* Rename::                      
+* Delete::                      
+* make check at group::         
+* make checkall::               
+* make clean at group::         
+* make time at group::          
+* make cleantime at group::     
+* Group Files::                 
+@end menu
+
+@node make create, Rename, Group Dir, Group Dir
+@subsection @kbd{make create} テストの作成
+
+@node Rename, Delete, make create, Group Dir
+@subsection テスト名の変更
+
+@node Delete, make check at group, Rename, Group Dir
+@subsection テストの削除
+
+@node make check at group, make checkall, Delete, Group Dir
+@subsection @kbd{make}または@kbd{make check} グループ内にあるすべてのテストの実行
+
+@node make checkall, make clean at group, make check at group, Group Dir
+@subsection @kbd{make checkall} グループ内にあるすべてのテストの実行、計時
+
+@node make clean at group, make time at group, make checkall, Group Dir
+@subsection @kbd{make clean} グループ内にあるすべてのテストで、実行結果をクリア
+
+@node make time at group, make cleantime at group, make clean at group, Group Dir
+@subsection @kbd{make time} グループ内にあるすべてのテストを計時
+
+@node make cleantime at group, Group Files, make time at group, Group Dir
+@subsection @kbd{make cleantime} グループ内にあるすべてのテストで、計時結果をクリア
+
+@node Group Files,  , make cleantime at group, Group Dir
+@subsection グループのファイル
+
+@node Test Dir,  , Group Dir, Manual
+@section テストディレクトリー
+
+@menu
+* make set::                    
+* make reset::                  
+* make check at test::          
+* make time at test::           
+* make cleantime at test::      
+* make clean at test::          
+* make cleanall at test::       
+* Test Files::                  
+@end menu
+
+@node make set, make reset, Test Dir, Test Dir
+@subsection @kbd{make set} テスト想定の作成
+
+@node make reset, make check at test, make set, Test Dir
+@subsection @kbd{make set} テスト想定の再作成
+
+@node make check at test, make time at test, make reset, Test Dir
+@subsection @kbd{make}または@kbd{make check} テストの実行
+
+@node make time at test, make cleantime at test, make check at test, Test Dir
+@subsection @kbd{make time} テストの計時
+
+@node make cleantime at test, make clean at test, make time at test, Test Dir
+@subsection @kbd{make cleantime} テスト計時結果のクリア
+
+@node make clean at test, make cleanall at test, make cleantime at test, Test Dir
+@subsection @kbd{make cleantime} テスト結果のクリア
+
+@node make cleanall at test, Test Files, make clean at test, Test Dir
+@subsection @kbd{make cleanall} テストの想定と結果をクリア
+
+@node Test Files,, make cleanall at test, Test Dir
+@subsection テストのファイル
+
+@bye

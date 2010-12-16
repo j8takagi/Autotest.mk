@@ -19,7 +19,7 @@ endef
 # 用例: $(call time_cmd,name,file_cmd,file_out)
 define time_cmd
     if test ! -x $2; then $(CHMOD) u+x $2; fi
-    $(TIME) -f"$1: %E" -o $3 ./$2 >$(DEV_NULL) 2>&1
+    { $(TIME) ./$2 >$(DEV_NULL) 2>&1; } 2>&1 | $(GREP) ^real >>$3
 endef
 
 # テスト実行コマンド。引数は、コマンドファイル、出力ファイル、エラーファイル

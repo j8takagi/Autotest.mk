@@ -27,7 +27,7 @@ CMDSRC_FILE := $(CMD_FILE)
 check: clean $(DETAIL_FILE)
 	@$(call disp_test_log,$(LOG_FILE))
 
-checkall: check $(TIME_FILE)
+checkall: clean $(DETAIL_FILE) $(TIME_FILE)
 	@$(CAT) $(TIME_FILE) >>$(LOG_FILE)
 	@$(call disp_test_log,$(LOG_FILE))
 

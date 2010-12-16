@@ -1,0 +1,428 @@
+This is autotest_mk.info, produced by makeinfo version 4.13 from
+autotest_mk.texi.
+
+Copyright (C) 2010 j8takagi
+
+INFO-DIR-SECTION Basics
+START-INFO-DIR-ENTRY
+* Autotest.mk: (autotest_mk).
+END-INFO-DIR-ENTRY
+
+
+File: autotest_mk.info,  Node: Top,  Next: About,  Prev: (dir),  Up: (dir)
+
+* Menu:
+
+* About::
+* Install::
+* Tutorial::
+* Manual::
+
+ --- The Detailed Node Listing ---
+
+Autotest.mkのインストール
+
+* Download::
+* Verify::
+* Expand::
+
+Autotest.mkチュートリアル
+
+* Preapre::
+* Create Group::
+
+
+File: autotest_mk.info,  Node: About,  Next: Install,  Prev: Top,  Up: Top
+
+1 Autotest.mkの概要
+**********************
+
+Autotest.mkは、GNU
+Makeを利用したテスト自動化ツールです。何回か`make'コマンドを実行し、プログラムのテスト結果を表す実行ファイルを作成すれば、テストの準備は完了です。あとは`make'コマンドを1回実行すれば、いつでもテストを実行できます。テストの実行結果は、ログに出力されます。
+
+ Autotest.mkでは、次の3つの概念を使います。
+
+`テンプレート'
+     テストグループとテストのテンプレートです。
+
+`テストグループ'
+     複数のテストを含むグループです。
+
+`テスト'
+     テスト個々の内容と結果を表します。
+
+要件
+======
+
+Autotest.mkは、LinuxやMac OS
+Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
+
+   * Ubuntu Linux 10.10
+
+   * Mac OS X バージョン 10.6.5
+
+ Mac OS Xでは、GNU Findutils
+(http://www.gnu.org/software/findutils/)をインストールしてください。
+
+
+File: autotest_mk.info,  Node: Install,  Next: Tutorial,  Prev: About,  Up: Top
+
+2 Autotest.mkのインストール
+**********************************
+
+* Menu:
+
+* Download::
+* Verify::
+* Expand::
+
+ Autotest.mkをインストールするには、次の作業をします。
+
+  1. Autotest.mkファイルのダウンロード
+
+  2. Autotest.mkファイルの検証
+
+  3. Autotest.mkファイルの展開
+
+
+File: autotest_mk.info,  Node: Download,  Next: Verify,  Prev: Install,  Up: Install
+
+2.1 ダウンロード
+======================
+
+GitHub/j8takagi/autotest_mk
+(http://github.com/j8takagi/autotest_mk)のダウンロードページ
+(http://github.com/j8takagi/autotest_mk/downloads)から最新版のtgzファイルをダウンロードします。
+
+ 続けて、対応する`md5sum'フィルをダウンロードします。
+
+
+File: autotest_mk.info,  Node: Verify,  Next: Expand,  Prev: Download,  Up: Install
+
+2.2 ファイルの検証
+=========================
+
+ダウンロードが完了したら、`md5sum'と`diff'で正しくファイルがダウンロードができているかを検証します。
+
+  $ md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -
+  Files autotest_mk.tar.gz.md5sum and - are identical
+
+
+File: autotest_mk.info,  Node: Expand,  Prev: Verify,  Up: Install
+
+2.3 ファイルの展開
+=========================
+
+`autotest_mk'ファイルをダウンロードしたら、次のコマンドで展開します。
+
+  $ tar xvzf autotest_mk.tar.gz
+
+ 展開したら、Autotest.mkは使える状態です。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（`./configure'や`make'、`make
+install'）は必要ありません。
+
+
+File: autotest_mk.info,  Node: Tutorial,  Next: Manual,  Prev: Install,  Up: Top
+
+3 Autotest.mkチュートリアル
+**********************************
+
+Autotest.mkを使ったテストの手順は、次のとおりです。
+
+  1. グループディレクトリーの作成
+
+  2. テストディレクトリーの作成
+
+  3. テスト用コマンドファイルの作成
+
+  4. テスト想定結果の作成と検証
+
+  5. テストの実行とログの確認
+
+ ここでは、簡易電卓プログラムcalcをテストする手順を取り上げます。
+
+* Menu:
+
+* Preapre::
+* Create Group::
+* Create Test::
+* Edit cmd::
+* Test Set::
+* Test Execute::
+
+
+File: autotest_mk.info,  Node: Preapre,  Next: Create Group,  Prev: Tutorial,  Up: Tutorial
+
+3.1 サンプルプログラムの準備
+========================================
+
+まず、Autotest.mkのパッケージに含まれている`sample/calc'を任意のフォルダーへコピーします。
+
+  $ cd ~/autotest.mk
+  $ cp ~r ~/sample/calc ~/calc
+
+
+File: autotest_mk.info,  Node: Create Group,  Next: Create Test,  Prev: Preapre,  Up: Tutorial
+
+3.2 グループディレクトリーの作成
+==============================================
+
+テンプレートディレクトリーで、`make'を実行します。このとき、テストグループのディレクトリーを変数`GROUPDIR'で指定します。
+
+ 指定したディレクトリーが作成されます。
+
+  $ cd ~/autotest.mk/template
+  $ make GROUPDIR=~/calc/calc_test
+
+ 次のコマンドでグループディレクトリーに移動し、その中を確認します。
+
+ テストを実行するためのMakefileが作成されます。
+
+  $ cd ~/autotest.mk/template
+  $ make GROUPDIR=~/calc/calc_test
+
+
+File: autotest_mk.info,  Node: Create Test,  Next: Edit cmd,  Prev: Create Group,  Up: Tutorial
+
+3.3 テストディレクトリーの作成
+===========================================
+
+
+File: autotest_mk.info,  Node: Edit cmd,  Next: Test Set,  Prev: Create Test,  Up: Tutorial
+
+3.4 テスト用コマンドファイルの作成
+=================================================
+
+
+File: autotest_mk.info,  Node: Test Set,  Next: Test Execute,  Prev: Edit cmd,  Up: Tutorial
+
+3.5 テスト想定結果の作成と検証
+===========================================
+
+
+File: autotest_mk.info,  Node: Test Execute,  Prev: Test Set,  Up: Tutorial
+
+3.6 テストの実行とログの確認
+========================================
+
+
+File: autotest_mk.info,  Node: Manual,  Prev: Tutorial,  Up: Top
+
+4 Autotest.mkマニュアル
+****************************
+
+* Menu:
+
+* Template Dir::
+* Group Dir::
+* Test Dir::
+
+
+File: autotest_mk.info,  Node: Template Dir,  Next: Group Dir,  Prev: Manual,  Up: Manual
+
+4.1 テンプレートディレクトリー
+===========================================
+
+テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された`template'ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
+
+* Menu:
+
+* make group::
+* Template Files::
+
+
+File: autotest_mk.info,  Node: make group,  Next: Template Files,  Prev: Template Dir,  Up: Template Dir
+
+4.1.1 `make'または`make group' グループの作成
+-------------------------------------------------------
+
+変数`GROUPDIR'で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要な次のファイルをコピーします。
+
+
+File: autotest_mk.info,  Node: Template Files,  Prev: make group,  Up: Template Dir
+
+4.1.2 テンプレートのファイル
+---------------------------------------
+
+
+File: autotest_mk.info,  Node: Group Dir,  Next: Test Dir,  Prev: Template Dir,  Up: Manual
+
+4.2 グループディレクトリー
+=====================================
+
+* Menu:
+
+* make create::
+* Rename::
+* Delete::
+* make check at group::
+* make checkall::
+* make clean at group::
+* make time at group::
+* make cleantime at group::
+* Group Files::
+
+
+File: autotest_mk.info,  Node: make create,  Next: Rename,  Prev: Group Dir,  Up: Group Dir
+
+4.2.1 `make create' テストの作成
+--------------------------------------
+
+
+File: autotest_mk.info,  Node: Rename,  Next: Delete,  Prev: make create,  Up: Group Dir
+
+4.2.2 テスト名の変更
+---------------------------
+
+
+File: autotest_mk.info,  Node: Delete,  Next: make check at group,  Prev: Rename,  Up: Group Dir
+
+4.2.3 テストの削除
+------------------------
+
+
+File: autotest_mk.info,  Node: make check at group,  Next: make checkall,  Prev: Delete,  Up: Group Dir
+
+4.2.4 `make'または`make check' グループ内にあるすべてのテストの実行
+----------------------------------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make checkall,  Next: make clean at group,  Prev: make check at group,  Up: Group Dir
+
+4.2.5 `make checkall' グループ内にあるすべてのテストの実行、計時
+-------------------------------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make clean at group,  Next: make time at group,  Prev: make checkall,  Up: Group Dir
+
+4.2.6 `make clean' グループ内にあるすべてのテストで、実行結果をクリア
+----------------------------------------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make time at group,  Next: make cleantime at group,  Prev: make clean at group,  Up: Group Dir
+
+4.2.7 `make time' グループ内にあるすべてのテストを計時
+------------------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make cleantime at group,  Next: Group Files,  Prev: make time at group,  Up: Group Dir
+
+4.2.8 `make cleantime' グループ内にあるすべてのテストで、計時結果をクリア
+--------------------------------------------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: Group Files,  Prev: make cleantime at group,  Up: Group Dir
+
+4.2.9 グループのファイル
+---------------------------------
+
+
+File: autotest_mk.info,  Node: Test Dir,  Prev: Group Dir,  Up: Manual
+
+4.3 テストディレクトリー
+==================================
+
+* Menu:
+
+* make set::
+* make reset::
+* make check at test::
+* make time at test::
+* make cleantime at test::
+* make clean at test::
+* make cleanall at test::
+* Test Files::
+
+
+File: autotest_mk.info,  Node: make set,  Next: make reset,  Prev: Test Dir,  Up: Test Dir
+
+4.3.1 `make set' テスト想定の作成
+-----------------------------------------
+
+
+File: autotest_mk.info,  Node: make reset,  Next: make check at test,  Prev: make set,  Up: Test Dir
+
+4.3.2 `make set' テスト想定の再作成
+--------------------------------------------
+
+
+File: autotest_mk.info,  Node: make check at test,  Next: make time at test,  Prev: make reset,  Up: Test Dir
+
+4.3.3 `make'または`make check' テストの実行
+----------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make time at test,  Next: make cleantime at test,  Prev: make check at test,  Up: Test Dir
+
+4.3.4 `make time' テストの計時
+------------------------------------
+
+
+File: autotest_mk.info,  Node: make cleantime at test,  Next: make clean at test,  Prev: make time at test,  Up: Test Dir
+
+4.3.5 `make cleantime' テスト計時結果のクリア
+--------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make clean at test,  Next: make cleanall at test,  Prev: make cleantime at test,  Up: Test Dir
+
+4.3.6 `make cleantime' テスト結果のクリア
+--------------------------------------------------
+
+
+File: autotest_mk.info,  Node: make cleanall at test,  Next: Test Files,  Prev: make clean at test,  Up: Test Dir
+
+4.3.7 `make cleanall' テストの想定と結果をクリア
+-------------------------------------------------------------
+
+
+File: autotest_mk.info,  Node: Test Files,  Prev: make cleanall at test,  Up: Test Dir
+
+4.3.8 テストのファイル
+------------------------------
+
+
+
+Tag Table:
+Node: Top208
+Node: About512
+Node: Install1677
+Node: Download2082
+Node: Verify2511
+Node: Expand2919
+Node: Tutorial3461
+Node: Preapre4120
+Node: Create Group4476
+Node: Create Test5205
+Node: Edit cmd5393
+Node: Test Set5589
+Node: Test Execute5774
+Node: Manual5936
+Node: Template Dir6117
+Node: make group6582
+Node: Template Files6977
+Node: Group Dir7145
+Node: make create7498
+Node: Rename7672
+Node: Delete7821
+Node: make check at group7972
+Node: make checkall8258
+Node: make clean at group8551
+Node: make time at group8861
+Node: make cleantime at group9137
+Node: Group Files9457
+Node: Test Dir9620
+Node: make set9939
+Node: make reset10118
+Node: make check at test10313
+Node: make time at test10533
+Node: make cleantime at test10733
+Node: make clean at test10973
+Node: make cleanall at test11205
+Node: Test Files11447
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:
