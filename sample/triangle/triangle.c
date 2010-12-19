@@ -13,7 +13,6 @@ http://www.amazon.co.jp/dp/4764900599
 
 #include <stdio.h>
 #include <stdlib.h>
-/* #define DEBUG */
 
 int main(int argc, char *argv[])
 {
@@ -30,39 +29,30 @@ int main(int argc, char *argv[])
         }
         return -1;
     }
-    /* 引数が整数かチェック。整数以外の場合はエラー終了 */
+    /* 引数が自然数かチェック。自然数以外の場合はエラー終了 */
     for(i = 0; i < 3; i++) {
         l[i] = strtol(argv[i+1], &check, 10);
         if(*check != '\0' || l[i] <= 0) {
             fprintf(stderr, "%s: invalid argument.\n", argv[i+1]);
-            #ifdef DEBUG
-            printf("i:%d argv[i+1]:%s check:%s l[%d]:%d\n", i, argv[i+1], check, i, l[i]);
-            #endif
             return -1;
         }
     }
-    #ifdef DEBUG
-    printf("l[0]:%d l[1]:%d l[2]:%d\n", l[0], l[1], l[2]);
-    #endif
     /* 三角不等式により、三角形になるかを判定 */
     if(l[0] + l[1] <= l[2] || l[1] + l[2] <= l[0] || l[2] + l[0] <= l[1]) {
         puts("not triangle");
-    } else {
-        /* 3辺の長さが等しい場合は、正三角形 */
-        if(l[0] == l[1] && l[1] == l[2] && l[2] == l[0]) {
-            puts("equilateral triangle");
-        }
-        /* 2辺の長さが等しい場合は、二等辺三角形 */
-        else if (l[0] == l[1] || l[1] == l[2] || l[2] == l[0]) {
-            puts("isosceles triangle");
-        }
-        /* それ以外の場合は、不等辺三角形 */
-        else {
-            puts("scalene triangle");
-        }
+        return -1;
     }
-    #ifdef DEBUG
-    printf("l[0]:%d l[1]:%d l[2]:%d cosa:%f\n", l[0], l[1], l[2], cosa);
-    #endif
+    /* 3辺の長さが等しい場合は、正三角形 */
+    if(l[0] == l[1] && l[1] == l[2] && l[2] == l[0]) {
+        puts("equilateral triangle");
+    }
+    /* 2辺の長さが等しい場合は、二等辺三角形 */
+    else if (l[0] == l[1] || l[1] == l[2] || l[2] == l[0]) {
+        puts("isosceles triangle");
+    }
+    /* それ以外の場合は、不等辺三角形 */
+    else {
+        puts("scalene triangle");
+    }
     return 0;
 }
