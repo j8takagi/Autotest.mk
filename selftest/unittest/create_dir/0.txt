@@ -1,4 +1,4 @@
 atest
 Makefile:15: *** NULL argument.  中止.
-Makefile:12: *** atest exists in /home/kazubito/2010_11/autotest.mk/selftest/unittest/create_dir.  中止.
+Makefile:12: *** atest exists in /home/kazubito/2010_12/autotest.mk/selftest/unittest/create_dir.  中止.
 

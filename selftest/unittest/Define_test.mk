@@ -1,1 +1,1 @@
-/home/kazubito/2010_11/autotest.mk/template/Define_test.mk
+../../template/Define_test.mk

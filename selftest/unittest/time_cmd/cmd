@@ -1,1 +1,0 @@
-make -s utest && cat 00.txt
