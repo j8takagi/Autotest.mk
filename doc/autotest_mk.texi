@@ -162,7 +162,12 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 テストの実行とログの確認
 @end enumerate
 
-ここでは、簡易電卓プログラムcalcをテストする手順を取り上げます。
+ここでは、次のような三角形判定プログラムをテストする手順を取り上げます。
+
+@quotation
+プログラムtriangleは3つの引数をとり、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`isosceles triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形は`equilateral triangle'を印字する。
+@end quotation
+
 
 @menu
 * Preapre::                     
@@ -180,7 +185,7 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 
 @example
 $ @kbd{cd ~/autotest.mk}
-$ @kbd{cp ~r ~/sample/calc ~/calc}
+$ @kbd{cp -r ~/sample/calc ~/calc}
 @end example
 
 @node Create Group

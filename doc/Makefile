@@ -1,5 +1,5 @@
 DOCNAME = autotest_mk
-TEXBIN = /usr/local/texlive/p2009/bin/i386-apple-darwin10.3.0
+TEXBIN = /usr/local/texlive/2010/bin/x86_64-linux/
 SRC = $(DOCNAME).texi
 CSS = style.css
 PTEX = $(TEXBIN)/ptex
@@ -11,9 +11,9 @@ MAKEINFO = makeinfo
 
 .INTERMEDIATE: yacasl2.dvi
 
-htmlnosplit: $(DOCNAME).html
-
 all: info htmlnosplit html pdf
+
+htmlnosplit: $(DOCNAME).html
 
 info: $(DOCNAME).info
 

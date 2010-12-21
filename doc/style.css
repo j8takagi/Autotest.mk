@@ -54,6 +54,10 @@ a {
     text-decoration: none;
 }
 
+blockquote {
+    border: 1px solid #00F;
+}
+
 blockquote.p {
     margin-top:0;
     padding-top:0;
