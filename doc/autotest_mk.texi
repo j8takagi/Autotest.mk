@@ -132,13 +132,14 @@ Files autotest_mk.tar.gz.md5sum and - are identical
 @node Expand,  , Verify, Install
 @section ファイルの展開
 
-@file{autotest_mk}ファイルをダウンロードしたら、次のコマンドで展開します。
+@file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
 
 @example
+$ @kbd{cd ~}
 $ @kbd{tar xvzf autotest_mk.tar.gz}
 @end example
 
-展開したら、Autotest.mkは使える状態です。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（@kbd{./configure}や@kbd{make}、@kbd{make install}）は必要ありません。
+展開したら、Autotest.mkは使えるようになります。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（@kbd{./configure}や@kbd{make}、@kbd{make install}）は必要ありません。
 
 @node Tutorial, Manual, Install, Top
 @chapter Autotest.mkチュートリアル
@@ -165,7 +166,7 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 ここでは、次のような三角形判定プログラムをテストする手順を取り上げます。
 
 @quotation
-プログラムtriangleは3つの引数をとり、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`isosceles triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形は`equilateral triangle'を印字する。
+プログラムtriangleは3つの引数をとり、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`scalene triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形は`equilateral triangle'を印字する。
 @end quotation
 
 
@@ -181,32 +182,48 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 @node Preapre, Create Group, Tutorial, Tutorial
 @section サンプルプログラムの準備
 
-まず、Autotest.mkのパッケージに含まれている@file{sample/calc}を任意のフォルダーへコピーします。
+まず、Autotest.mkのパッケージに含まれている@file{sample/triangle}以下のサンプルプログラムを作業用ディレクトリーにコピーします。作業用ディレクトリーは、任意の場所に作成できます。ここでは、@file{~/triangle}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、ホームディレクトリーに展開されているものとします。
 
 @example
-$ @kbd{cd ~/autotest.mk}
-$ @kbd{cp -r ~/sample/calc ~/calc}
+$ @kbd{mkdir ~/triangle}
+$ @kbd{cd ~/autotest.mk/sample/triangle}
+$ @kbd{cp triangle.c Makefile ~/triangle}
 @end example
+
+作業用ディレクトリーに移動し、サンプルプログラムをビルドします。
+
+@example
+$ @kbd{cd ~/triangle}
+$ @kbd{ls}
+Makefile        triangle.c
+$ @kbd{make}
+gcc -o triangle triangle.c
+@end example
+
+ビルドが正常にできたかどうか、最低限のテストをします。
+
+@example
+$ @kbd{./triangle 3 4 5}
+scalene triangle
+@end example
+
 
 @node Create Group
 @section グループディレクトリーの作成
 
-テンプレートディレクトリーで、@kbd{make}を実行します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。
-
-指定したディレクトリーが作成されます。
+Autotest.mkのテストを実行するためにはまず、テンプレートディレクトリーで@kbd{make}を実行します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。ここでは、@kbd{~/triangle/test}をテストグループのディレクトリーにします。
 
 @example
 $ @kbd{cd ~/autotest.mk/template}
-$ @kbd{make GROUPDIR=~/calc/calc_test}
+$ @kbd{make GROUPDIR=~/triangle/test}
 @end example
 
 次のコマンドでグループディレクトリーに移動し、その中を確認します。
 
-テストを実行するためのMakefileが作成されます。
-
 @example
-$ @kbd{cd ~/autotest.mk/template}
-$ @kbd{make GROUPDIR=~/calc/calc_test}
+$ @kbd{cd ~/triangle/test}
+$ @kbd{ls}
+Define.mk Define_group.mk Define_test.mk Makefile Test.mk
 @end example
 
 @node Create Test, Edit cmd, Create Group, Tutorial

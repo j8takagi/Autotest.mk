@@ -20,7 +20,6 @@ TEST = $(notdir $(CURRDIR))
 
 # コマンドファイルのソース
 CMDSRC_FILE := $(CMD_FILE)
-#CMDSRC_FILE := $(CMD_FILE).c
 
 .PHONY: check set reset time cleantime clean cleanall
 
@@ -31,7 +30,7 @@ checkall: clean $(DETAIL_FILE) $(TIME_FILE)
 	@$(CAT) $(TIME_FILE) >>$(LOG_FILE)
 	@$(call disp_test_log,$(LOG_FILE))
 
-set:
+set: $(CMD_FILE)
 	@-$(call exec_cmd,$(CMD_FILE),$(TEST0_FILE),$(ERR_FILE))
 	@$(CAT) $(TEST0_FILE)
 
