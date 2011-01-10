@@ -21,8 +21,6 @@ MKFILE_METHOD = $(if $(LINKMK),linkmk,copymk)
 group: groupdir $(MKFILE_METHOD)
 
 groupdir:
-	@$(call err_var_null,GROUPDIR)
-	@$(call err_file_ext,GROUPDIR)
 	@$(MKDIR) $(GROUPDIR)
 
 copymk:

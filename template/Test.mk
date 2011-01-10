@@ -31,10 +31,13 @@ checkall: clean $(DETAIL_FILE) $(TIME_FILE)
 	@$(call disp_test_log,$(LOG_FILE))
 
 set: $(CMD_FILE)
+	@$(call chk_file_ext,$(TEST0_FILE))
 	@-$(call exec_cmd,$(CMD_FILE),$(TEST0_FILE),$(ERR_FILE))
 	@$(CAT) $(TEST0_FILE)
 
-reset: cleanall set
+reset: cleanall
+	@-$(call exec_cmd,$(CMD_FILE),$(TEST0_FILE),$(ERR_FILE))
+	@$(CAT) $(TEST0_FILE)
 
 time: cleantime $(TIME_FILE)
 

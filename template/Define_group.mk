@@ -16,7 +16,7 @@ TESTS = $(notdir $(shell $(FIND) -maxdepth 1 -name "[^A-Z.]*" -type d))
 GROUP_LOG_FILE := $(shell $(ECHO) $(GROUP) | $(TR) '[a-z]' '[A-Z]').log
 
 # テストグループレポートファイル
-GROUP_REPORT_FILE := Report.log
+GROUP_REPORT_FILE := Summary.log
 
 # テストグループ実行時間ファイル
 GROUP_TIME_FILE := $(shell echo $(GROUP) | $(TR) '[a-z]' '[A-Z]')_time.log

@@ -111,7 +111,7 @@ DIFF_FILE := diff.txt
 ERR_FILE := err.txt
 
 # テストログファイル
-LOG_FILE := test.log
+LOG_FILE := summary.log
 
 # 実行時間ファイル
 TIME_FILE := time.log
