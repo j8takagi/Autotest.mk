@@ -1,15 +1,12 @@
 CC = gcc
 
-.PHONY: all check clean
+.PHONY: normal bug check clean
 
-all: triangle
-
-triangle: triangle.c
+normal: clean
 	$(CC) -o triangle triangle.c
 
-check:
-	@$(MAKE) -sC test
+bug: clean
+	$(CC) -o triangle triangle_bug.c
 
 clean:
 	rm -f triangle
-	$(MAKE) -sC test clean
