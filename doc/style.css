@@ -25,7 +25,7 @@ h3, h4 {
 }
 
 p {
-    line-height: 1.5em;
+    line-height: 1.25em;
     margin-top: 0;
     margin-bottom: 0.5em;
 }
@@ -33,14 +33,6 @@ p {
 a:hover {
     color: red;
     text-decoration: underline;
-}
-
-.command {
-    font-family: monospace;
-}
-
-table.cartouche {
-    width: 60%;
 }
 
 pre.example {
@@ -55,13 +47,17 @@ a {
 }
 
 blockquote {
+    line-height: 1.25em;
     border: 1px solid #00F;
 }
 
-blockquote.p {
-    margin-top:0;
-    padding-top:0;
-    line-height: 100%;
+kbd {
+    font-family: monospace;
+}
+
+kbd, code, .file {
+    margin-left:0.5em;
+    margin-right: 0.5em;
 }
 
 table, th, td {
@@ -73,13 +69,20 @@ table.cartouche, table.cartouche th, table.cartouche td  {
     border: none;
 }
 
-pre.example .command, pre.example .option {
+pre.example .command, pre.example .option, pre.example kbd {
     font-weight: bold;
+    font-family: monospace;
     background-color: inherit;
     color: white;
+    margin-left:0;
+    margin-right: 0;
 }
 
 pre.example strong {
     font: inherit;
     border: 2px solid green;
+}
+
+dt {
+    font-weight: bold;
 }

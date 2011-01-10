@@ -1,11 +1,11 @@
-\input texinfo   @c -*-texinfo-*-
+Check Log\input texinfo   @c -*-texinfo-*-
 @c %**start of header
 @ifnottex
 @documentlanguage ja_JP
 @end ifnottex
 @setfilename autotest_mk.info
 @documentencoding UTF-8
-@settitle autotest_mk - Linux上のCASL II処理系
+@settitle Autotest_mk - GNU Makeを利用したテスト自動化ツール
 @firstparagraphindent none
 @paragraphindent 1
 @c %**end of header
@@ -33,24 +33,64 @@ Copyright @copyright{} 2010 j8takagi
 @end ifnottex
 
 @menu
-* About::
-* Install::
-* Tutorial::
-* Manual::
+* About::                       
+* Install::                     
+* Tutorial::                    
+* Manual::                      
 
 @detailmenu
  --- The Detailed Node Listing ---
 
 Autotest.mkのインストール
 
-* Download::
-* Verify::
-* Expand::
+* Download::                    
+* Verify::                      
+* Expand::                      
 
 Autotest.mkチュートリアル
 
-* Preapre::                     
+* Prepare::                     
 * Create Group::                
+* Create Test::                 
+* Edit desc::                   
+* Edit cmd::                    
+* Test Setting::                
+* Test Execute::                
+* Group Execute::              
+
+Autotest.mkマニュアル
+
+* Template Dir::                
+* Group Dir::                   
+* Test Dir::                    
+
+テンプレートディレクトリー
+
+* make group::                  
+* Template Files::              
+
+グループディレクトリー
+
+* make create::                 
+* Rename::                      
+* Delete::                      
+* make check at group::         
+* make checkall::               
+* make clean at group::         
+* make time at group::          
+* make cleantime at group::     
+* Group Files::                 
+
+テストディレクトリー
+
+* make set::                    
+* make reset::                  
+* make check at test::          
+* make time at test::           
+* make cleantime at test::      
+* make clean at test::          
+* make cleanall at test::       
+* Test Files::                  
 
 @end detailmenu
 @end menu
@@ -60,7 +100,7 @@ Autotest.mkチュートリアル
 @node About, Install, Top, Top
 @chapter Autotest.mkの概要
 
-Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、プログラムのテスト結果を表す実行ファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、いつでもテストを実行できます。テストの実行結果は、ログに出力されます。
+Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
 Autotest.mkでは、次の3つの概念を使います。
 
@@ -93,9 +133,9 @@ Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}を
 @chapter Autotest.mkのインストール
 
 @menu
-* Download::
-* Verify::
-* Expand::
+* Download::                    
+* Verify::                      
+* Expand::                      
 @end menu
 
 Autotest.mkをインストールするには、次の作業をします。
@@ -115,9 +155,9 @@ Autotest.mkファイルの展開
 @node Download, Verify, Install, Install
 @section ダウンロード
 
-@uref{http://github.com/j8takagi/autotest_mk, GitHub/j8takagi/autotest_mk}の@uref{http://github.com/j8takagi/autotest_mk/downloads, ダウンロードページ}から最新版のtgzファイルをダウンロードします。
+@uref{http://github.com/j8takagi/autotest_mk, GitHub/j8takagi/autotest_mk}の@uref{http://github.com/j8takagi/autotest_mk/downloads, ダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
 
-続けて、対応する@file{md5sum}フィルをダウンロードします。
+続けて、対応する@file{md5sum}ファイルをダウンロードします。
 
 @node Verify, Expand, Download, Install
 @section ファイルの検証
@@ -132,7 +172,8 @@ Files autotest_mk.tar.gz.md5sum and - are identical
 @node Expand,  , Verify, Install
 @section ファイルの展開
 
-@file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
+@file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
+次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
 
 @example
 $ @kbd{cd ~}
@@ -154,64 +195,157 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 テストディレクトリーの作成
 
 @item
-テスト用コマンドファイルの作成
+テスト説明ファイルの作成
 
 @item
-テスト想定結果の作成と検証
+テストコマンドファイルの作成
 
 @item
-テストの実行とログの確認
+テスト想定ファイルの作成
+
+@item
+テストの実行
+
+@item
+テストログファイルの確認
+
+@item
+テストグループの実行
+
+@item
+テストグループログファイルの確認
 @end enumerate
 
-ここでは、次のような三角形判定プログラムをテストする手順を取り上げます。
+ここでは、Glenford J Myers『ソフトウェア・テストの技法』（近代科学社、1980）の記載を元にした、次の仕様の三角形判定プログラムをテストする手順を取り上げます@footnote{『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。}。
 
 @quotation
-プログラムtriangleは3つの引数をとり、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`scalene triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形は`equilateral triangle'を印字する。
+プログラムtriangleは3つの引数をとる。この3つの値は、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`scalene triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形の場合は`equilateral triangle'を印字する。
 @end quotation
 
+この三角形判定プログラムの動作を検証するには、次のテスト・ケースが必要です@footnote{『ソフトウェア・テストの技法』では下記の13個に加え、「それぞれのテスト・ケースについて、入力の値に対して予想される値をしめしたか」というテスト・ケースが記載されています。このテスト・ケースは、Autotest.mkを実行している場合は自動的に満たされると考えています。}。
+
+@quotation
+@enumerate
+@item
+有効な不等辺三角形をあらわすテスト・ケース
+
+@item
+有効な正三角形をあらわすテスト・ケース
+
+@item
+有効な二等辺三角形をあらわすテスト・ケース
+
+@item
+有効な二等辺三角形で2つの等辺を含む3種類の組合せすべてをためすことができる3つのテストケース
+
+@item
+1つの辺がゼロの値をもつテスト・ケース
+
+@item
+1つの辺が負の値をしめすテスト・ケース
+
+@item
+ゼロより大きい3つの整数をもち、そのうち2つの和がそれ以外の1つと等しいようなテスト・ケース
+
+@item
+1辺の長さが他の2辺の長さの和に等しいことを3種類の順列のすべてに対してためすことのできるテスト・ケース
+
+@item
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテストケース
+
+@item
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテストケース
+
+@item
+すべての辺がゼロであるテスト・ケース
+
+@item
+整数でない値をもつテスト・ケース
+
+@item
+数値の個数が間違っていることをためすテスト・ケース
+@end enumerate
+@end quotation
+
+三角形判定プログラムは、@ref{Prepare, , 三角形判定プログラムの準備}をするか、または自作してください。
 
 @menu
-* Preapre::                     
+* Prepare::                     
 * Create Group::                
 * Create Test::                 
+* Edit desc::                   
 * Edit cmd::                    
-* Test Set::                    
+* Test Setting::                
 * Test Execute::                
+* Check Test Log::                
+* Group Execute::              
+* Check Group Log::              
 @end menu
 
-@node Preapre, Create Group, Tutorial, Tutorial
-@section サンプルプログラムの準備
+@node Prepare, Create Group, Tutorial, Tutorial
+@unnumberedsec 三角形判定プログラムの準備
 
-まず、Autotest.mkのパッケージに含まれている@file{sample/triangle}以下のサンプルプログラムを作業用ディレクトリーにコピーします。作業用ディレクトリーは、任意の場所に作成できます。ここでは、@file{~/triangle}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、ホームディレクトリーに展開されているものとします。
+まず、Autotest.mkのパッケージに含まれている@file{sample/triangle}以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、@file{~/triangle}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、@file{~}に展開されているものとします。
 
 @example
-$ @kbd{mkdir ~/triangle}
-$ @kbd{cd ~/autotest.mk/sample/triangle}
-$ @kbd{cp triangle.c Makefile ~/triangle}
+$ @kbd{cd}
+$ @kbd{mkdir triangle}
+$ @kbd{cd autotest.mk/sample/triangle}
+$ @kbd{cp triangle.c triangle_bug.c Makefile ~/triangle}
 @end example
 
-作業用ディレクトリーに移動し、サンプルプログラムをビルドします。
+作業用ディレクトリーに移動します。
 
 @example
 $ @kbd{cd ~/triangle}
 $ @kbd{ls}
-Makefile        triangle.c
+Makefile  triangle.c  triangle_bug.c
+@end example
+
+三角形判定プログラムをビルドします。
+
+@example
 $ @kbd{make}
 gcc -o triangle triangle.c
 @end example
 
-ビルドが正常にできたかどうか、最低限のテストをします。
+テストもかねて、三角形判定プログラムを手動で実行します。
 
 @example
 $ @kbd{./triangle 3 4 5}
 scalene triangle
+$ @kbd{./triangle 4 4 4}
+equilateral triangle
+$ @kbd{./triangle 2 4 4}
+isosceles triangle
 @end example
 
+@unnumberedsec バグを含む三角形判定プログラムの準備
 
-@node Create Group
+バグを含み一部のテストに失敗する三角形判定プログラムをビルドする場合は、次のコマンドを実行します。
+
+@example
+$ @kbd{make bug}
+gcc -o triangle triangle.c
+@end example
+
+テストもかねて、三角形判定プログラムを手動で実行します。
+
+@example
+$ @kbd{./triangle 3 4 5}
+futohen sankakukei
+$ @kbd{./triangle 4 4 4}
+equilateral triangle
+$ @kbd{./triangle 2 4 4}
+isosceles triangle
+@end example
+
+@kbd{./triangle 3 4 5}で、仕様では`scalene triangle'という結果になるべきところが、`futohen sankakukei'となっています。
+
+@node Create Group, Create Test, Prepare, Tutorial
 @section グループディレクトリーの作成
 
-Autotest.mkのテストを実行するためにはまず、テンプレートディレクトリーで@kbd{make}を実行します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。ここでは、@kbd{~/triangle/test}をテストグループのディレクトリーにします。
+テンプレートディレクトリーで@kbd{make}を実行し、グループディレクトリーを作成します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。ここでは、@kbd{~/triangle/test}をテストグループのディレクトリーにします。
 
 @example
 $ @kbd{cd ~/autotest.mk/template}
@@ -223,20 +357,471 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 @example
 $ @kbd{cd ~/triangle/test}
 $ @kbd{ls}
-Define.mk Define_group.mk Define_test.mk Makefile Test.mk
+Define.mk  Define_group.mk  Define_test.mk  Makefile  Test.mk
 @end example
 
-@node Create Test, Edit cmd, Create Group, Tutorial
+@node Create Test, Edit desc, Create Group, Tutorial
 @section テストディレクトリーの作成
 
-@node Edit cmd, Test Set, Create Test, Tutorial
-@section テスト用コマンドファイルの作成
+グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{GROUPDIR}でテスト名を指定します。テスト名は、小文字のアルファベットと数字で指定します。ここでは、1つめのテスト・ケースに対応するテストディレクトリーを、@code{01_scalene}という名前で作成します。
 
-@node Test Set, Test Execute, Edit cmd, Tutorial
-@section テスト想定結果の作成と検証
+@example
+$ @kbd{make create TEST=01_scalene}
+@end example
 
-@node Test Execute,  , Test Set, Tutorial
-@section テストの実行とログの確認
+次のコマンドでテストディレクトリーに移動し、その中を確認します。
+
+@example
+$ @kbd{cd 01_scalene}
+$ @kbd{ls}
+Makefile
+@end example
+
+@node Edit desc, Edit cmd, Create Test, Tutorial
+@section テスト説明ファイルの作成
+テスト説明ファイル@file{desc.txt}はテストに関する説明をあらわし、テストの結果と一緒にログに出力されます。
+@file{desc.txt}をテキストエディターを使って次の内容で作成します。
+
+@example
+@kbd{有効な不等辺三角形をあらわすテスト・ケース}
+@end example
+
+@node Edit cmd, Test Setting, Edit desc, Tutorial
+@section テストコマンドファイルの作成
+
+テストコマンドファイル@file{cmd}は、テストの時に実行されるコマンドをあらわします。
+@file{cmd}をテキストエディターを使って次の内容で作成します。
+
+@example
+@kbd{../../triangle 3 4 5}
+@end example
+
+@node Test Setting, Test Execute, Edit cmd, Tutorial
+@section テスト想定ファイルの作成
+
+テスト想定ファイル@file{0.txt}は、テストが正しく実行された場合の結果をあらわします。@file{0.txt}の作成方法は、次の3つがあります。
+
+@itemize
+@item
+手動で作成
+
+@item
+@kbd{make set}
+
+@item
+@kbd{make reset}
+@end itemize
+
+エラーが発生するテストでは、標準出力想定の下にエラー出力想定を続けます。
+
+@subsection 手動で作成
+テスト想定ファイル@file{0.txt}をテキストエディターを使って次の内容で作成します。
+
+@example
+@kbd{scalene triangle}
+@end example
+
+@subsection @kbd{make set}
+@kbd{make set}を実行すると、コマンドファイル@file{cmd}が実行されます。実行結果は@file{0.txt}ファイルに出力され、その内容が表示されます。
+
+@example
+$ @kbd{make set}
+scalene triangle
+@end example
+
+この方法で@file{0.txt}を作成した場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。
+
+また、@file{0.txt}がすでに存在する場合は@kbd{make set}を実行するとエラーになり、@file{0.txt}は更新されません。
+
+@subsection @kbd{make reset}
+@file{0.txt}がすでに存在する場合は、@kbd{make reset}で更新できます。
+
+@example
+$ @kbd{make reset}
+scalene triangle
+@end example
+
+@node Test Execute, Check Test Log, Test Setting, Tutorial
+@section テストの実行
+
+コマンドファイルとテスト想定を用意したら、@kbd{make}または@kbd{make check}でテストを実行できます。
+
+@example
+$ @kbd{ls}
+0.txt  Makefile  cmd  desc.txt
+$ @kbd{make}
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Success 2011-01-10 10:09:55
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+@end example
+
+表示される項目は、次のとおりです。
+@itemize
+@item
+<テスト説明ファイル@file{desc.txt}の内容>
+
+@item
+<テスト名>: <テスト結果（Test SuccessまたはTest Failure）> <テスト実行日時>
+
+@item
+Detail in <テスト詳細ログファイルの絶対パス>
+@end itemize
+
+
+@unnumberedsubsec バグを含む三角形判定プログラムの場合
+
+バグを含む三角形判定プログラムでテストを実行すると、次のように表示されます。
+
+@example
+$ @kbd{make}
+make: [diff.txt] Error 1 (ignored)
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Failure 2011-01-10 20:25:16
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+@end example
+
+@node Check Test Log, Group Execute, Test Execute, Tutorial
+@section テストログファイルの確認
+
+テストを実行して作成されたファイルを確認します。@file{1.txt}、@file{test.log}、@file{detail.log}が作成されています。
+@example
+$ ls
+0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
+@end example
+
+テストを実行すると作成されるファイルは、次のとおりです。必要に応じてファイルの内容を確認します。
+
+@table @file
+@item 1.txt
+テスト結果をあらわします。エラー発生時は、標準出力のあとにエラー出力が続きます
+
+@item err.txt
+エラー発生時に、エラーが出力されます。エラーが発生しない場合は作成されません
+
+@item diff.txt
+テスト想定ファイル@file{0.txt}とテスト結果ファイル@file{1.txt}の差分をあらわします。想定と結果が同一の場合は、作成されません
+
+@item summary.log
+テストの実行結果を表します。テスト実行時に表示される項目です。
+
+@item detail.log
+テストの詳細ログを表します。上記の内容がすべて出力されます
+@end table
+
+@file{detail.log}は、次のようになります。
+
+@example
+== test.log ==
+----------------------------------------------------------------------
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Success 2011-01-10 10:09:55
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+----------------------------------------------------------------------
+
+== cmd ==
+----------------------------------------------------------------------
+../../triangle 3 4 5
+----------------------------------------------------------------------
+
+== 0.txt ==
+----------------------------------------------------------------------
+scalene triangle
+----------------------------------------------------------------------
+
+== 1.txt ==
+----------------------------------------------------------------------
+scalene triangle
+----------------------------------------------------------------------
+
+@end example
+
+@unnumberedsubsec バグを含む三角形判定プログラムの場合
+
+バグを含む三角形判定プログラムを準備してテストを実行した場合、@file{1.txt}、@file{test.log}、@file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.txt}が作成されます。
+
+@example
+$ @kbd{ls}
+0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.txt  summary.log
+@end example
+
+@file{detail.log}は次のようになります。
+
+@example
+== summary.log ==
+----------------------------------------------------------------------
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Failure 2011-01-10 20:25:16
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+----------------------------------------------------------------------
+
+== cmd ==
+----------------------------------------------------------------------
+../../triangle 3 4 5
+----------------------------------------------------------------------
+
+== 0.txt ==
+----------------------------------------------------------------------
+scalene triangle
+----------------------------------------------------------------------
+
+== diff.txt ==
+----------------------------------------------------------------------
+*** 0.txt	Mon Jan 10 20:12:14 2011
+--- 1.txt	Mon Jan 10 20:25:16 2011
+***************
+*** 1 ****
+! scalene triangle
+--- 1 ----
+! futohen sankakukei
+----------------------------------------------------------------------
+
+== 1.txt ==
+----------------------------------------------------------------------
+futohen sankakukei
+----------------------------------------------------------------------
+
+@end example
+
+@subsection テストのクリア
+
+@kbd{make clean}を実行すると、テストの結果作成されたファイルがクリアされます。
+
+@example
+$ @kbd{make clean}
+$ @kbd{ls}
+0.txt  Makefile  cmd  desc.txt
+@end example
+
+
+@node Group Execute, Check Group Log, Check Test Log, Tutorial
+@section テストグループの実行
+
+2つめ以降のテスト・ケースについても、１つめと同じ手順でテストディレクトリーの作成後、テスト説明ファイルとテストコマンドファイル、テスト想定ファイルを作成します。ここでは、先に作成した@file{01_scalene}も含めて、次のようなテストディレクトリーを作成します。
+
+@itemize
+@item
+01_scalene
+
+@item
+02_equilateral
+
+@item
+03_isosceles
+
+@item
+04_isosceles_c
+
+@item
+05_zero
+
+@item
+06_minus
+
+@item
+07_line
+
+@item
+08_lines
+
+@item
+09_less
+
+@item
+10_lesses
+
+@item
+11_zeroall
+
+@item
+12_notint
+
+@item
+13_argcnt
+@end itemize
+
+こうしたディレクトリーやファイルは、Autotest.mkの@file{sample/triangle/test}以下にあるので、コピーして作成することもできます。
+
+テストグループディレクトリーでは、@kbd{make}または@kbd{make check}で複数のテストをまとめて実行できます。
+
+@example
+$ @kbd{cd ~/triangle/test}
+$ @kbd{make}
+test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+test: All tests are succeded.
+@end example
+
+表示されるのは、次の項目です。
+@itemize
+@item
+<テスト名>: <成功テスト数>/<全テスト数> test passed. Detail in <テストグループログファイルの絶対パス>
+
+@item
+（すべてのテストに成功した場合）<テスト名>: All tests are succeded.
+@end itemize
+
+@unnumberedsubsec バグを含む三角形判定プログラムの場合
+
+バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
+
+@example
+test: 10 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+@end example
+
+@node Check Group Log, , Group Execute, Tutorial
+@section テストグループログファイルの確認
+テストグループを実行すると作成されるファイルは、次のとおりです。
+
+@table @file
+@item <テストグループ名を大文字にした文字列>.log
+テストグループに含まれるテストとその実行結果の一覧をあらわします。
+
+@item Summary.log
+テストの実行結果を表します。テストグループ実行時に表示される内容です。
+@end table
+
+ここではテストグループ名は@file{test}なので、@file{TEST.log}が次の内容で作成されます。
+
+@example
+01_scalene/
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+
+12_notint/
+整数でない値をもつテスト・ケース
+12_notint: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/12_notint/detail.log
+
+03_isosceles/
+有効な二等辺三角形をあらわすテスト・ケース
+03_isosceles: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/03_isosceles/detail.log
+
+02_equilateral/
+有効な正三角形をあらわすテスト・ケース
+02_equilateral: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/02_equilateral/detail.log
+
+05_zero/
+1つの辺がゼロの値をもつテスト・ケース
+05_zero: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/05_zero/detail.log
+
+13_argcnt/
+数値の個数が間違っていることをためすテスト・ケース
+13_argcnt: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/13_argcnt/detail.log
+
+10_lesses/
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテストケース
+10_lesses: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/10_lesses/detail.log
+
+07_line/
+ゼロより大きい3つの整数をもち、そのうち2つの和がそれ以外の1つと等しいようなテスト・ケース
+07_line: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/07_line/detail.log
+
+06_minus/
+1つの辺が負の値をしめすテスト・ケース
+06_minus: Test Success 2011-01-10 12:14:23
+Detail in /home/foo/triangle/test/06_minus/detail.log
+
+11_zeroall/
+すべての辺がゼロであるテスト・ケース
+11_zeroall: Test Success 2011-01-10 12:14:24
+Detail in /home/foo/triangle/test/11_zeroall/detail.log
+
+08_lines/
+1辺の長さが他の2辺の長さの和に等しいことを3種類の順列のすべてに対してためすことのできるテスト・ケース
+08_lines: Test Success 2011-01-10 12:14:24
+Detail in /home/foo/triangle/test/08_lines/detail.log
+
+09_less/
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテストケース
+09_less: Test Success 2011-01-10 12:14:24
+Detail in /home/foo/triangle/test/09_less/detail.log
+
+04_isosceles_c/
+有効な二等辺三角形で2つの等辺を含む3種類の組合せすべてをためすことができる3つのテストケース
+04_isosceles_c: Test Success 2011-01-10 12:14:24
+Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
+@end example
+
+テストをまとめて実行した場合も、個別のテストを実行した場合と同様に、テストディレクトリーにテストログが出力されます。特定のテスト結果を詳細に検討する場合は、そのテストのテストディレクトリーを開いてテストログファイルの確認をします。
+
+@unnumberedsubsec バグを含む三角形判定プログラムの場合
+
+バグを含む三角形判定プログラムを準備してテストグループを実行した場合、@file{TEST.log}は次のように表示されます。
+@example
+01_scalene/
+有効な不等辺三角形をあらわすテスト・ケース
+01_scalene: Test Failure 2011-01-10 21:45:52
+Detail in /home/foo/triangle/test/01_scalene/detail.log
+
+12_notint/
+整数でない値をもつテスト・ケース
+12_notint: Test Success 2011-01-10 21:45:52
+Detail in /home/foo/triangle/test/12_notint/detail.log
+
+03_isosceles/
+有効な二等辺三角形をあらわすテスト・ケース
+03_isosceles: Test Success 2011-01-10 21:45:52
+Detail in /home/foo/triangle/test/03_isosceles/detail.log
+
+02_equilateral/
+有効な正三角形をあらわすテスト・ケース
+02_equilateral: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/02_equilateral/detail.log
+
+05_zero/
+1つの辺がゼロの値をもつテスト・ケース
+05_zero: Test Failure 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/05_zero/detail.log
+
+13_argcnt/
+数値の個数が間違っていることをためすテスト・ケース
+13_argcnt: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/13_argcnt/detail.log
+
+10_lesses/
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテストケース
+10_lesses: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/10_lesses/detail.log
+
+07_line/
+ゼロより大きい3つの整数をもち、そのうち2つの和がそれ以外の1つと等しいようなテスト・ケース
+07_line: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/07_line/detail.log
+
+06_minus/
+1つの辺が負の値をしめすテスト・ケース
+06_minus: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/06_minus/detail.log
+
+11_zeroall/
+すべての辺がゼロであるテスト・ケース
+11_zeroall: Test Failure 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/11_zeroall/detail.log
+
+08_lines/
+1辺の長さが他の2辺の長さの和に等しいことを3種類の順列のすべてに対してためすことのできるテスト・ケース
+08_lines: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/08_lines/detail.log
+
+09_less/
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテストケース
+09_less: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/09_less/detail.log
+
+04_isosceles_c/
+有効な二等辺三角形で2つの等辺を含む3種類の組合せすべてをためすことができる3つのテストケース
+04_isosceles_c: Test Success 2011-01-10 21:45:53
+Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
+
+@end example
+
+実際の開発では、こうした結果を元にプログラムの問題点を修正することになるでしょう。
 
 @node Manual,  , Tutorial, Top
 @chapter Autotest.mkマニュアル
@@ -250,7 +835,7 @@ Define.mk Define_group.mk Define_test.mk Makefile Test.mk
 @node Template Dir, Group Dir, Manual, Manual
 @section テンプレートディレクトリー
 
-テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された@code{template}ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
+テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された@file{template}ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
 
 @menu
 * make group::                  
@@ -342,7 +927,7 @@ Define.mk Define_group.mk Define_test.mk Makefile Test.mk
 @node make cleanall at test, Test Files, make clean at test, Test Dir
 @subsection @kbd{make cleanall} テストの想定と結果をクリア
 
-@node Test Files,, make cleanall at test, Test Dir
+@node Test Files,  , make cleanall at test, Test Dir
 @subsection テストのファイル
 
 @bye
