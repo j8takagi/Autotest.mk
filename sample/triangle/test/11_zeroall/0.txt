@@ -1,1 +1,1 @@
-0: invalid argument.
+not triangle

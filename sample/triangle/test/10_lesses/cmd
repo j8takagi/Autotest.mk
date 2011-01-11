@@ -1,3 +1,6 @@
 ../../triangle 1 2 4
 ../../triangle 1 4 2
+../../triangle 2 4 1
+../../triangle 2 1 4
+../../triangle 4 1 2
 ../../triangle 4 2 1

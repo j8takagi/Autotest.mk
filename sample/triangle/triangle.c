@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     int l[3], i;
     char *check;
 
-    /* 引数が3以外の場合は、エラー終了 */
+    /* 引数が3つ以外の場合は、エラー終了 */
     if(argc != 4) {
         if(argc < 4) {
             fprintf(stderr, "too few argument.\n");
@@ -29,11 +29,17 @@ int main(int argc, char *argv[])
         }
         return -1;
     }
-    /* 引数が自然数かチェック。自然数以外の場合はエラー終了 */
     for(i = 0; i < 3; i++) {
+        /* 引数を整数に変換 */
         l[i] = strtol(argv[i+1], &check, 10);
-        if(*check != '\0' || l[i] <= 0) {
-            fprintf(stderr, "%s: invalid argument.\n", argv[i+1]);
+        /* 整数以外の場合はエラー終了 */
+        if(*check != '\0') {
+            fprintf(stderr, "%s: not integer\n", argv[i+1]);
+            return -1;
+        }
+        /* 0未満の場合はエラー終了 */
+        if(l[i] < 0) {
+            fprintf(stderr, "%s: less than zero\n", argv[i+1]);
             return -1;
         }
     }
@@ -47,7 +53,7 @@ int main(int argc, char *argv[])
         puts("equilateral triangle");
     }
     /* 2辺の長さが等しい場合は、二等辺三角形 */
-    else if (l[0] == l[1] || l[1] == l[2] || l[2] == l[0]) {
+    else if(l[0] == l[1] || l[1] == l[2] || l[2] == l[0]) {
         puts("isosceles triangle");
     }
     /* それ以外の場合は、不等辺三角形 */
