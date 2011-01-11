@@ -237,7 +237,7 @@ dt {
 
 <h3 class="section">2.1 ダウンロード</h3>
 
-<p><a href="http://github.com/j8takagi/autotest_mk">GitHub/j8takagi/autotest_mk</a>の<a href="http://github.com/j8takagi/autotest_mk/downloads">ダウンロードページ</a>から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
+<p><a href="https://github.com/j8takagi/Autotest.mk/">GitHub/j8takagi/Autotest.mk</a>の<a href="https://github.com/j8takagi/Autotest.mk/downloads">ダウンロードページ</a>から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
 
  <p>続けて、対応する<samp><span class="file">md5sum</span></samp>ファイルをダウンロードします。
 
@@ -245,7 +245,9 @@ dt {
 
 <h3 class="section">2.2 ファイルの検証</h3>
 
-<p>ダウンロードが完了したら、<kbd>md5sum</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
+<p>(準備中)
+
+ <p>ダウンロードが完了したら、<kbd>md5sum</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
 
 <pre class="example">  $ <kbd>md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -</kbd>
   Files autotest_mk.tar.gz.md5sum and - are identical
@@ -348,6 +350,7 @@ dt {
  <p>三角形判定プログラムをビルドします。
 
 <pre class="example">  $ <kbd>make</kbd>
+  rm -f triangle
   gcc -o triangle triangle.c
 </pre>
  <p>テストもかねて、三角形判定プログラムを手動で実行します。
@@ -364,6 +367,7 @@ dt {
 <p>バグを含み一部のテストに失敗する三角形判定プログラムをビルドする場合は、次のコマンドを実行します。
 
 <pre class="example">  $ <kbd>make bug</kbd>
+  rm -f triangle
   gcc -o triangle triangle.c
 </pre>
  <p>テストもかねて、三角形判定プログラムを手動で実行します。
@@ -375,7 +379,7 @@ dt {
   $ <kbd>./triangle 2 4 4</kbd>
   isosceles triangle
 </pre>
- <p><kbd>./triangle 3 4 5</kbd>で、仕様では`scalene triangle'という結果になるべきところが、`futohen sankakukei'となっています。
+ <p><kbd>./triangle 3 4 5</kbd>で、仕様で`scalene triangle'となるべきところが、`futohen sankakukei'となっています。
 
 <p><a name="Create-Group"></a>
 
@@ -453,8 +457,11 @@ dt {
 <pre class="example">  $ <kbd>make set</kbd>
   scalene triangle
 </pre>
- <p>この方法で<samp><span class="file">0.txt</span></samp>を作成した場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。
+ <p>この方法で<samp><span class="file">0.txt</span></samp>を作成する場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。例えば、バグを含む三角形判定プログラムを準備して<kbd>make set</kbd>を実行すると、仕様と異なるテスト想定ファイルが作成され、テストを正しく実行できません。
 
+<pre class="example">  $ <kbd>make set</kbd>
+  futohen sankakukei
+</pre>
  <p>また、<samp><span class="file">0.txt</span></samp>がすでに存在する場合は<kbd>make set</kbd>を実行するとエラーになり、<samp><span class="file">0.txt</span></samp>は更新されません。
 
 <h4 class="subsection">3.5.3 <kbd>make reset</kbd></h4>
@@ -648,7 +655,7 @@ dt {
 
 <p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
 
-<pre class="example">  test: 10 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+<pre class="example">  test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 </pre>
  <p><a name="Check-Group-Log"></a>
 
@@ -816,11 +823,26 @@ dt {
 
 <h4 class="subsection">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> グループの作成</h4>
 
-<p>変数<code>GROUPDIR</code>で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要な次のファイルをコピーします。
+<p>変数<code>GROUPDIR</code>で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要なファイルを配置します。
 
 <p><a name="Template-Files"></a>
 
 <h4 class="subsection">4.1.2 テンプレートのファイル</h4>
+
+<p>テンプレートディレクトリーには、次のファイルが含まれます。
+     <dl>
+<dt><samp><span class="file">Makefile</span></samp><dd>テンプレートディレクトリーのMakefile
+
+     <br><dt><samp><span class="file">Group.mk</span></samp><dd>グループディレクトリーのMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに<samp><span class="file">Makefile</span></samp>として配置されます。
+
+     <br><dt><samp><span class="file">Test.mk</span></samp><dd>テストディレクトリーから参照されるMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
+
+     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストとテストグループに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
+
+     <br><dt><samp><span class="file">Define_group.mk</span></samp><dd>テストグループに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
+
+     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
+</dl>
 
 <p><a name="Group-Dir"></a>
 
@@ -829,6 +851,8 @@ dt {
 <p><a name="make-create"></a>
 
 <h4 class="subsection">4.2.1 <kbd>make create</kbd> テストの作成</h4>
+
+<p>変数<code>TEST</code>で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
 
 <p><a name="Rename"></a>
 

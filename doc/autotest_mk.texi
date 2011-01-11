@@ -155,12 +155,13 @@ Autotest.mkファイルの展開
 @node Download, Verify, Install, Install
 @section ダウンロード
 
-@uref{http://github.com/j8takagi/autotest_mk, GitHub/j8takagi/autotest_mk}の@uref{http://github.com/j8takagi/autotest_mk/downloads, ダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
+@uref{https://github.com/j8takagi/Autotest.mk/, GitHub/j8takagi/Autotest.mk}の@uref{https://github.com/j8takagi/Autotest.mk/downloads, ダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
 
 続けて、対応する@file{md5sum}ファイルをダウンロードします。
 
 @node Verify, Expand, Download, Install
 @section ファイルの検証
+(準備中)
 
 ダウンロードが完了したら、@kbd{md5sum}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
 
@@ -306,6 +307,7 @@ Makefile  triangle.c  triangle_bug.c
 
 @example
 $ @kbd{make}
+rm -f triangle
 gcc -o triangle triangle.c
 @end example
 
@@ -326,6 +328,7 @@ isosceles triangle
 
 @example
 $ @kbd{make bug}
+rm -f triangle
 gcc -o triangle triangle.c
 @end example
 
@@ -340,7 +343,7 @@ $ @kbd{./triangle 2 4 4}
 isosceles triangle
 @end example
 
-@kbd{./triangle 3 4 5}で、仕様では`scalene triangle'という結果になるべきところが、`futohen sankakukei'となっています。
+@kbd{./triangle 3 4 5}で、仕様で`scalene triangle'となるべきところが、`futohen sankakukei'となっています。
 
 @node Create Group, Create Test, Prepare, Tutorial
 @section グループディレクトリーの作成
@@ -429,7 +432,12 @@ $ @kbd{make set}
 scalene triangle
 @end example
 
-この方法で@file{0.txt}を作成した場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。
+この方法で@file{0.txt}を作成する場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。例えば、バグを含む三角形判定プログラムを準備して@kbd{make set}を実行すると、仕様と異なるテスト想定ファイルが作成され、テストを正しく実行できません。
+
+@example
+$ @kbd{make set}
+futohen sankakukei
+@end example
 
 また、@file{0.txt}がすでに存在する場合は@kbd{make set}を実行するとエラーになり、@file{0.txt}は更新されません。
 
@@ -664,7 +672,7 @@ test: All tests are succeded.
 バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
 
 @example
-test: 10 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 @end example
 
 @node Check Group Log, , Group Execute, Tutorial
@@ -845,10 +853,31 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 @node make group, Template Files, Template Dir, Template Dir
 @subsection @kbd{make}または@kbd{make group} グループの作成
 
-変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要な次のファイルをコピーします。
+変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要なファイルを配置します。
 
 @node Template Files,  , make group, Template Dir
 @subsection テンプレートのファイル
+
+テンプレートディレクトリーには、次のファイルが含まれます。
+@table @file
+@item Makefile
+テンプレートディレクトリーのMakefile
+
+@item Group.mk
+グループディレクトリーのMakefile。@kbd{make}または@kbd{make group}で、グループディレクトリーに@file{Makefile}として配置されます。
+
+@item Test.mk
+テストディレクトリーから参照されるMakefile。@kbd{make}または@kbd{make group}で、グループディレクトリーに配置されます。
+
+@item Define.mk
+テストとテストグループに関する項目を定義したMakefile。@kbd{make}または@kbd{make group}で、グループディレクトリーに配置されます。
+
+@item Define_group.mk
+テストグループに関する項目を定義したMakefile。@kbd{make}または@kbd{make group}で、グループディレクトリーに配置されます。
+
+@item Define.mk
+テストに関する項目を定義したMakefile。@kbd{make}または@kbd{make group}で、グループディレクトリーに配置されます。
+@end table
 
 @node Group Dir, Test Dir, Template Dir, Manual
 @section グループディレクトリー
@@ -867,6 +896,8 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 
 @node make create, Rename, Group Dir, Group Dir
 @subsection @kbd{make create} テストの作成
+
+変数@code{TEST}で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
 
 @node Rename, Delete, make create, Group Dir
 @subsection テスト名の変更
