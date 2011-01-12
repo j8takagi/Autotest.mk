@@ -5,7 +5,7 @@ Check Log\input texinfo   @c -*-texinfo-*-
 @end ifnottex
 @setfilename autotest_mk.info
 @documentencoding UTF-8
-@settitle Autotest_mk - GNU Makeを利用したテスト自動化ツール
+@settitle Autotest.mk - GNU Makeを利用したテスト自動化ツール
 @firstparagraphindent none
 @paragraphindent 1
 @c %**end of header
@@ -33,10 +33,10 @@ Copyright @copyright{} 2010 j8takagi
 @end ifnottex
 
 @menu
-* About::                       
-* Install::                     
-* Tutorial::                    
-* Manual::                      
+* Autotest.mkの概要: About.
+* Autotest.mkのインストール: Install.
+* Autotest.mkチュートリアル: Tutorial.
+* Autotest.mkマニュアル: Manual.
 
 @detailmenu
  --- The Detailed Node Listing ---
@@ -44,7 +44,6 @@ Copyright @copyright{} 2010 j8takagi
 Autotest.mkのインストール
 
 * Download::                    
-* Verify::                      
 * Expand::                      
 
 Autotest.mkチュートリアル
@@ -56,7 +55,9 @@ Autotest.mkチュートリアル
 * Edit cmd::                    
 * Test Setting::                
 * Test Execute::                
+* Check Test Log::                
 * Group Execute::              
+* Check Group Log::              
 
 Autotest.mkマニュアル
 
@@ -134,7 +135,6 @@ Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}を
 
 @menu
 * Download::                    
-* Verify::                      
 * Expand::                      
 @end menu
 
@@ -146,31 +146,17 @@ Autotest.mkをインストールするには、次の作業をします。
 Autotest.mkファイルのダウンロード
 
 @item
-Autotest.mkファイルの検証
-
-@item
 Autotest.mkファイルの展開
 @end enumerate
 
-@node Download, Verify, Install, Install
+@node Download, Expand, Install, Install
 @section ダウンロード
 
 @uref{https://github.com/j8takagi/Autotest.mk/, GitHub/j8takagi/Autotest.mk}の@uref{https://github.com/j8takagi/Autotest.mk/downloads, ダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
 
 続けて、対応する@file{md5sum}ファイルをダウンロードします。
 
-@node Verify, Expand, Download, Install
-@section ファイルの検証
-(準備中)
-
-ダウンロードが完了したら、@kbd{md5sum}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
-
-@example
-$ @kbd{md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -}
-Files autotest_mk.tar.gz.md5sum and - are identical
-@end example
-
-@node Expand,  , Verify, Install
+@node Expand,  , Download, Install
 @section ファイルの展開
 
 @file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
@@ -284,7 +270,9 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 @end menu
 
 @node Prepare, Create Group, Tutorial, Tutorial
-@unnumberedsec 三角形判定プログラムの準備
+@unnumberedsec 準備
+
+@unnumberedsubsec 作業用フォルダの作成
 
 まず、Autotest.mkのパッケージに含まれている@file{sample/triangle}以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、@file{~/triangle}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、@file{~}に展開されているものとします。
 
@@ -295,13 +283,15 @@ $ @kbd{cd autotest.mk/sample/triangle}
 $ @kbd{cp triangle.c triangle_bug.c Makefile ~/triangle}
 @end example
 
-作業用ディレクトリーに移動します。
+作業用ディレクトリーに移動し、中のファイルを確認します。
 
 @example
 $ @kbd{cd ~/triangle}
 $ @kbd{ls}
 Makefile  triangle.c  triangle_bug.c
 @end example
+
+@unnumberedsubsec 三角形判定プログラムのビルド
 
 三角形判定プログラムをビルドします。
 
@@ -322,7 +312,7 @@ $ @kbd{./triangle 2 4 4}
 isosceles triangle
 @end example
 
-@unnumberedsec バグを含む三角形判定プログラムの準備
+@unnumberedsubsec バグを含む三角形判定プログラムのビルド
 
 バグを含み一部のテストに失敗する三角形判定プログラムをビルドする場合は、次のコマンドを実行します。
 
@@ -393,7 +383,9 @@ Makefile
 @section テストコマンドファイルの作成
 
 テストコマンドファイル@file{cmd}は、テストの時に実行されるコマンドをあらわします。
-@file{cmd}をテキストエディターを使って次の内容で作成します。
+このコマンドは、標準出力とエラー出力にテストの結果を出力します。
+
+ここでは、@file{cmd}をテキストエディターを使って次の内容で作成します。
 
 @example
 @kbd{../../triangle 3 4 5}
@@ -439,7 +431,7 @@ $ @kbd{make set}
 futohen sankakukei
 @end example
 
-また、@file{0.txt}がすでに存在する場合は@kbd{make set}を実行するとエラーになり、@file{0.txt}は更新されません。
+@file{0.txt}がすでに存在する場合は@kbd{make set}を実行するとエラーになり、@file{0.txt}は更新されません。
 
 @subsection @kbd{make reset}
 @file{0.txt}がすでに存在する場合は、@kbd{make reset}で更新できます。
@@ -675,7 +667,7 @@ test: All tests are succeded.
 test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 @end example
 
-@node Check Group Log, , Group Execute, Tutorial
+@node Check Group Log,  , Group Execute, Tutorial
 @section テストグループログファイルの確認
 テストグループを実行すると作成されるファイルは、次のとおりです。
 

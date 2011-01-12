@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
-<title>Autotest_mk - GNU Makeを利用したテスト自動化ツール</title>
+<title>Autotest.mk - GNU Makeを利用したテスト自動化ツール</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Autotest_mk - GNU Makeを利用したテスト自動化ツール">
+<meta name="description" content="Autotest.mk - GNU Makeを利用したテスト自動化ツール">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
@@ -109,7 +109,7 @@ dt {
 }--></style>
 </head>
 <body>
-<h1 class="settitle">Autotest_mk - GNU Makeを利用したテスト自動化ツール</h1>
+<h1 class="settitle">Autotest.mk - GNU Makeを利用したテスト自動化ツール</h1>
 <a name="Top"></a>
 
  <div class="contents">
@@ -122,13 +122,16 @@ dt {
 <li><a name="toc_Install" href="#Install">2 Autotest.mkのインストール</a>
 <ul>
 <li><a href="#Download">2.1 ダウンロード</a>
-<li><a href="#Verify">2.2 ファイルの検証</a>
-<li><a href="#Expand">2.3 ファイルの展開</a>
+<li><a href="#Expand">2.2 ファイルの展開</a>
 </li></ul>
 <li><a name="toc_Tutorial" href="#Tutorial">3 Autotest.mkチュートリアル</a>
 <ul>
-<li><a href="#Prepare">三角形判定プログラムの準備</a>
-<li><a href="#Prepare">バグを含む三角形判定プログラムの準備</a>
+<li><a href="#Prepare">準備</a>
+<ul>
+<li><a href="#Prepare">作業用フォルダの作成</a>
+<li><a href="#Prepare">三角形判定プログラムのビルド</a>
+<li><a href="#Prepare">バグを含む三角形判定プログラムのビルド</a>
+</li></ul>
 <li><a href="#Create-Group">3.1 グループディレクトリーの作成</a>
 <li><a href="#Create-Test">3.2 テストディレクトリーの作成</a>
 <li><a href="#Edit-desc">3.3 テスト説明ファイルの作成</a>
@@ -228,8 +231,6 @@ dt {
      <ol type=1 start=1>
 <li>Autotest.mkファイルのダウンロード
 
-     <li>Autotest.mkファイルの検証
-
      <li>Autotest.mkファイルの展開
       </ol>
 
@@ -241,20 +242,9 @@ dt {
 
  <p>続けて、対応する<samp><span class="file">md5sum</span></samp>ファイルをダウンロードします。
 
-<p><a name="Verify"></a>
+<p><a name="Expand"></a>
 
-<h3 class="section">2.2 ファイルの検証</h3>
-
-<p>(準備中)
-
- <p>ダウンロードが完了したら、<kbd>md5sum</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
-
-<pre class="example">  $ <kbd>md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -</kbd>
-  Files autotest_mk.tar.gz.md5sum and - are identical
-</pre>
- <p><a name="Expand"></a>
-
-<h3 class="section">2.3 ファイルの展開</h3>
+<h3 class="section">2.2 ファイルの展開</h3>
 
 <p><samp><span class="file">autotest_mk</span></samp>ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
 次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
@@ -332,7 +322,9 @@ dt {
 
 <p><a name="Prepare"></a>
 
-<h3 class="unnumberedsec">三角形判定プログラムの準備</h3>
+<h3 class="unnumberedsec">準備</h3>
+
+<h4 class="unnumberedsubsec">作業用フォルダの作成</h4>
 
 <p>まず、Autotest.mkのパッケージに含まれている<samp><span class="file">sample/triangle</span></samp>以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、<samp><span class="file">~/triangle</span></samp>（<samp><span class="file">~</span></samp>は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、<samp><span class="file">autotest.mk</span></samp>は、<samp><span class="file">~</span></samp>に展開されているものとします。
 
@@ -341,13 +333,15 @@ dt {
   $ <kbd>cd autotest.mk/sample/triangle</kbd>
   $ <kbd>cp triangle.c triangle_bug.c Makefile ~/triangle</kbd>
 </pre>
- <p>作業用ディレクトリーに移動します。
+ <p>作業用ディレクトリーに移動し、中のファイルを確認します。
 
 <pre class="example">  $ <kbd>cd ~/triangle</kbd>
   $ <kbd>ls</kbd>
   Makefile  triangle.c  triangle_bug.c
 </pre>
- <p>三角形判定プログラムをビルドします。
+ <h4 class="unnumberedsubsec">三角形判定プログラムのビルド</h4>
+
+<p>三角形判定プログラムをビルドします。
 
 <pre class="example">  $ <kbd>make</kbd>
   rm -f triangle
@@ -362,7 +356,7 @@ dt {
   $ <kbd>./triangle 2 4 4</kbd>
   isosceles triangle
 </pre>
- <h3 class="unnumberedsec">バグを含む三角形判定プログラムの準備</h3>
+ <h4 class="unnumberedsubsec">バグを含む三角形判定プログラムのビルド</h4>
 
 <p>バグを含み一部のテストに失敗する三角形判定プログラムをビルドする場合は、次のコマンドを実行します。
 
@@ -424,7 +418,9 @@ dt {
 <h3 class="section">3.4 テストコマンドファイルの作成</h3>
 
 <p>テストコマンドファイル<samp><span class="file">cmd</span></samp>は、テストの時に実行されるコマンドをあらわします。
-<samp><span class="file">cmd</span></samp>をテキストエディターを使って次の内容で作成します。
+このコマンドは、標準出力とエラー出力にテストの結果を出力します。
+
+ <p>ここでは、<samp><span class="file">cmd</span></samp>をテキストエディターを使って次の内容で作成します。
 
 <pre class="example">  <kbd>../../triangle 3 4 5</kbd>
 </pre>
@@ -462,7 +458,7 @@ dt {
 <pre class="example">  $ <kbd>make set</kbd>
   futohen sankakukei
 </pre>
- <p>また、<samp><span class="file">0.txt</span></samp>がすでに存在する場合は<kbd>make set</kbd>を実行するとエラーになり、<samp><span class="file">0.txt</span></samp>は更新されません。
+ <p><samp><span class="file">0.txt</span></samp>がすでに存在する場合は<kbd>make set</kbd>を実行するとエラーになり、<samp><span class="file">0.txt</span></samp>は更新されません。
 
 <h4 class="subsection">3.5.3 <kbd>make reset</kbd></h4>
 
@@ -924,7 +920,7 @@ dt {
 
 <div class="footnote">
 <hr>
-<a name="texinfo-footnotes-in-document"></a><h4>脚注</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> 『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。</p>
+<a name="texinfo-footnotes-in-document"></a><h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> 『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。</p>
 
  <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> 『ソフトウェア・テストの技法』では下記の13個に加え、「それぞれのテスト・ケースについて、入力の値に対して予想される値をしめしたか」というテスト・ケースが記載されています。このテスト・ケースは、Autotest.mkを実行している場合は自動的に満たされると考えています。</p>
 
