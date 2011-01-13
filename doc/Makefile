@@ -1,10 +1,9 @@
 DOCNAME = autotest_mk
-TEXBIN = /usr/local/texlive/2010/bin/x86_64-linux/
 SRC = $(DOCNAME).texi
 CSS = style.css
-PTEX = $(TEXBIN)/ptex
-TEXINDEX = $(TEXBIN)/texindex
-DVI2PDF = $(TEXBIN)/dvipdfmx
+PTEX = ptex
+TEXINDEX = texindex
+DVI2PDF = dvipdfmx
 MAKEINFO = makeinfo
 
 .PHONY: all htmlnosplit pdf clean
