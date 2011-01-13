@@ -1,0 +1,18 @@
+このファイルは、Autotest.mkのREADMEファイルです。
+
+■Autotest.mkの概要
+Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。
+
+■ドキュメント
+YACASL2のインストール方法、チュートリアル、マニュアルは、次のドキュメントを参照してください。
+doc/autotest_mk.html
+
+■Webサイト
+次のURLを参照してください。
+http://www.j8takagi.net/autotest_mk/
+
+■ライセンス
+Copyright 2011, j8takagi.
+YACASL2 is licensed under the MIT license.
+
+詳細は、LICENSEを参照してください。
