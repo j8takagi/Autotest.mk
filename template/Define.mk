@@ -68,25 +68,16 @@ endef
 ######################################################################
 
 # テストグループとテストの変数を定義したMakefile
-DEF_FILE := Define.mk
-
-# テストグループの変数を定義したMakefile
-DEF_GROUP_FILE := Define_group.mk
-
-# テストの変数を定義したMakefile
-DEF_TEST_FILE := Define_test.mk
+DEFINE_FILE := Define.mk
 
 # テストのターゲットを定義したMakefile
 TEST_MAKEFILE := Test.mk
 
 # すべてのMakefile群
-MAKEFILES := $(DEF_FILE) $(DEF_GROUP_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
+MAKEFILES := $(DEFINE_FILE) $(TEST_MAKEFILE)
 
 # すべてのMakefile群の絶対パス
 MAKEFILES_ABS := $(foreach file,$(MAKEFILES),$(CURRDIR)/$(file))
-
-# テストごとのMakefileでインクルードするMakefile群
-TEST_MAKEFILES := $(DEF_FILE) $(DEF_TEST_FILE) $(TEST_MAKEFILE)
 
 ######################################################################
 # テストのディレクトリー
@@ -98,17 +89,17 @@ CMD_FILE := cmd
 # テスト説明ファイル
 DESC_FILE := desc.txt
 
-# テスト想定結果ファイル
+# テスト想定ファイル
 TEST0_FILE := 0.txt
 
 # テスト結果ファイル
 TEST1_FILE := 1.txt
 
 # テストの、想定結果と結果の差分ファイル
-DIFF_FILE := diff.txt
+DIFF_FILE := diff.log
 
 # テストエラーファイル
-ERR_FILE := err.txt
+ERR_FILE := err.log
 
 # テストログファイル
 LOG_FILE := summary.log
