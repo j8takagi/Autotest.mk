@@ -33,65 +33,66 @@ Copyright @copyright{} 2010 j8takagi
 @end ifnottex
 
 @menu
-* Autotest.mkの概要: About.
-* Autotest.mkのインストール: Install.
-* Autotest.mkチュートリアル: Tutorial.
-* Autotest.mkマニュアル: Manual.
+* About::                       Autotest.mkの概要
+* Install::                     Autotest.mkのインストール
+* Tutorial::                    Autotest.mkチュートリアル
+* Manual::                      Autotest.mkマニュアル
 
 @detailmenu
  --- The Detailed Node Listing ---
 
 Autotest.mkのインストール
 
-* Download::                    
-* Expand::                      
+* Download::                    ダウンロード
+* Verify::                      Autotest.mkファイルの検証
+* Expand::                      ファイルの展開
 
 Autotest.mkチュートリアル
 
-* Prepare::                     
-* Create Group::                
-* Create Test::                 
-* Edit desc::                   
-* Edit cmd::                    
-* Test Setting::                
-* Test Execute::                
-* Check Test Log::                
-* Group Execute::              
-* Check Group Log::              
+* Prepare::                     準備
+* Create Group::                グループディレクトリーの作成
+* Create Test::                 テストディレクトリーの作成
+* Edit desc::                   テスト説明ファイルの作成
+* Edit cmd::                    テストコマンドファイルの作成
+* Test Setting::                テスト想定ファイルの作成
+* Test Execute::                テストの実行
+* Check Test Log::              テストログファイルの確認
+* Group Execute::               テストグループの実行
+* Check Group Log::             テストグループログファイルの確認
 
 Autotest.mkマニュアル
 
-* Template Dir::                
-* Group Dir::                   
-* Test Dir::                    
+* Template Dir::                テンプレートディレクトリー
+* Group Dir::                   グループディレクトリー
+* Test Dir::                    テストディレクトリー
 
 テンプレートディレクトリー
 
-* make group::                  
-* Template Files::              
+* make group::                  @kbd{make}または@kbd{make group} - グループの作成
+* Template Files::              テンプレートのファイル
 
 グループディレクトリー
 
-* make create::                 
-* Rename::                      
-* Delete::                      
-* make check at group::         
-* make checkall::               
-* make clean at group::         
-* make time at group::          
-* make cleantime at group::     
-* Group Files::                 
+* make create::                 @kbd{make create} - テストの作成
+* Rename::                      テスト名の変更
+* Delete::                      テストの削除
+* make check at group::         @kbd{make}または@kbd{make check} - グループ内にあるすべてのテストの実行
+* make checkall::               @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
+* make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
+* make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
+* make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
+* Group Files::                 グループのファイル
 
 テストディレクトリー
 
-* make set::                    
-* make reset::                  
-* make check at test::          
-* make time at test::           
-* make cleantime at test::      
-* make clean at test::          
-* make cleanall at test::       
-* Test Files::                  
+* make set::                    @kbd{make set} - テスト想定の作成
+* make reset::                  @kbd{make set} - テスト想定の再作成
+* make check at test::          @kbd{make}または@kbd{make check} - テストの実行
+* make time at test::           @kbd{make time} - テストの計時
+* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
+* make clean at test::          @kbd{make cleantime} - テスト結果のクリア
+* make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* Test Files::                  テストのファイル
 
 @end detailmenu
 @end menu
@@ -134,8 +135,9 @@ Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}を
 @chapter Autotest.mkのインストール
 
 @menu
-* Download::                    
-* Expand::                      
+* Download::                    ダウンロード
+* Verify::                      Autotest.mkファイルの検証
+* Expand::                      ファイルの展開
 @end menu
 
 Autotest.mkをインストールするには、次の作業をします。
@@ -149,14 +151,32 @@ Autotest.mkファイルのダウンロード
 Autotest.mkファイルの展開
 @end enumerate
 
-@node Download, Expand, Install, Install
-@section ダウンロード
+@node Download, Verify, Install, Install
+@section Autotest.mkファイルのダウンロード
 
-@uref{https://github.com/j8takagi/Autotest.mk/, GitHub/j8takagi/Autotest.mk}の@uref{https://github.com/j8takagi/Autotest.mk/downloads, ダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
+次の場所から最新版の@file{tar.gz}ファイルをダウンロードします。
 
-続けて、対応する@file{md5sum}ファイルをダウンロードします。
+@itemize
+@item
+@uref{autotest_mk.tar.gz} - Autotest.mkのファイル一式を@file{tar.gz}形式で圧縮したもの
 
-@node Expand,  , Download, Install
+@item
+@uref{autotest_mk.tar.gz.md5sum} - @file{autotest_mk.tar.gz}のMD5ハッシュ値
+@end itemize
+
+または、@uref{http://github.com/j8takagi/Autotest.mk/downloads/, githubのダウンロードページ}からダウンロードします。
+
+@node Verify, Expand, Download, Install
+@section Autotest.mkファイルの検証
+
+ダウンロードが完了したら、@kbd{md5sum}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
+
+@example
+$ @kbd{openssl md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -}
+Files autotest_mk.tar.gz.md5sum and - are identical
+@end example
+
+@node Expand, , Verify, Install
 @section ファイルの展開
 
 @file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
@@ -254,19 +274,19 @@ Autotest.mkを使ったテストの手順は、次のとおりです。
 @end enumerate
 @end quotation
 
-三角形判定プログラムは、@ref{Prepare, , 三角形判定プログラムの準備}をするか、または自作してください。
+三角形判定プログラムは、サンプルとして用意されているものを@ref{Prepare, , 準備}するか、または自作してください。
 
 @menu
-* Prepare::                     
-* Create Group::                
-* Create Test::                 
-* Edit desc::                   
-* Edit cmd::                    
-* Test Setting::                
-* Test Execute::                
-* Check Test Log::                
-* Group Execute::              
-* Check Group Log::              
+* Prepare::                     準備
+* Create Group::                グループディレクトリーの作成
+* Create Test::                 テストディレクトリーの作成
+* Edit desc::                   テスト説明ファイルの作成
+* Edit cmd::                    テストコマンドファイルの作成
+* Test Setting::                テスト想定ファイルの作成
+* Test Execute::                テストの実行
+* Check Test Log::              テストログファイルの確認
+* Group Execute::               テストグループの実行
+* Check Group Log::             テストグループログファイルの確認
 @end menu
 
 @node Prepare, Create Group, Tutorial, Tutorial
@@ -383,7 +403,7 @@ Makefile
 @section テストコマンドファイルの作成
 
 テストコマンドファイル@file{cmd}は、テストの時に実行されるコマンドをあらわします。
-このコマンドは、標準出力とエラー出力にテストの結果を出力します。
+このコマンドにより、標準出力とエラー出力にテストの結果が出力されるようにします。
 
 ここでは、@file{cmd}をテキストエディターを使って次の内容で作成します。
 
@@ -474,7 +494,7 @@ Detail in <テスト詳細ログファイルの絶対パス>
 
 @example
 $ @kbd{make}
-make: [diff.txt] Error 1 (ignored)
+make: [diff.log] Error 1 (ignored)
 有効な不等辺三角形をあらわすテスト・ケース
 01_scalene: Test Failure 2011-01-10 20:25:16
 Detail in /home/foo/triangle/test/01_scalene/detail.log
@@ -495,10 +515,10 @@ $ ls
 @item 1.txt
 テスト結果をあらわします。エラー発生時は、標準出力のあとにエラー出力が続きます
 
-@item err.txt
+@item err.log
 エラー発生時に、エラーが出力されます。エラーが発生しない場合は作成されません
 
-@item diff.txt
+@item diff.log
 テスト想定ファイル@file{0.txt}とテスト結果ファイル@file{1.txt}の差分をあらわします。想定と結果が同一の場合は、作成されません
 
 @item summary.log
@@ -537,11 +557,11 @@ scalene triangle
 
 @unnumberedsubsec バグを含む三角形判定プログラムの場合
 
-バグを含む三角形判定プログラムを準備してテストを実行した場合、@file{1.txt}、@file{test.log}、@file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.txt}が作成されます。
+バグを含む三角形判定プログラムを準備してテストを実行した場合、@file{1.txt}、@file{test.log}、@file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.log}が作成されます。
 
 @example
 $ @kbd{ls}
-0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.txt  summary.log
+0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.log  summary.log
 @end example
 
 @file{detail.log}は次のようになります。
@@ -564,7 +584,7 @@ Detail in /home/foo/triangle/test/01_scalene/detail.log
 scalene triangle
 ----------------------------------------------------------------------
 
-== diff.txt ==
+== diff.log ==
 ----------------------------------------------------------------------
 *** 0.txt	Mon Jan 10 20:12:14 2011
 --- 1.txt	Mon Jan 10 20:25:16 2011
@@ -664,6 +684,8 @@ test: All tests are succeded.
 バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
 
 @example
+$ @kbd{cd ~/triangle/test}
+$ @kbd{make}
 test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 @end example
 
@@ -827,9 +849,9 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 @chapter Autotest.mkマニュアル
 
 @menu
-* Template Dir::                
-* Group Dir::                   
-* Test Dir::                    
+* Template Dir::                テンプレートディレクトリー
+* Group Dir::                   グループディレクトリー
+* Test Dir::                    テストディレクトリー
 @end menu
 
 @node Template Dir, Group Dir, Manual, Manual
@@ -838,14 +860,22 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された@file{template}ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
 
 @menu
-* make group::                  
-* Template Files::              
+* make group::                  @kbd{make}または@kbd{make group} - グループの作成
+* Template Files::              テンプレートのファイル
 @end menu
 
 @node make group, Template Files, Template Dir, Template Dir
-@subsection @kbd{make}または@kbd{make group} グループの作成
+@subsection @kbd{make}または@kbd{make group} - グループの作成
 
 変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要なファイルを配置します。
+
+@unnumberedsubsubsec 使用例
+
+グループディレクトリーとして@file{~/triangle/test}を作成します。
+
+@example
+$ @kbd{make GROUPDIR=~/triangle/test}
+@end example
 
 @node Template Files,  , make group, Template Dir
 @subsection テンプレートのファイル
@@ -874,81 +904,232 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 @node Group Dir, Test Dir, Template Dir, Manual
 @section グループディレクトリー
 
+@ref{make group, , グループの作成}後、グループディレクトリーに移動すると次の操作ができます。
+
 @menu
-* make create::                 
-* Rename::                      
-* Delete::                      
-* make check at group::         
-* make checkall::               
-* make clean at group::         
-* make time at group::          
-* make cleantime at group::     
-* Group Files::                 
+* make create::                 @kbd{make create} - テストの作成
+* Rename::                      テスト名の変更
+* Delete::                      テストの削除
+* make check at group::         @kbd{make}または@kbd{make check} - テストグループの実行
+* make checkall::               @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
+* make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
+* make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
+* make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
+* Group Files::                 グループのファイル
 @end menu
 
 @node make create, Rename, Group Dir, Group Dir
-@subsection @kbd{make create} テストの作成
+@subsection @kbd{make create} - テストの作成
 
 変数@code{TEST}で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
+テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、テストディレクトリーとして扱われません。
+
+@unnumberedsubsubsec 使用例
+
+テストディレクトリーを、@code{01_scalene}という名前で作成します。
+
+@example
+$ @kbd{make create TEST=01_scalene}
+@end example
 
 @node Rename, Delete, make create, Group Dir
-@subsection テスト名の変更
+@subsection テスト名の変更とコピー
+
+テスト名を変更する場合は、@code{mv}コマンドを使います。また、@code{cp}コマンドを使ってテストをコピーすることもできます。
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{mv 01_scalene 01}
+$ @kbd{cp -r 01 02}
+@end example
 
 @node Delete, make check at group, Rename, Group Dir
 @subsection テストの削除
 
+テストを削除する場合は、@code{rm}コマンドを使います。
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{rm -rf 01_scalene}
+@end example
+
 @node make check at group, make checkall, Delete, Group Dir
-@subsection @kbd{make}または@kbd{make check} グループ内にあるすべてのテストの実行
+@subsection @kbd{make}または@kbd{make check} - テストグループの実行
+
+@kbd{make}または@kbd{make check}で、グループ内にあるすべての@ref{make check at test, , テストの実行}をし、次の項目を表示します。
+
+@itemize
+@item
+<テスト名>: <成功テスト数>/<全テスト数> test passed. Detail in <テストグループログファイルの絶対パス>
+
+@item
+（すべてのテストに成功した場合）<テスト名>: All tests are succeded.
+@end itemize
+
+テストグループを実行すると次のファイルが作成されます。
+
+@table @file
+@item <テストグループ名を大文字にした文字列>.log
+テストグループに含まれるテストとその実行結果の一覧をあらわします。
+
+@item Summary.log
+テスト実行結果の概要を表します。テストグループ実行時に表示される内容です。
+@end table
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{make}
+test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+test: All tests are succeded.
+@end example
 
 @node make checkall, make clean at group, make check at group, Group Dir
-@subsection @kbd{make checkall} グループ内にあるすべてのテストの実行、計時
+@subsection @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
+
+@kbd{make checkall}でグループ内にあるすべてのテストを、@ref{make check at test, , 実行}し、@ref{make time at test, , 計時}します。@ref{make check at group, , テストの実行}と同じ項目を表示し、出力されるファイルの種類も同じです。@code{<テストグループ名を大文字にした文字列>.log}には、テストと実行結果に加え、計時結果が一覧として出力されます。
+
+テストの計時と実行は別に行われるため、通常にテストを実行するよりも2倍程度の時間がかかります。
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{make checkall}
+test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+test: All tests are succeded.
+@end example
 
 @node make clean at group, make time at group, make checkall, Group Dir
-@subsection @kbd{make clean} グループ内にあるすべてのテストで、実行結果をクリア
+@subsection @kbd{make clean} - グループの実行結果をクリア
+
+@kbd{make clean}で、@kbd{make}、@kbd{make check}、@kbd{make checkall}により作成されたテストグループと各テストのファイルをすべて削除します。
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{cd ~/triangle/test}
+$ @kbd{make clean}
+@end example
 
 @node make time at group, make cleantime at group, make clean at group, Group Dir
-@subsection @kbd{make time} グループ内にあるすべてのテストを計時
+@subsection @kbd{make time} - グループ内にあるすべてのテストを計時
+
+@kbd{make time}で、グループ内にあるすべてのテストを計時し、その結果が表示されます。計時結果は、@file{<テストグループ名を大文字にした文字列>_time.log}に格納されます。
+
+@unnumberedsubsubsec 使用例
+
+@example
+$ @kbd{make time}
+01_scalene/
+real    0m0.007s
+
+02_equilateral/
+real    0m0.007s
+
+03_isosceles/
+real    0m0.007s
+
+04_isosceles_c/
+real    0m0.013s
+
+05_zero/
+real    0m0.010s
+
+06_minus/
+real    0m0.007s
+
+07_line/
+real    0m0.008s
+
+08_lines/
+real    0m0.024s
+
+09_less/
+real    0m0.009s
+
+10_lesses/
+real    0m0.024s
+
+11_zeroall/
+real    0m0.007s
+
+12_notint/
+real    0m0.007s
+
+13_argcnt/
+real    0m0.012s
+@end example
 
 @node make cleantime at group, Group Files, make time at group, Group Dir
-@subsection @kbd{make cleantime} グループ内にあるすべてのテストで、計時結果をクリア
+@subsection @kbd{make cleantime} - グループの計時結果をクリア
+
+@kbd{make cleatime}で、@kbd{make time}により作成されたテストグループと各テストのファイルをすべて削除します。
 
 @node Group Files,  , make cleantime at group, Group Dir
 @subsection グループのファイル
+
+グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
+
+@table @file
+@item Makefile
+グループディレクトリーのMakefile
+
+@item Test.mk
+テストディレクトリーから参照されるMakefile
+
+@item Define.mk
+テストとテストグループに関する項目を定義したMakefile
+
+@item Define_group.mk
+テストグループに関する項目を定義したMakefile
+
+@item Define.mk
+テストに関する項目を定義したMakefile
+
+@item <テストグループ名を大文字にした文字列>.log
+@ref{make check at group, , @kbd{make}や@kbd{make check}}または@ref{make checkall, , @kbd{make checkall}}を実行したときに作成されます。@kbd{make}や@kbd{make check}の場合は、テストグループに含まれるテストと実行結果の一覧です。@kbd{make checkall}の場合は、テストと実行結果と計時結果の一覧です。
+
+@item  Summary.log
+テスト実行結果の概要です。@ref{make check at group, , @kbd{make}や@kbd{make check}}または@ref{make checkall, , @kbd{make checkall}}を実行すると作成され、その内容が表示されます。
+
+@end table
 
 @node Test Dir,  , Group Dir, Manual
 @section テストディレクトリー
 
 @menu
-* make set::                    
-* make reset::                  
-* make check at test::          
-* make time at test::           
-* make cleantime at test::      
-* make clean at test::          
-* make cleanall at test::       
-* Test Files::                  
+* make set::                    @kbd{make set} - テスト想定の作成
+* make reset::                  @kbd{make set} - テスト想定の再作成
+* make check at test::          @kbd{make}または@kbd{make check} - テストの実行
+* make time at test::           @kbd{make time} - テストの計時
+* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
+* make clean at test::          @kbd{make cleantime} - テスト結果のクリア
+* make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* Test Files::                  テストのファイル
 @end menu
 
 @node make set, make reset, Test Dir, Test Dir
-@subsection @kbd{make set} テスト想定の作成
+@subsection @kbd{make set} - テスト想定の作成
 
 @node make reset, make check at test, make set, Test Dir
-@subsection @kbd{make set} テスト想定の再作成
+@subsection @kbd{make set} - テスト想定の再作成
 
 @node make check at test, make time at test, make reset, Test Dir
-@subsection @kbd{make}または@kbd{make check} テストの実行
+@subsection @kbd{make}または@kbd{make check} - テストの実行
 
 @node make time at test, make cleantime at test, make check at test, Test Dir
-@subsection @kbd{make time} テストの計時
+@subsection @kbd{make time} - テストの計時
 
 @node make cleantime at test, make clean at test, make time at test, Test Dir
-@subsection @kbd{make cleantime} テスト計時結果のクリア
+@subsection @kbd{make cleantime} - テスト計時結果のクリア
 
 @node make clean at test, make cleanall at test, make cleantime at test, Test Dir
-@subsection @kbd{make cleantime} テスト結果のクリア
+@subsection @kbd{make cleantime} - テスト結果のクリア
 
 @node make cleanall at test, Test Files, make clean at test, Test Dir
-@subsection @kbd{make cleanall} テストの想定と結果をクリア
+@subsection @kbd{make cleanall} - テストの想定と結果をクリア
 
 @node Test Files,  , make cleanall at test, Test Dir
 @subsection テストのファイル

@@ -40,9 +40,13 @@ h2 {
     background-color: navy;
 }
 
-h3, h4 {
+h3, h4, h5 {
     color: navy;
     margin-left: -1em;
+}
+
+h5 {
+    font-size: 100%;
 }
 
 p {
@@ -121,8 +125,9 @@ dt {
 </li></ul>
 <li><a name="toc_Install" href="#Install">2 Autotest.mkのインストール</a>
 <ul>
-<li><a href="#Download">2.1 ダウンロード</a>
-<li><a href="#Expand">2.2 ファイルの展開</a>
+<li><a href="#Download">2.1 Autotest.mkファイルのダウンロード</a>
+<li><a href="#Verify">2.2 Autotest.mkファイルの検証</a>
+<li><a href="#Expand">2.3 ファイルの展開</a>
 </li></ul>
 <li><a name="toc_Tutorial" href="#Tutorial">3 Autotest.mkチュートリアル</a>
 <ul>
@@ -164,30 +169,54 @@ dt {
 <ul>
 <li><a href="#Template-Dir">4.1 テンプレートディレクトリー</a>
 <ul>
-<li><a href="#make-group">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> グループの作成</a>
+<li><a href="#make-group">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループの作成</a>
+<ul>
+<li><a href="#make-group">使用例</a>
+</li></ul>
 <li><a href="#Template-Files">4.1.2 テンプレートのファイル</a>
 </li></ul>
 <li><a href="#Group-Dir">4.2 グループディレクトリー</a>
 <ul>
-<li><a href="#make-create">4.2.1 <kbd>make create</kbd> テストの作成</a>
-<li><a href="#Rename">4.2.2 テスト名の変更</a>
+<li><a href="#make-create">4.2.1 <kbd>make create</kbd> - テストの作成</a>
+<ul>
+<li><a href="#make-create">使用例</a>
+</li></ul>
+<li><a href="#Rename">4.2.2 テスト名の変更とコピー</a>
+<ul>
+<li><a href="#Rename">使用例</a>
+</li></ul>
 <li><a href="#Delete">4.2.3 テストの削除</a>
-<li><a href="#make-check-at-group">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> グループ内にあるすべてのテストの実行</a>
-<li><a href="#make-checkall">4.2.5 <kbd>make checkall</kbd> グループ内にあるすべてのテストの実行、計時</a>
-<li><a href="#make-clean-at-group">4.2.6 <kbd>make clean</kbd> グループ内にあるすべてのテストで、実行結果をクリア</a>
-<li><a href="#make-time-at-group">4.2.7 <kbd>make time</kbd> グループ内にあるすべてのテストを計時</a>
-<li><a href="#make-cleantime-at-group">4.2.8 <kbd>make cleantime</kbd> グループ内にあるすべてのテストで、計時結果をクリア</a>
+<ul>
+<li><a href="#Delete">使用例</a>
+</li></ul>
+<li><a href="#make-check-at-group">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</a>
+<ul>
+<li><a href="#make-check-at-group">使用例</a>
+</li></ul>
+<li><a href="#make-checkall">4.2.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</a>
+<ul>
+<li><a href="#make-checkall">使用例</a>
+</li></ul>
+<li><a href="#make-clean-at-group">4.2.6 <kbd>make clean</kbd> - グループの実行結果をクリア</a>
+<ul>
+<li><a href="#make-clean-at-group">使用例</a>
+</li></ul>
+<li><a href="#make-time-at-group">4.2.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</a>
+<ul>
+<li><a href="#make-time-at-group">使用例</a>
+</li></ul>
+<li><a href="#make-cleantime-at-group">4.2.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</a>
 <li><a href="#Group-Files">4.2.9 グループのファイル</a>
 </li></ul>
 <li><a href="#Test-Dir">4.3 テストディレクトリー</a>
 <ul>
-<li><a href="#make-set">4.3.1 <kbd>make set</kbd> テスト想定の作成</a>
-<li><a href="#make-reset">4.3.2 <kbd>make set</kbd> テスト想定の再作成</a>
-<li><a href="#make-check-at-test">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> テストの実行</a>
-<li><a href="#make-time-at-test">4.3.4 <kbd>make time</kbd> テストの計時</a>
-<li><a href="#make-cleantime-at-test">4.3.5 <kbd>make cleantime</kbd> テスト計時結果のクリア</a>
-<li><a href="#make-clean-at-test">4.3.6 <kbd>make cleantime</kbd> テスト結果のクリア</a>
-<li><a href="#make-cleanall-at-test">4.3.7 <kbd>make cleanall</kbd> テストの想定と結果をクリア</a>
+<li><a href="#make-set">4.3.1 <kbd>make set</kbd> - テスト想定の作成</a>
+<li><a href="#make-reset">4.3.2 <kbd>make set</kbd> - テスト想定の再作成</a>
+<li><a href="#make-check-at-test">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</a>
+<li><a href="#make-time-at-test">4.3.4 <kbd>make time</kbd> - テストの計時</a>
+<li><a href="#make-cleantime-at-test">4.3.5 <kbd>make cleantime</kbd> - テスト計時結果のクリア</a>
+<li><a href="#make-clean-at-test">4.3.6 <kbd>make cleantime</kbd> - テスト結果のクリア</a>
+<li><a href="#make-cleanall-at-test">4.3.7 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</a>
 <li><a href="#Test-Files">4.3.8 テストのファイル</a>
 </li></ul>
 </li></ul>
@@ -236,15 +265,30 @@ dt {
 
 <p><a name="Download"></a>
 
-<h3 class="section">2.1 ダウンロード</h3>
+<h3 class="section">2.1 Autotest.mkファイルのダウンロード</h3>
 
-<p><a href="https://github.com/j8takagi/Autotest.mk/">GitHub/j8takagi/Autotest.mk</a>の<a href="https://github.com/j8takagi/Autotest.mk/downloads">ダウンロードページ</a>から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
+<p>次の場所から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
 
- <p>続けて、対応する<samp><span class="file">md5sum</span></samp>ファイルをダウンロードします。
+     <ul>
+<li><a href="autotest_mk.tar.gz">autotest_mk.tar.gz</a> - Autotest.mkのファイル一式を<samp><span class="file">tar.gz</span></samp>形式で圧縮したもの
 
-<p><a name="Expand"></a>
+     <li><a href="autotest_mk.tar.gz.md5sum">autotest_mk.tar.gz.md5sum</a> - <samp><span class="file">autotest_mk.tar.gz</span></samp>のMD5ハッシュ値
+</ul>
 
-<h3 class="section">2.2 ファイルの展開</h3>
+ <p>または、<a href="http://github.com/j8takagi/Autotest.mk/downloads">githubのダウンロードページ</a>からダウンロード、
+
+<p><a name="Verify"></a>
+
+<h3 class="section">2.2 Autotest.mkファイルの検証</h3>
+
+<p>ダウンロードが完了したら、<kbd>md5sum</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
+
+<pre class="example">  $ <kbd>openssl md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -</kbd>
+  Files autotest_mk.tar.gz.md5sum and - are identical
+</pre>
+ <p><a name="Expand"></a>
+
+<h3 class="section">2.3 ファイルの展開</h3>
 
 <p><samp><span class="file">autotest_mk</span></samp>ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
 次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
@@ -318,7 +362,7 @@ dt {
       </ol>
 </blockquote>
 
- <p>三角形判定プログラムは、<a href="#Prepare">三角形判定プログラムの準備</a>をするか、または自作してください。
+ <p>三角形判定プログラムは、サンプルとして用意されているものを<a href="#Prepare">準備</a>するか、または自作してください。
 
 <p><a name="Prepare"></a>
 
@@ -418,7 +462,7 @@ dt {
 <h3 class="section">3.4 テストコマンドファイルの作成</h3>
 
 <p>テストコマンドファイル<samp><span class="file">cmd</span></samp>は、テストの時に実行されるコマンドをあらわします。
-このコマンドは、標準出力とエラー出力にテストの結果を出力します。
+このコマンドにより、標準出力とエラー出力にテストの結果が出力されるようにします。
 
  <p>ここでは、<samp><span class="file">cmd</span></samp>をテキストエディターを使って次の内容で作成します。
 
@@ -651,7 +695,9 @@ dt {
 
 <p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
 
-<pre class="example">  test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+<pre class="example">  $ <kbd>cd ~/triangle/test</kbd>
+  $ <kbd>make</kbd>
+  test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 </pre>
  <p><a name="Check-Group-Log"></a>
 
@@ -817,11 +863,17 @@ dt {
 
 <p><a name="make-group"></a>
 
-<h4 class="subsection">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> グループの作成</h4>
+<h4 class="subsection">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループの作成</h4>
 
 <p>変数<code>GROUPDIR</code>で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要なファイルを配置します。
 
-<p><a name="Template-Files"></a>
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<p>グループディレクトリーとして<samp><span class="file">~/triangle/test</span></samp>を作成します。
+
+<pre class="example">  $ <kbd>make GROUPDIR=~/triangle/test</kbd>
+</pre>
+ <p><a name="Template-Files"></a>
 
 <h4 class="subsection">4.1.2 テンプレートのファイル</h4>
 
@@ -844,43 +896,169 @@ dt {
 
 <h3 class="section">4.2 グループディレクトリー</h3>
 
+<p><a href="#make-group">グループの作成</a>後、グループディレクトリーに移動すると次の操作ができます。
+
 <p><a name="make-create"></a>
 
-<h4 class="subsection">4.2.1 <kbd>make create</kbd> テストの作成</h4>
+<h4 class="subsection">4.2.1 <kbd>make create</kbd> - テストの作成</h4>
 
 <p>変数<code>TEST</code>で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
+テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、テストディレクトリーとして扱われません。
 
-<p><a name="Rename"></a>
+<h5 class="unnumberedsubsubsec">使用例</h5>
 
-<h4 class="subsection">4.2.2 テスト名の変更</h4>
+<p>テストディレクトリーを、<code>01_scalene</code>という名前で作成します。
 
+<pre class="example">  $ <kbd>make create TEST=01_scalene</kbd>
+</pre>
+ <p><a name="Rename"></a>
+
+<h4 class="subsection">4.2.2 テスト名の変更とコピー</h4>
+
+<p>テスト名を変更する場合は、<code>mv</code>コマンドを使います。また、<code>cp</code>コマンドを使ってテストをコピーすることもできます。
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>mv 01_scalene 01</kbd>
+  $ <kbd>cp -r 01 02</kbd>
+</pre>
 <p><a name="Delete"></a>
 
 <h4 class="subsection">4.2.3 テストの削除</h4>
 
+<p>テストを削除する場合は、<code>rm</code>コマンドを使います。
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>rm -rf 01_scalene</kbd>
+</pre>
 <p><a name="make-check-at-group"></a>
 
-<h4 class="subsection">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> グループ内にあるすべてのテストの実行</h4>
+<h4 class="subsection">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</h4>
 
+<p><kbd>make</kbd>または<kbd>make check</kbd>で、グループ内にあるすべての<a href="#make-check-at-test">テストの実行</a>をし、次の項目を表示します。
+
+     <ul>
+<li>&lt;テスト名&gt;: &lt;成功テスト数&gt;/&lt;全テスト数&gt; test passed. Detail in &lt;テストグループログファイルの絶対パス&gt;
+
+     <li>（すべてのテストに成功した場合）&lt;テスト名&gt;: All tests are succeded. 
+</ul>
+
+ <p>テストグループを実行すると次のファイルが作成されます。
+
+     <dl>
+<dt><samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;.log</span></samp><dd>テストグループに含まれるテストとその実行結果の一覧をあらわします。
+
+     <br><dt><samp><span class="file">Summary.log</span></samp><dd>テスト実行結果の概要を表します。テストグループ実行時に表示される内容です。
+</dl>
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>make</kbd>
+  test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+  test: All tests are succeded.
+</pre>
 <p><a name="make-checkall"></a>
 
-<h4 class="subsection">4.2.5 <kbd>make checkall</kbd> グループ内にあるすべてのテストの実行、計時</h4>
+<h4 class="subsection">4.2.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</h4>
 
+<p><kbd>make checkall</kbd>でグループ内にあるすべてのテストを、<a href="#make-check-at-test">実行</a>し、<a href="#make-time-at-test">計時</a>します。<a href="#make-check-at-group">テストの実行</a>と同じ項目を表示し、出力されるファイルの種類も同じです。<code>&lt;テストグループ名を大文字にした文字列&gt;.log</code>には、テストと実行結果に加え、計時結果が一覧として出力されます。
+
+ <p>テストの計時と実行は別に行われるため、通常にテストを実行するよりも2倍程度の時間がかかります。
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>make checkall</kbd>
+  test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
+  test: All tests are succeded.
+</pre>
 <p><a name="make-clean-at-group"></a>
 
-<h4 class="subsection">4.2.6 <kbd>make clean</kbd> グループ内にあるすべてのテストで、実行結果をクリア</h4>
+<h4 class="subsection">4.2.6 <kbd>make clean</kbd> - グループの実行結果をクリア</h4>
 
+<p><kbd>make clean</kbd>で、<kbd>make</kbd>、<kbd>make check</kbd>、<kbd>make checkall</kbd>により作成されたテストグループと各テストのファイルをすべて削除します。
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>cd ~/triangle/test</kbd>
+  $ <kbd>make clean</kbd>
+</pre>
 <p><a name="make-time-at-group"></a>
 
-<h4 class="subsection">4.2.7 <kbd>make time</kbd> グループ内にあるすべてのテストを計時</h4>
+<h4 class="subsection">4.2.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</h4>
 
+<p><kbd>make time</kbd>で、グループ内にあるすべてのテストを計時し、その結果が表示されます。計時結果は、<samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;_time.log</span></samp>に格納されます。
+
+<h5 class="unnumberedsubsubsec">使用例</h5>
+
+<pre class="example">  $ <kbd>make time</kbd>
+  01_scalene/
+  real    0m0.007s
+  
+  02_equilateral/
+  real    0m0.007s
+  
+  03_isosceles/
+  real    0m0.007s
+  
+  04_isosceles_c/
+  real    0m0.013s
+  
+  05_zero/
+  real    0m0.010s
+  
+  06_minus/
+  real    0m0.007s
+  
+  07_line/
+  real    0m0.008s
+  
+  08_lines/
+  real    0m0.024s
+  
+  09_less/
+  real    0m0.009s
+  
+  10_lesses/
+  real    0m0.024s
+  
+  11_zeroall/
+  real    0m0.007s
+  
+  12_notint/
+  real    0m0.007s
+  
+  13_argcnt/
+  real    0m0.012s
+</pre>
 <p><a name="make-cleantime-at-group"></a>
 
-<h4 class="subsection">4.2.8 <kbd>make cleantime</kbd> グループ内にあるすべてのテストで、計時結果をクリア</h4>
+<h4 class="subsection">4.2.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</h4>
+
+<p><kbd>make cleatime</kbd>で、<kbd>make time</kbd>により作成されたテストグループと各テストのファイルをすべて削除します。
 
 <p><a name="Group-Files"></a>
 
 <h4 class="subsection">4.2.9 グループのファイル</h4>
+
+<p>グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
+
+     <dl>
+<dt><samp><span class="file">Makefile</span></samp><dd>グループディレクトリーのMakefile
+
+     <br><dt><samp><span class="file">Test.mk</span></samp><dd>テストディレクトリーから参照されるMakefile
+
+     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストとテストグループに関する項目を定義したMakefile
+
+     <br><dt><samp><span class="file">Define_group.mk</span></samp><dd>テストグループに関する項目を定義したMakefile
+
+     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストに関する項目を定義したMakefile
+
+     <br><dt><samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;.log</span></samp><dd><a href="#make-check-at-group"><kbd>make</kbd>や<kbd>make check</kbd></a>または<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行したときに作成されます。<kbd>make</kbd>や<kbd>make check</kbd>の場合は、テストグループに含まれるテストと実行結果の一覧です。<kbd>make checkall</kbd>の場合は、テストと実行結果と計時結果の一覧です。
+
+     <br><dt><samp><span class="file">Summary.log</span></samp><dd>テスト実行結果の概要です。<a href="#make-check-at-group"><kbd>make</kbd>や<kbd>make check</kbd></a>または<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行すると作成され、その内容が表示されます。
+
+ </dl>
 
 <p><a name="Test-Dir"></a>
 
@@ -888,31 +1066,31 @@ dt {
 
 <p><a name="make-set"></a>
 
-<h4 class="subsection">4.3.1 <kbd>make set</kbd> テスト想定の作成</h4>
+<h4 class="subsection">4.3.1 <kbd>make set</kbd> - テスト想定の作成</h4>
 
 <p><a name="make-reset"></a>
 
-<h4 class="subsection">4.3.2 <kbd>make set</kbd> テスト想定の再作成</h4>
+<h4 class="subsection">4.3.2 <kbd>make set</kbd> - テスト想定の再作成</h4>
 
 <p><a name="make-check-at-test"></a>
 
-<h4 class="subsection">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> テストの実行</h4>
+<h4 class="subsection">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</h4>
 
 <p><a name="make-time-at-test"></a>
 
-<h4 class="subsection">4.3.4 <kbd>make time</kbd> テストの計時</h4>
+<h4 class="subsection">4.3.4 <kbd>make time</kbd> - テストの計時</h4>
 
 <p><a name="make-cleantime-at-test"></a>
 
-<h4 class="subsection">4.3.5 <kbd>make cleantime</kbd> テスト計時結果のクリア</h4>
+<h4 class="subsection">4.3.5 <kbd>make cleantime</kbd> - テスト計時結果のクリア</h4>
 
 <p><a name="make-clean-at-test"></a>
 
-<h4 class="subsection">4.3.6 <kbd>make cleantime</kbd> テスト結果のクリア</h4>
+<h4 class="subsection">4.3.6 <kbd>make cleantime</kbd> - テスト結果のクリア</h4>
 
 <p><a name="make-cleanall-at-test"></a>
 
-<h4 class="subsection">4.3.7 <kbd>make cleanall</kbd> テストの想定と結果をクリア</h4>
+<h4 class="subsection">4.3.7 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</h4>
 
 <p><a name="Test-Files"></a>
 
