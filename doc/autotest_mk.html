@@ -114,23 +114,41 @@ dt {
 </head>
 <body>
 <h1 class="settitle">Autotest.mk - GNU Makeを利用したテスト自動化ツール</h1>
+<div class="node">
 <a name="Top"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#About">About</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<ul class="menu">
+<li><a accesskey="1" href="#About">About</a>:                        Autotest.mk 概要
+<li><a accesskey="2" href="#Install">Install</a>:                      Autotest.mk インストール
+<li><a accesskey="3" href="#Tutorial">Tutorial</a>:                     Autotest.mk チュートリアル
+<li><a accesskey="4" href="#Template-dir">Template dir</a>:                 テンプレートディレクトリー マニュアル
+<li><a accesskey="5" href="#Group-dir">Group dir</a>:                    グループディレクトリー マニュアル
+<li><a accesskey="6" href="#Test-dir">Test dir</a>:                     テストディレクトリー マニュアル
+
+ </ul>
 
  <div class="contents">
 <h2>Table of Contents</h2>
 <ul>
-<li><a name="toc_About" href="#About">1 Autotest.mkの概要</a>
+<li><a name="toc_About" href="#About">1 Autotest.mk 概要</a>
 <ul>
 <li><a href="#About">要件</a>
 </li></ul>
-<li><a name="toc_Install" href="#Install">2 Autotest.mkのインストール</a>
+<li><a name="toc_Install" href="#Install">2 Autotest.mk インストール</a>
 <ul>
 <li><a href="#Download">2.1 Autotest.mkファイルのダウンロード</a>
 <li><a href="#Verify">2.2 Autotest.mkファイルの検証</a>
 <li><a href="#Expand">2.3 ファイルの展開</a>
 </li></ul>
-<li><a name="toc_Tutorial" href="#Tutorial">3 Autotest.mkチュートリアル</a>
+<li><a name="toc_Tutorial" href="#Tutorial">3 Autotest.mk チュートリアル - 三角形判定プログラムのテスト</a>
 <ul>
+<li><a href="#Tutorial-About">概要</a>
 <li><a href="#Prepare">準備</a>
 <ul>
 <li><a href="#Prepare">作業用フォルダの作成</a>
@@ -165,78 +183,101 @@ dt {
 <li><a href="#Check-Group-Log">バグを含む三角形判定プログラムの場合</a>
 </li></ul>
 </li></ul>
-<li><a name="toc_Manual" href="#Manual">4 Autotest.mkマニュアル</a>
+<li><a name="toc_Template-dir" href="#Template-dir">4 テンプレートディレクトリー マニュアル</a>
 <ul>
-<li><a href="#Template-Dir">4.1 テンプレートディレクトリー</a>
+<li><a href="#make-group">4.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループディレクトリーの作成</a>
 <ul>
-<li><a href="#make-group">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループの作成</a>
-<ul>
+<li><a href="#make-group">4.1.1 変数</a>
 <li><a href="#make-group">使用例</a>
 </li></ul>
-<li><a href="#Template-Files">4.1.2 テンプレートのファイル</a>
+<li><a href="#Template-Files">4.2 テンプレートのファイル</a>
 </li></ul>
-<li><a href="#Group-Dir">4.2 グループディレクトリー</a>
+<li><a name="toc_Group-dir" href="#Group-dir">5 グループディレクトリー マニュアル</a>
 <ul>
-<li><a href="#make-create">4.2.1 <kbd>make create</kbd> - テストの作成</a>
+<li><a href="#make-create">5.1 <kbd>make create</kbd> - テストの作成</a>
 <ul>
 <li><a href="#make-create">使用例</a>
 </li></ul>
-<li><a href="#Rename">4.2.2 テスト名の変更とコピー</a>
+<li><a href="#Rename-and-Copy">5.2 テスト名の変更とコピー</a>
 <ul>
-<li><a href="#Rename">使用例</a>
+<li><a href="#Rename-and-Copy">使用例</a>
 </li></ul>
-<li><a href="#Delete">4.2.3 テストの削除</a>
+<li><a href="#Delete">5.3 テストの削除</a>
 <ul>
 <li><a href="#Delete">使用例</a>
 </li></ul>
-<li><a href="#make-check-at-group">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</a>
+<li><a href="#make-check-at-group">5.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</a>
 <ul>
 <li><a href="#make-check-at-group">使用例</a>
 </li></ul>
-<li><a href="#make-checkall">4.2.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</a>
+<li><a href="#make-checkall">5.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</a>
 <ul>
 <li><a href="#make-checkall">使用例</a>
 </li></ul>
-<li><a href="#make-clean-at-group">4.2.6 <kbd>make clean</kbd> - グループの実行結果をクリア</a>
+<li><a href="#make-clean-at-group">5.6 <kbd>make clean</kbd> - グループの実行結果をクリア</a>
 <ul>
 <li><a href="#make-clean-at-group">使用例</a>
 </li></ul>
-<li><a href="#make-time-at-group">4.2.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</a>
+<li><a href="#make-time-at-group">5.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</a>
 <ul>
 <li><a href="#make-time-at-group">使用例</a>
 </li></ul>
-<li><a href="#make-cleantime-at-group">4.2.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</a>
-<li><a href="#Group-Files">4.2.9 グループのファイル</a>
+<li><a href="#make-cleantime-at-group">5.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</a>
+<li><a href="#Group-Files">5.9 グループディレクトリーのファイル</a>
 </li></ul>
-<li><a href="#Test-Dir">4.3 テストディレクトリー</a>
+<li><a name="toc_Test-dir" href="#Test-dir">6 テストディレクトリー マニュアル</a>
 <ul>
-<li><a href="#make-set">4.3.1 <kbd>make set</kbd> - テスト想定の作成</a>
-<li><a href="#make-reset">4.3.2 <kbd>make set</kbd> - テスト想定の再作成</a>
-<li><a href="#make-check-at-test">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</a>
-<li><a href="#make-time-at-test">4.3.4 <kbd>make time</kbd> - テストの計時</a>
-<li><a href="#make-cleantime-at-test">4.3.5 <kbd>make cleantime</kbd> - テスト計時結果のクリア</a>
-<li><a href="#make-clean-at-test">4.3.6 <kbd>make cleantime</kbd> - テスト結果のクリア</a>
-<li><a href="#make-cleanall-at-test">4.3.7 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</a>
-<li><a href="#Test-Files">4.3.8 テストのファイル</a>
+<li><a href="#make-set">6.1 <kbd>make set</kbd> - テスト想定の作成</a>
+<ul>
+<li><a href="#make-set">使用例</a>
 </li></ul>
+<li><a href="#make-reset">6.2 <kbd>make reset</kbd> - テスト想定の作成または更新</a>
+<ul>
+<li><a href="#make-reset">使用例</a>
+</li></ul>
+<li><a href="#make-check-at-test">6.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</a>
+<ul>
+<li><a href="#make-check-at-test">使用例</a>
+</li></ul>
+<li><a href="#make-clean-at-test">6.4 <kbd>make clean</kbd> - テスト結果のクリア</a>
+<ul>
+<li><a href="#make-clean-at-test">使用例</a>
+</li></ul>
+<li><a href="#make-cleanall-at-test">6.5 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</a>
+<ul>
+<li><a href="#make-cleanall-at-test">使用例</a>
+</li></ul>
+<li><a href="#make-time-at-test">6.6 <kbd>make time</kbd> - テストの計時</a>
+<ul>
+<li><a href="#make-time-at-test">使用例</a>
+</li></ul>
+<li><a href="#make-cleantime-at-test">6.7 <kbd>make cleantime</kbd> - テスト計時結果のクリア</a>
+<li><a href="#Test-Files">6.8 テストディレクトリーのファイル</a>
 </li></ul>
 </li></ul>
 </div>
 
-<p><a name="About"></a>
+<div class="node">
+<a name="About"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Install">Install</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2 class="chapter">1 Autotest.mkの概要</h2>
+</div>
+
+<h2 class="chapter">1 Autotest.mk 概要</h2>
 
 <p>Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。何回か<kbd>make</kbd>コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは<kbd>make</kbd>コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
- <p>Autotest.mkでは、次の3つの概念を使います。
+ <p>Autotest.mkでは、次の3つのディレクトリーを使います。
 
      <dl>
-<dt><samp><span class="option">テンプレート</span></samp><dd>テストグループとテストのテンプレートです。
+<dt><samp><span class="option">テンプレートディレクトリー</span></samp><dd>テストグループとテストのテンプレートとなるディレクトリー
 
-     <br><dt><samp><span class="option">テストグループ</span></samp><dd>複数のテストを含むグループです。
+     <br><dt><samp><span class="option">テストグループディレクトリー</span></samp><dd>1つまたは複数のテストを含むディレクトリー
 
-     <br><dt><samp><span class="option">テスト</span></samp><dd>テスト個々の内容と結果を表します。
+     <br><dt><samp><span class="option">テストディレクトリー</span></samp><dd>テスト実行のためのファイルと、実行結果をあらわすファイルを含むディレクトリー
 </dl>
 
 <h3 class="unnumberedsec">要件</h3>
@@ -251,9 +292,22 @@ dt {
 
  <p>Mac OS Xでは、<a href="http://www.gnu.org/software/findutils/">GNU Findutils</a>をインストールしてください。
 
-<p><a name="Install"></a>
+<div class="node">
+<a name="Install"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Tutorial">Tutorial</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#About">About</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2 class="chapter">2 Autotest.mkのインストール</h2>
+</div>
+
+<h2 class="chapter">2 Autotest.mk インストール</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Download">Download</a>:                     ダウンロード
+<li><a accesskey="2" href="#Verify">Verify</a>:                       Autotest.mkファイルの検証
+<li><a accesskey="3" href="#Expand">Expand</a>:                       ファイルの展開
+</ul>
 
 <p>Autotest.mkをインストールするには、次の作業をします。
 
@@ -263,7 +317,14 @@ dt {
      <li>Autotest.mkファイルの展開
       </ol>
 
-<p><a name="Download"></a>
+<div class="node">
+<a name="Download"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Verify">Verify</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Install">Install</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
+
+</div>
 
 <h3 class="section">2.1 Autotest.mkファイルのダウンロード</h3>
 
@@ -272,21 +333,34 @@ dt {
      <ul>
 <li><a href="autotest_mk.tar.gz">autotest_mk.tar.gz</a> - Autotest.mkのファイル一式を<samp><span class="file">tar.gz</span></samp>形式で圧縮したもの
 
-     <li><a href="autotest_mk.tar.gz.md5sum">autotest_mk.tar.gz.md5sum</a> - <samp><span class="file">autotest_mk.tar.gz</span></samp>のMD5ハッシュ値
+     <li><a href="autotest_mk.tar.gz.md5sum">autotest_mk.tar.gz.md5sum</a> - <samp><span class="file">autotest_mk.tar.gz</span></samp>のMD5ハッシュ値。<kbd>openssl</kbd>で作成
 </ul>
 
- <p>または、<a href="http://github.com/j8takagi/Autotest.mk/downloads">githubのダウンロードページ</a>からダウンロード、
+ <p>または、<a href="http://github.com/j8takagi/Autotest.mk/downloads/">githubのダウンロードページ</a>からダウンロードします。
 
-<p><a name="Verify"></a>
+<div class="node">
+<a name="Verify"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Expand">Expand</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Download">Download</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
+
+</div>
 
 <h3 class="section">2.2 Autotest.mkファイルの検証</h3>
 
-<p>ダウンロードが完了したら、<kbd>md5sum</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
+<p>ダウンロードが完了したら、<kbd>openssl</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
 
-<pre class="example">  $ <kbd>openssl md5sum autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -</kbd>
+<pre class="example">  $ <kbd>openssl md5 autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -</kbd>
   Files autotest_mk.tar.gz.md5sum and - are identical
 </pre>
- <p><a name="Expand"></a>
+ <div class="node">
+<a name="Expand"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Verify">Verify</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
+
+</div>
 
 <h3 class="section">2.3 ファイルの展開</h3>
 
@@ -298,36 +372,46 @@ dt {
 </pre>
  <p>展開したら、Autotest.mkは使えるようになります。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（<kbd>./configure</kbd>や<kbd>make</kbd>、<kbd>make install</kbd>）は必要ありません。
 
-<p><a name="Tutorial"></a>
+<div class="node">
+<a name="Tutorial"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Template-dir">Template dir</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Install">Install</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h2 class="chapter">3 Autotest.mkチュートリアル</h2>
+</div>
 
-<p>Autotest.mkを使ったテストの手順は、次のとおりです。
+<h2 class="chapter">3 Autotest.mk チュートリアル - 三角形判定プログラムのテスト</h2>
 
-     <ol type=1 start=1>
-<li>グループディレクトリーの作成
+<ul class="menu">
+<li><a accesskey="1" href="#Tutorial-About">Tutorial About</a>:               概要
+<li><a accesskey="2" href="#Prepare">Prepare</a>:                      準備
+<li><a accesskey="3" href="#Create-Group">Create Group</a>:                 グループディレクトリーの作成
+<li><a accesskey="4" href="#Create-Test">Create Test</a>:                  テストディレクトリーの作成
+<li><a accesskey="5" href="#Edit-desc">Edit desc</a>:                    テスト説明ファイルの作成
+<li><a accesskey="6" href="#Edit-cmd">Edit cmd</a>:                     テストコマンドファイルの作成
+<li><a accesskey="7" href="#Test-Setting">Test Setting</a>:                 テスト想定ファイルの作成
+<li><a accesskey="8" href="#Test-Execute">Test Execute</a>:                 テストの実行
+<li><a accesskey="9" href="#Check-Test-Log">Check Test Log</a>:               テストログファイルの確認
+<li><a href="#Group-Execute">Group Execute</a>:                テストグループの実行
+<li><a href="#Check-Group-Log">Check Group Log</a>:              テストグループログファイルの確認
+</ul>
 
-     <li>テストディレクトリーの作成
+<div class="node">
+<a name="Tutorial-About"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Prepare">Prepare</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tutorial">Tutorial</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
 
-     <li>テスト説明ファイルの作成
+</div>
 
-     <li>テストコマンドファイルの作成
+<h3 class="unnumberedsec">概要</h3>
 
-     <li>テスト想定ファイルの作成
-
-     <li>テストの実行
-
-     <li>テストログファイルの確認
-
-     <li>テストグループの実行
-
-     <li>テストグループログファイルの確認
-      </ol>
-
- <p>ここでは、Glenford J Myers『ソフトウェア・テストの技法』（近代科学社、1980）の記載を元にした、次の仕様の三角形判定プログラムをテストする手順を取り上げます<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>。
+<p>ここでは、Glenford J Myers『ソフトウェア・テストの技法』（近代科学社、1980）の記載を元にした、次の仕様の三角形判定プログラムをテストする手順を取り上げます<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>。
 
  <blockquote>
-プログラムtriangleは3つの引数をとる。この3つの値は、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`scalene triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形の場合は`equilateral triangle'を印字する。
+プログラムtriangleは、整数をあらわす3つの引数をとる。この3つの値は、それぞれ三角形の3辺の長さをあらわすものとする。プログラムは、三角形が不等辺三角形の場合は`scalene triangle'、二等辺三角形の場合は`isosceles triangle'、正三角形の場合は`equilateral triangle'を印字する。
 </blockquote>
 
  <p>この三角形判定プログラムの動作を検証するには、次のテスト・ケースが必要です<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>。
@@ -340,7 +424,7 @@ dt {
 
      <li>有効な二等辺三角形をあらわすテスト・ケース
 
-     <li>有効な二等辺三角形で2つの等辺を含む3種類の組合せすべてをためすことができる3つのテストケース
+     <li>有効な二等辺三角形で2つの等辺を含む3種類の組合せすべてをためすことができる3つのテスト・ケース
 
      <li>1つの辺がゼロの値をもつテスト・ケース
 
@@ -364,7 +448,36 @@ dt {
 
  <p>三角形判定プログラムは、サンプルとして用意されているものを<a href="#Prepare">準備</a>するか、または自作してください。
 
-<p><a name="Prepare"></a>
+ <p>準備ができたら、Autotest.mkを使った次の手順でテストを実行できます。
+
+     <ol type=1 start=1>
+<li>グループディレクトリーの作成
+
+     <li>テストディレクトリーの作成
+
+     <li>テスト説明ファイルの作成
+
+     <li>テストコマンドファイルの作成
+
+     <li>テスト想定ファイルの作成
+
+     <li>テストの実行
+
+     <li>テストログファイルの確認
+
+     <li>テストグループの実行
+
+     <li>テストグループログファイルの確認
+      </ol>
+
+<div class="node">
+<a name="Prepare"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Create-Group">Create Group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tutorial-About">Tutorial About</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="unnumberedsec">準備</h3>
 
@@ -419,7 +532,14 @@ dt {
 </pre>
  <p><kbd>./triangle 3 4 5</kbd>で、仕様で`scalene triangle'となるべきところが、`futohen sankakukei'となっています。
 
-<p><a name="Create-Group"></a>
+<div class="node">
+<a name="Create-Group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Create-Test">Create Test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Prepare">Prepare</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.1 グループディレクトリーの作成</h3>
 
@@ -432,9 +552,16 @@ dt {
 
 <pre class="example">  $ <kbd>cd ~/triangle/test</kbd>
   $ <kbd>ls</kbd>
-  Define.mk  Define_group.mk  Define_test.mk  Makefile  Test.mk
+  Define.mk  Makefile  Test.mk
 </pre>
- <p><a name="Create-Test"></a>
+ <div class="node">
+<a name="Create-Test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Edit-desc">Edit desc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Create-Group">Create Group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.2 テストディレクトリーの作成</h3>
 
@@ -448,7 +575,14 @@ dt {
   $ <kbd>ls</kbd>
   Makefile
 </pre>
- <p><a name="Edit-desc"></a>
+ <div class="node">
+<a name="Edit-desc"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Edit-cmd">Edit cmd</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Create-Test">Create Test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.3 テスト説明ファイルの作成</h3>
 
@@ -457,18 +591,32 @@ dt {
 
 <pre class="example">  <kbd>有効な不等辺三角形をあらわすテスト・ケース</kbd>
 </pre>
- <p><a name="Edit-cmd"></a>
+ <div class="node">
+<a name="Edit-cmd"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Setting">Test Setting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Edit-desc">Edit desc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.4 テストコマンドファイルの作成</h3>
 
-<p>テストコマンドファイル<samp><span class="file">cmd</span></samp>は、テストの時に実行されるコマンドをあらわします。
+<p>テストコマンドファイル<samp><span class="file">cmd</span></samp>は、テスト時に実行されるコマンドをあらわします。
 このコマンドにより、標準出力とエラー出力にテストの結果が出力されるようにします。
 
  <p>ここでは、<samp><span class="file">cmd</span></samp>をテキストエディターを使って次の内容で作成します。
 
 <pre class="example">  <kbd>../../triangle 3 4 5</kbd>
 </pre>
- <p><a name="Test-Setting"></a>
+ <div class="node">
+<a name="Test-Setting"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Execute">Test Execute</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Edit-cmd">Edit cmd</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.5 テスト想定ファイルの作成</h3>
 
@@ -511,7 +659,14 @@ dt {
 <pre class="example">  $ <kbd>make reset</kbd>
   scalene triangle
 </pre>
- <p><a name="Test-Execute"></a>
+ <div class="node">
+<a name="Test-Execute"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Check-Test-Log">Check Test Log</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Test-Setting">Test Setting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.6 テストの実行</h3>
 
@@ -538,16 +693,23 @@ dt {
 <p>バグを含む三角形判定プログラムでテストを実行すると、次のように表示されます。
 
 <pre class="example">  $ <kbd>make</kbd>
-  make: [diff.txt] Error 1 (ignored)
+  make: [diff.log] Error 1 (ignored)
   有効な不等辺三角形をあらわすテスト・ケース
   01_scalene: Test Failure 2011-01-10 20:25:16
   Detail in /home/foo/triangle/test/01_scalene/detail.log
 </pre>
- <p><a name="Check-Test-Log"></a>
+ <div class="node">
+<a name="Check-Test-Log"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Group-Execute">Group Execute</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Test-Execute">Test Execute</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.7 テストログファイルの確認</h3>
 
-<p>テストを実行して作成されたファイルを確認します。<samp><span class="file">1.txt</span></samp>、<samp><span class="file">test.log</span></samp>、<samp><span class="file">detail.log</span></samp>が作成されています。
+<p>テストを実行して作成されたファイルを確認します。<samp><span class="file">1.txt</span></samp>、<samp><span class="file">summary.log</span></samp>、<samp><span class="file">detail.log</span></samp>が作成されています。
 <pre class="example">  $ ls
   0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
 </pre>
@@ -556,9 +718,9 @@ dt {
      <dl>
 <dt><samp><span class="file">1.txt</span></samp><dd>テスト結果をあらわします。エラー発生時は、標準出力のあとにエラー出力が続きます
 
-     <br><dt><samp><span class="file">err.txt</span></samp><dd>エラー発生時に、エラーが出力されます。エラーが発生しない場合は作成されません
+     <br><dt><samp><span class="file">err.log</span></samp><dd>エラー発生時に、エラーが出力されます。エラーが発生しない場合は作成されません
 
-     <br><dt><samp><span class="file">diff.txt</span></samp><dd>テスト想定ファイル<samp><span class="file">0.txt</span></samp>とテスト結果ファイル<samp><span class="file">1.txt</span></samp>の差分をあらわします。想定と結果が同一の場合は、作成されません
+     <br><dt><samp><span class="file">diff.log</span></samp><dd>テスト想定ファイル<samp><span class="file">0.txt</span></samp>とテスト結果ファイル<samp><span class="file">1.txt</span></samp>の差分をあらわします。想定と結果が同一の場合は、作成されません
 
      <br><dt><samp><span class="file">summary.log</span></samp><dd>テストの実行結果を表します。テスト実行時に表示される項目です。
 
@@ -567,7 +729,7 @@ dt {
 
  <p><samp><span class="file">detail.log</span></samp>は、次のようになります。
 
-<pre class="example">  == test.log ==
+<pre class="example">  == summary.log ==
   ----------------------------------------------------------------------
   有効な不等辺三角形をあらわすテスト・ケース
   01_scalene: Test Success 2011-01-10 10:09:55
@@ -592,10 +754,10 @@ dt {
 </pre>
  <h4 class="unnumberedsubsec">バグを含む三角形判定プログラムの場合</h4>
 
-<p>バグを含む三角形判定プログラムを準備してテストを実行した場合、<samp><span class="file">1.txt</span></samp>、<samp><span class="file">test.log</span></samp>、<samp><span class="file">detail.log</span></samp>のほかに、テスト想定とテスト結果が異なるため<kbd>diff.txt</kbd>が作成されます。
+<p>バグを含む三角形判定プログラムを準備してテストを実行した場合、<samp><span class="file">1.txt</span></samp>、<samp><span class="file">summary.log</span></samp>、<samp><span class="file">detail.log</span></samp>のほかに、テスト想定とテスト結果が異なるため<kbd>diff.log</kbd>が作成されます。
 
 <pre class="example">  $ <kbd>ls</kbd>
-  0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.txt  summary.log
+  0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.log  summary.log
 </pre>
  <p><samp><span class="file">detail.log</span></samp>は次のようになります。
 
@@ -616,7 +778,7 @@ dt {
   scalene triangle
   ----------------------------------------------------------------------
   
-  == diff.txt ==
+  == diff.log ==
   ----------------------------------------------------------------------
   *** 0.txt	Mon Jan 10 20:12:14 2011
   --- 1.txt	Mon Jan 10 20:25:16 2011
@@ -641,41 +803,101 @@ dt {
   $ <kbd>ls</kbd>
   0.txt  Makefile  cmd  desc.txt
 </pre>
- <p><a name="Group-Execute"></a>
+ <div class="node">
+<a name="Group-Execute"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Check-Group-Log">Check Group Log</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Check-Test-Log">Check Test Log</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.8 テストグループの実行</h3>
 
-<p>2つめ以降のテスト・ケースについても、１つめと同じ手順でテストディレクトリーの作成後、テスト説明ファイルとテストコマンドファイル、テスト想定ファイルを作成します。ここでは、先に作成した<samp><span class="file">01_scalene</span></samp>も含めて、次のようなテストディレクトリーを作成します。
+<p>2つめ以降のテスト・ケースについても、1つめと同じ手順でテストディレクトリーの作成後、テスト説明ファイルとテストコマンドファイル、テスト想定ファイルを作成します。
+
+ <p>ここでは、先に作成した<samp><span class="file">01_scalene</span></samp>も含めて、次のようなディレクトリーとファイルを作成します。こうしたディレクトリーやファイルはAutotest.mkの<samp><span class="file">sample/triangle/test</span></samp>以下にあるので、コピーして作成することもできます。
 
      <ul>
 <li>01_scalene
 
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
      <li>02_equilateral
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/02_equilateral/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/02_equilateral/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/02_equilateral/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
 
      <li>03_isosceles
 
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/03_isosceles/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/03_isosceles/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/03_isosceles/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
      <li>04_isosceles_c
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/04_isosceles_c/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/04_isosceles_c/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/04_isosceles_c/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
 
      <li>05_zero
 
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/05_zero/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/05_zero/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/05_zero/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
      <li>06_minus
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/06_minus/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/06_minus/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/06_minus/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
 
      <li>07_line
 
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
      <li>08_lines
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/08_lines/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/08_lines/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/08_lines/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
 
      <li>09_less
 
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/09_less/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/09_less/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/09_less/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
      <li>10_lesses
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/10_lesses/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/10_lesses/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/10_lesses/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
 
      <li>11_zeroall
 
-     <li>12_notint
-
-     <li>13_argcnt
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/11_zeroall/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/11_zeroall/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/11_zeroall/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
- <p>こうしたディレクトリーやファイルは、Autotest.mkの<samp><span class="file">sample/triangle/test</span></samp>以下にあるので、コピーして作成することもできます。
+     <li>12_notint
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/12_notint/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/12_notint/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/12_notint/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
+     <li>13_argcnt
+
+          <ul>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/13_argcnt/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/13_argcnt/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/13_argcnt/0.txt"><samp><span class="file">0.txt</span></samp></a>
+</ul>
+
+ </ul>
 
  <p>テストグループディレクトリーでは、<kbd>make</kbd>または<kbd>make check</kbd>で複数のテストをまとめて実行できます。
 
@@ -693,13 +915,19 @@ dt {
 
 <h4 class="unnumberedsubsec">バグを含む三角形判定プログラムの場合</h4>
 
-<p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。
+<p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、次のように表示されます。失敗したテストがあることをあらわしています。
 
 <pre class="example">  $ <kbd>cd ~/triangle/test</kbd>
   $ <kbd>make</kbd>
   test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 </pre>
- <p><a name="Check-Group-Log"></a>
+ <div class="node">
+<a name="Check-Group-Log"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Group-Execute">Group Execute</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
 
 <h3 class="section">3.9 テストグループログファイルの確認</h3>
 
@@ -782,7 +1010,8 @@ dt {
 
 <h4 class="unnumberedsubsec">バグを含む三角形判定プログラムの場合</h4>
 
-<p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、<samp><span class="file">TEST.log</span></samp>は次のように表示されます。
+<p>バグを含む三角形判定プログラムを準備してテストグループを実行した場合、<samp><span class="file">TEST.log</span></samp>は次のように表示されます。01_scaleneのほか、11_zeroのテストで失敗しています。すべての辺がゼロである場合に表示が正しくないバグがあることがわかります。
+
 <pre class="example">  01_scalene/
   有効な不等辺三角形をあらわすテスト・ケース
   01_scalene: Test Failure 2011-01-10 21:45:52
@@ -849,33 +1078,72 @@ dt {
   Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
   
 </pre>
- <p>実際の開発では、こうした結果を元にプログラムの問題点を修正することになるでしょう。
+ <div class="node">
+<a name="Template-dir"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Group-dir">Group dir</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tutorial">Tutorial</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<p><a name="Manual"></a>
+</div>
 
-<h2 class="chapter">4 Autotest.mkマニュアル</h2>
+<h2 class="chapter">4 テンプレートディレクトリー マニュアル</h2>
 
-<p><a name="Template-Dir"></a>
+<p>テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された<samp><span class="file">template</span></samp>ディレクトリーです。
 
-<h3 class="section">4.1 テンプレートディレクトリー</h3>
+<ul class="menu">
+<li><a accesskey="1" href="#make-group">make group</a>:                   <kbd>make</kbd>または<kbd>make group</kbd> - グループディレクトリーの作成
+<li><a accesskey="2" href="#Template-Files">Template Files</a>:               テンプレートのファイル
+</ul>
 
-<p>テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された<samp><span class="file">template</span></samp>ディレクトリーです。このディレクトリーに移動すると次の操作ができます。
+<div class="node">
+<a name="make-group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Template-Files">Template Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Template-dir">Template dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
 
-<p><a name="make-group"></a>
+</div>
 
-<h4 class="subsection">4.1.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループの作成</h4>
+<h3 class="section">4.1 <kbd>make</kbd>または<kbd>make group</kbd> - グループディレクトリーの作成</h3>
 
-<p>変数<code>GROUPDIR</code>で指定されたディレクトリーをテストグループディレクトリーとして作成し、必要なファイルを配置します。
+<p>変数<code>GROUPDIR</code>で指定されたディレクトリーをテストグループディレクトリーとして作成し、テストの実行に必要な次のファイルを配置します。
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+     <ul>
+<li><samp><span class="file">Define.mk</span></samp>
+
+     <li><samp><span class="file">Makefile</span></samp>
+
+     <li><samp><span class="file">Test.mk</span></samp>
+</ul>
+
+ <p>配置のため、通常はファイルをコピーされます。変数<code>LINKMK</code>を指定した場合は、シンボリックリンクが作成されます。
+
+<h4 class="subsection">4.1.1 変数</h4>
+
+     <dl>
+<dt><code>GROUPDIR</code><dd>テストディレクトリーを指定します。指定しない場合や既存のディレクトリーを指定した場合は、エラーが発生してテストグループディレクトリーは作成されません。
+
+     <br><dt><code>LINKMK</code><dd>指定した場合、グループディレクトリーにテストの実行に必要なファイルのシンボリックリンクが作成されます。値は任意です。
+
+     <p>シンボリックリンクのリンク先は、テンプレートディレクトリーの中です。指定しない場合、テストに必要なファイルはテンプレートディレクトリーからコピーされます。
+</dl>
+
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <p>グループディレクトリーとして<samp><span class="file">~/triangle/test</span></samp>を作成します。
 
 <pre class="example">  $ <kbd>make GROUPDIR=~/triangle/test</kbd>
 </pre>
- <p><a name="Template-Files"></a>
+ <div class="node">
+<a name="Template-Files"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-group">make group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
 
-<h4 class="subsection">4.1.2 テンプレートのファイル</h4>
+</div>
+
+<h3 class="section">4.2 テンプレートのファイル</h3>
 
 <p>テンプレートディレクトリーには、次のファイルが含まれます。
      <dl>
@@ -886,55 +1154,103 @@ dt {
      <br><dt><samp><span class="file">Test.mk</span></samp><dd>テストディレクトリーから参照されるMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
 
      <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストとテストグループに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
-
-     <br><dt><samp><span class="file">Define_group.mk</span></samp><dd>テストグループに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
-
-     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストに関する項目を定義したMakefile。<kbd>make</kbd>または<kbd>make group</kbd>で、グループディレクトリーに配置されます。
 </dl>
 
-<p><a name="Group-Dir"></a>
+<div class="node">
+<a name="Group-dir"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-dir">Test dir</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Template-dir">Template dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-<h3 class="section">4.2 グループディレクトリー</h3>
+</div>
 
-<p><a href="#make-group">グループの作成</a>後、グループディレクトリーに移動すると次の操作ができます。
+<h2 class="chapter">5 グループディレクトリー マニュアル</h2>
 
-<p><a name="make-create"></a>
+<p><a href="#make-group">グループディレクトリーの作成</a>後、グループディレクトリーに移動すると次の操作ができます。
 
-<h4 class="subsection">4.2.1 <kbd>make create</kbd> - テストの作成</h4>
+<ul class="menu">
+<li><a accesskey="1" href="#make-create">make create</a>:                  <kbd>make create</kbd> - テストの作成
+<li><a accesskey="2" href="#Rename-and-Copy">Rename and Copy</a>:              テスト名の変更とコピー
+<li><a accesskey="3" href="#Delete">Delete</a>:                       テストの削除
+<li><a accesskey="4" href="#make-check-at-group">make check at group</a>:          <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行
+<li><a accesskey="5" href="#make-checkall">make checkall</a>:                <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時
+<li><a accesskey="6" href="#make-clean-at-group">make clean at group</a>:          <kbd>make clean</kbd> - グループ内にあるすべてのテストで、実行結果をクリア
+<li><a accesskey="7" href="#make-time-at-group">make time at group</a>:           <kbd>make time</kbd> - グループ内にあるすべてのテストを計時
+<li><a accesskey="8" href="#make-cleantime-at-group">make cleantime at group</a>:      <kbd>make cleantime</kbd> - グループ内にあるすべてのテストで、計時結果をクリア
+<li><a accesskey="9" href="#Group-Files">Group Files</a>:                  グループのファイル
+</ul>
+
+<div class="node">
+<a name="make-create"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Rename-and-Copy">Rename and Copy</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Group-dir">Group dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
+
+</div>
+
+<h3 class="section">5.1 <kbd>make create</kbd> - テストの作成</h3>
 
 <p>変数<code>TEST</code>で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
 テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、テストディレクトリーとして扱われません。
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <p>テストディレクトリーを、<code>01_scalene</code>という名前で作成します。
 
 <pre class="example">  $ <kbd>make create TEST=01_scalene</kbd>
 </pre>
- <p><a name="Rename"></a>
+ <div class="node">
+<a name="Rename-and-Copy"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Delete">Delete</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-create">make create</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.2 テスト名の変更とコピー</h4>
+</div>
 
-<p>テスト名を変更する場合は、<code>mv</code>コマンドを使います。また、<code>cp</code>コマンドを使ってテストをコピーすることもできます。
+<h3 class="section">5.2 テスト名の変更とコピー</h3>
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<p>テスト名を変更したりテストをコピーしたりする場合は、<kbd>mv</kbd>や<kbd>cp</kbd>などでテストディレクトリーを移動、コピーします。
+
+<h4 class="unnumberedsubsec">使用例</h4>
+
+<p>テスト名<code>01_scalene</code>を<code>01</code>に変更します。
 
 <pre class="example">  $ <kbd>mv 01_scalene 01</kbd>
-  $ <kbd>cp -r 01 02</kbd>
 </pre>
-<p><a name="Delete"></a>
+ <p>テスト<code>01</code>をコピーし、テスト<code>02</code>を作成します。
 
-<h4 class="subsection">4.2.3 テストの削除</h4>
+<pre class="example">  $ <kbd>cp -r 01 02</kbd>
+</pre>
+ <div class="node">
+<a name="Delete"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-check-at-group">make check at group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Rename-and-Copy">Rename and Copy</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<p>テストを削除する場合は、<code>rm</code>コマンドを使います。
+</div>
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<h3 class="section">5.3 テストの削除</h3>
+
+<p>テストを削除する場合は、<kbd>rm</kbd>などでテストディレクトリーを削除します。
+
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <pre class="example">  $ <kbd>rm -rf 01_scalene</kbd>
 </pre>
-<p><a name="make-check-at-group"></a>
+<div class="node">
+<a name="make-check-at-group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-checkall">make checkall</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Delete">Delete</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</h4>
+</div>
+
+<h3 class="section">5.4 <kbd>make</kbd>または<kbd>make check</kbd> - テストグループの実行</h3>
 
 <p><kbd>make</kbd>または<kbd>make check</kbd>で、グループ内にあるすべての<a href="#make-check-at-test">テストの実行</a>をし、次の項目を表示します。
 
@@ -952,44 +1268,65 @@ dt {
      <br><dt><samp><span class="file">Summary.log</span></samp><dd>テスト実行結果の概要を表します。テストグループ実行時に表示される内容です。
 </dl>
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <pre class="example">  $ <kbd>make</kbd>
   test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
   test: All tests are succeded.
 </pre>
-<p><a name="make-checkall"></a>
+<div class="node">
+<a name="make-checkall"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-clean-at-group">make clean at group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-check-at-group">make check at group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</h4>
+</div>
 
-<p><kbd>make checkall</kbd>でグループ内にあるすべてのテストを、<a href="#make-check-at-test">実行</a>し、<a href="#make-time-at-test">計時</a>します。<a href="#make-check-at-group">テストの実行</a>と同じ項目を表示し、出力されるファイルの種類も同じです。<code>&lt;テストグループ名を大文字にした文字列&gt;.log</code>には、テストと実行結果に加え、計時結果が一覧として出力されます。
+<h3 class="section">5.5 <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時</h3>
 
- <p>テストの計時と実行は別に行われるため、通常にテストを実行するよりも2倍程度の時間がかかります。
+<p><kbd>make checkall</kbd>でグループ内にあるすべてのテストを、<a href="#make-check-at-test">実行</a>し、<a href="#make-time-at-test">計時</a>します。<a href="#make-check-at-group">テストグループの実行</a>と同じ項目を表示し、出力されるファイルの種類も同じです。<code>&lt;テストグループ名を大文字にした文字列&gt;.log</code>には、テストと実行結果に加え、計時結果が一覧として出力されます。
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+ <p>テストの実行と計時は別に行われるため、通常にテストを実行するよりも2倍程度の時間がかかります。
+
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <pre class="example">  $ <kbd>make checkall</kbd>
   test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
   test: All tests are succeded.
 </pre>
-<p><a name="make-clean-at-group"></a>
+<div class="node">
+<a name="make-clean-at-group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-time-at-group">make time at group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-checkall">make checkall</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.6 <kbd>make clean</kbd> - グループの実行結果をクリア</h4>
+</div>
 
-<p><kbd>make clean</kbd>で、<kbd>make</kbd>、<kbd>make check</kbd>、<kbd>make checkall</kbd>により作成されたテストグループと各テストのファイルをすべて削除します。
+<h3 class="section">5.6 <kbd>make clean</kbd> - グループの実行結果をクリア</h3>
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<p><kbd>make clean</kbd>で、<a href="#make-check-at-group"><kbd>make</kbd>または<kbd>make check</kbd></a>や<a href="#make-checkall"><kbd>make checkall</kbd></a>により作成されたファイルをすべて削除します。グループディレクトリーのほか、テストディレクトリーのファイルも削除されます。
+
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <pre class="example">  $ <kbd>cd ~/triangle/test</kbd>
   $ <kbd>make clean</kbd>
 </pre>
-<p><a name="make-time-at-group"></a>
+<div class="node">
+<a name="make-time-at-group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleantime-at-group">make cleantime at group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-clean-at-group">make clean at group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</h4>
+</div>
+
+<h3 class="section">5.7 <kbd>make time</kbd> - グループ内にあるすべてのテストを計時</h3>
 
 <p><kbd>make time</kbd>で、グループ内にあるすべてのテストを計時し、その結果が表示されます。計時結果は、<samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;_time.log</span></samp>に格納されます。
 
-<h5 class="unnumberedsubsubsec">使用例</h5>
+<h4 class="unnumberedsubsec">使用例</h4>
 
 <pre class="example">  $ <kbd>make time</kbd>
   01_scalene/
@@ -1031,15 +1368,28 @@ dt {
   13_argcnt/
   real    0m0.012s
 </pre>
-<p><a name="make-cleantime-at-group"></a>
+<div class="node">
+<a name="make-cleantime-at-group"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Group-Files">Group Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-group">make time at group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
-<h4 class="subsection">4.2.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</h4>
+</div>
 
-<p><kbd>make cleatime</kbd>で、<kbd>make time</kbd>により作成されたテストグループと各テストのファイルをすべて削除します。
+<h3 class="section">5.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</h3>
 
-<p><a name="Group-Files"></a>
+<p><kbd>make cleatime</kbd>で、<kbd>make time</kbd>により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
 
-<h4 class="subsection">4.2.9 グループのファイル</h4>
+<div class="node">
+<a name="Group-Files"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-group">make cleantime at group</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
+
+</div>
+
+<h3 class="section">5.9 グループディレクトリーのファイル</h3>
 
 <p>グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
 
@@ -1050,53 +1400,226 @@ dt {
 
      <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストとテストグループに関する項目を定義したMakefile
 
-     <br><dt><samp><span class="file">Define_group.mk</span></samp><dd>テストグループに関する項目を定義したMakefile
+     <br><dt><samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;.log</span></samp><dd><a href="#make-check-at-group"><kbd>make</kbd>または<kbd>make check</kbd></a>や<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行したときに作成されます。<kbd>make</kbd>や<kbd>make check</kbd>の場合は、テストグループに含まれるテストと実行結果の一覧です。<kbd>make checkall</kbd>の場合は、テストと実行結果と計時結果の一覧です。
 
-     <br><dt><samp><span class="file">Define.mk</span></samp><dd>テストに関する項目を定義したMakefile
+     <br><dt><samp><span class="file">Summary.log</span></samp><dd>テスト実行結果の概要です。<a href="#make-check-at-group"><kbd>make</kbd>または<kbd>make check</kbd></a>や<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行すると作成され、その内容が表示されます。
+</dl>
 
-     <br><dt><samp><span class="file">&lt;テストグループ名を大文字にした文字列&gt;.log</span></samp><dd><a href="#make-check-at-group"><kbd>make</kbd>や<kbd>make check</kbd></a>または<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行したときに作成されます。<kbd>make</kbd>や<kbd>make check</kbd>の場合は、テストグループに含まれるテストと実行結果の一覧です。<kbd>make checkall</kbd>の場合は、テストと実行結果と計時結果の一覧です。
+<div class="node">
+<a name="Test-dir"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Group-dir">Group dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
-     <br><dt><samp><span class="file">Summary.log</span></samp><dd>テスト実行結果の概要です。<a href="#make-check-at-group"><kbd>make</kbd>や<kbd>make check</kbd></a>または<a href="#make-checkall"><kbd>make checkall</kbd></a>を実行すると作成され、その内容が表示されます。
+</div>
 
- </dl>
+<h2 class="chapter">6 テストディレクトリー マニュアル</h2>
 
-<p><a name="Test-Dir"></a>
+<ul class="menu">
+<li><a accesskey="1" href="#make-set">make set</a>:                     <kbd>make set</kbd> - テスト想定の作成
+<li><a accesskey="2" href="#make-reset">make reset</a>:                   <kbd>make reset</kbd> - テスト想定の作成または更新
+<li><a accesskey="3" href="#make-check-at-test">make check at test</a>:           <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行
+<li><a accesskey="4" href="#make-time-at-test">make time at test</a>:            <kbd>make time</kbd> - テストの計時
+<li><a accesskey="5" href="#make-cleantime-at-test">make cleantime at test</a>:       <kbd>make cleantime</kbd> - テスト計時結果のクリア
+<li><a accesskey="6" href="#make-clean-at-test">make clean at test</a>:           <kbd>make clean</kbd> - テスト結果のクリア
+<li><a accesskey="7" href="#make-cleanall-at-test">make cleanall at test</a>:        <kbd>make cleanall</kbd> - テストの想定と結果をクリア
+<li><a accesskey="8" href="#Test-Files">Test Files</a>:                   テストディレクトリーのファイル
+</ul>
 
-<h3 class="section">4.3 テストディレクトリー</h3>
+<div class="node">
+<a name="make-set"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-reset">make reset</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Test-dir">Test dir</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
-<p><a name="make-set"></a>
+</div>
 
-<h4 class="subsection">4.3.1 <kbd>make set</kbd> - テスト想定の作成</h4>
+<h3 class="section">6.1 <kbd>make set</kbd> - テスト想定の作成</h3>
 
-<p><a name="make-reset"></a>
+<p><kbd>make set</kbd>で、テストコマンド<samp><span class="file">cmd</span></samp>が実行され、テスト想定ファイル<samp><span class="file">0.txt</span></samp>が作成されます。また、実行時に<samp><span class="file">0.txt</span></samp>の内容が表示されます。<samp><span class="file">0.txt</span></samp>がすでにある場合は、エラーが発生して<samp><span class="file">0.txt</span></samp>は更新されません。
 
-<h4 class="subsection">4.3.2 <kbd>make set</kbd> - テスト想定の再作成</h4>
+<h4 class="unnumberedsubsec">使用例</h4>
 
-<p><a name="make-check-at-test"></a>
+<pre class="example">  $ <kbd>make set</kbd>
+  scalene triangle
+</pre>
+<div class="node">
+<a name="make-reset"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-check-at-test">make check at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-set">make set</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
-<h4 class="subsection">4.3.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</h4>
+</div>
 
-<p><a name="make-time-at-test"></a>
+<h3 class="section">6.2 <kbd>make reset</kbd> - テスト想定の作成または更新</h3>
 
-<h4 class="subsection">4.3.4 <kbd>make time</kbd> - テストの計時</h4>
+<p><kbd>make reset</kbd>で、テストコマンド<samp><span class="file">cmd</span></samp>が実行され、テスト想定ファイル<samp><span class="file">0.txt</span></samp>を作成されます。また、実行時に<samp><span class="file">0.txt</span></samp>の内容が表示されます。<samp><span class="file">0.txt</span></samp>がすでにある場合、<samp><span class="file">0.txt</span></samp>が更新されます。
 
-<p><a name="make-cleantime-at-test"></a>
+<h4 class="unnumberedsubsec">使用例</h4>
 
-<h4 class="subsection">4.3.5 <kbd>make cleantime</kbd> - テスト計時結果のクリア</h4>
+<pre class="example">  $ <kbd>make reset</kbd>
+  scalene triangle
+</pre>
+<div class="node">
+<a name="make-check-at-test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-time-at-test">make time at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-reset">make reset</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
-<p><a name="make-clean-at-test"></a>
+</div>
 
-<h4 class="subsection">4.3.6 <kbd>make cleantime</kbd> - テスト結果のクリア</h4>
+<h3 class="section">6.3 <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行</h3>
 
-<p><a name="make-cleanall-at-test"></a>
+<p><kbd>make</kbd>または<kbd>make check</kbd>で、テストコマンド<samp><span class="file">cmd</span></samp>が実行され、テスト結果ファイル<samp><span class="file">1.txt</span></samp>が作成されます。また、実行時にテストの結果をあらわす次の項目が表示されます。
 
-<h4 class="subsection">4.3.7 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</h4>
+     <ul>
+<li>&lt;テスト説明ファイル<samp><span class="file">desc.txt</span></samp>の内容&gt;
 
-<p><a name="Test-Files"></a>
+     <li>&lt;テスト名&gt;: &lt;テスト結果（Test SuccessまたはTest Failure）&gt; &lt;テスト実行日時&gt;
 
-<h4 class="subsection">4.3.8 テストのファイル</h4>
+     <li>Detail in &lt;テスト詳細ログファイルの絶対パス&gt;
+</ul>
 
-<div class="footnote">
+<h4 class="unnumberedsubsec">使用例</h4>
+
+<pre class="example">  $ <kbd>make</kbd>
+  有効な不等辺三角形をあらわすテスト・ケース
+  01_scalene: Test Success 2011-01-10 10:09:55
+  Detail in /home/foo/triangle/test/01_scalene/detail.log
+</pre>
+<div class="node">
+<a name="make-clean-at-test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleanall-at-test">make cleanall at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-test">make cleantime at test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
+
+</div>
+
+<h3 class="section">6.4 <kbd>make clean</kbd> - テスト結果のクリア</h3>
+
+<p><kbd>make clean</kbd>で、テストの実行または計時の結果作成された次のファイルが削除されます。
+
+     <ul>
+<li><samp><span class="file">1.txt</span></samp>
+
+     <li><samp><span class="file">diff.log</span></samp>
+
+     <li><samp><span class="file">err.log</span></samp>
+
+     <li><samp><span class="file">summary.log</span></samp>
+
+     <li><samp><span class="file">time.log</span></samp>
+</ul>
+
+<h4 class="unnumberedsubsec">使用例</h4>
+
+<pre class="example">  $ <kbd>make clean</kbd>
+  $ <kbd>ls</kbd>
+  0.txt  Makefile  cmd  desc.txt
+</pre>
+<div class="node">
+<a name="make-cleanall-at-test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Files">Test Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-clean-at-test">make clean at test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
+
+</div>
+
+<h3 class="section">6.5 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</h3>
+
+<p><kbd>make clean</kbd>で次の、テストの想定ファイルとテストの実行または計時の結果作成されたファイルが削除されます。
+
+     <ul>
+<li><samp><span class="file">0.txt</span></samp>
+
+     <li><samp><span class="file">1.txt</span></samp>
+
+     <li><samp><span class="file">diff.log</span></samp>
+
+     <li><samp><span class="file">err.log</span></samp>
+
+     <li><samp><span class="file">summary.log</span></samp>
+
+     <li><samp><span class="file">time.log</span></samp>
+</ul>
+
+<h4 class="unnumberedsubsec">使用例</h4>
+
+<pre class="example">  $ <kbd>make cleanall</kbd>
+  $ <kbd>ls</kbd>
+  Makefile  cmd  desc.txt
+</pre>
+<div class="node">
+<a name="make-time-at-test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleantime-at-test">make cleantime at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-check-at-test">make check at test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
+
+</div>
+
+<h3 class="section">6.6 <kbd>make time</kbd> - テストの計時</h3>
+
+<p><kbd>make time</kbd>で、テストを計時しその結果が表示されます。計時結果は、<samp><span class="file">time.log</span></samp>に格納されます。
+
+<h4 class="unnumberedsubsec">使用例</h4>
+
+<pre class="example">  $ <kbd>make time</kbd>
+  real  0m0.006s
+</pre>
+<div class="node">
+<a name="make-cleantime-at-test"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-clean-at-test">make clean at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-test">make time at test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
+
+</div>
+
+<h3 class="section">6.7 <kbd>make cleantime</kbd> - テスト計時結果のクリア</h3>
+
+<p><kbd>make clean</kbd>で、テストの計時の結果作成された次のファイルが削除されます。
+
+     <ul>
+<li><samp><span class="file">time.log</span></samp>
+</ul>
+
+<div class="node">
+<a name="Test-Files"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleanall-at-test">make cleanall at test</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
+
+</div>
+
+<h3 class="section">6.8 テストディレクトリーのファイル</h3>
+
+     <dl>
+<dt><samp><span class="file">Makefile</span></samp><dd>テストディレクトリーのMakefile
+
+     <br><dt><samp><span class="file">cmd</span></samp><dd>テスト時に実行されるコマンドをあらわすテストコマンドファイル。手動で作成します。
+
+     <br><dt><samp><span class="file">desc.txt</span></samp><dd>テストに関する説明をあらわし、テストの結果と一緒にログに出力されます。手動で作成します。
+
+     <br><dt><samp><span class="file">0.txt</span></samp><dd>テストが正しく実行された場合の結果をあらわすテスト想定ファイル。エラー発生時は、標準出力のあとにエラー出力を続けます。手動か、<kbd>make set</kbd>か、<kbd>make reset</kbd>で作成します。
+
+     <br><dt><samp><span class="file">1.txt</span></samp><dd>テスト結果をあらわします。エラー発生時は、標準出力のあとにエラー出力が続きます。<kbd>make</kbd>または<kbd>make check</kbd>で作成されます。
+
+     <br><dt><samp><span class="file">diff.log</span></samp><dd>テストの想定と結果の差分をあらわす差分ファイル。<kbd>make</kbd>または<kbd>make check</kbd>でテストを実行した結果、想定と差分が異なる場合に作成されます。想定と結果が同じ場合は作成されません。
+
+     <br><dt><samp><span class="file">err.log</span></samp><dd>テストのエラー出力をあらわすエラーファイル。<kbd>make</kbd>または<kbd>make check</kbd>でテストを実行した結果、エラー出力がある場合に作成されます。なお、エラー出力は<samp><span class="file">1.txt</span></samp>にも含まれます。
+
+     <br><dt><samp><span class="file">summary.log</span></samp><dd>テスト実行結果の概要です。<kbd>make</kbd>または<kbd>make check</kbd>で作成され、その内容が表示されます。
+
+     <br><dt><samp><span class="file">detail.log</span></samp><dd>テスト実行結果の詳細です。<samp><span class="file">summary.log</span></samp> <samp><span class="file">cmd</span></samp> <samp><span class="file">0.txt</span></samp> <samp><span class="file">err.log</span></samp> <samp><span class="file">diff.log</span></samp> <samp><span class="file">1.txt</span></samp>の内容がコピーされます。<kbd>make</kbd>または<kbd>make check</kbd>で作成されます。
+</dl>
+
+ <div class="footnote">
 <hr>
 <a name="texinfo-footnotes-in-document"></a><h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> 『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。</p>
 

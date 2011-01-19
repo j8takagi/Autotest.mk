@@ -27,7 +27,7 @@ $(DOCNAME).info: $(SRC)
 	@$(MAKEINFO) -o $@ $^
 
 $(DOCNAME).html: $(SRC) $(CSS)
-	@$(MAKEINFO) -o $@ --no-split --no-headers --html --css-include=$(CSS) $(SRC)
+	@$(MAKEINFO) -o $@ --no-split --html --css-include=$(CSS) $(SRC)
 
 $(DOCNAME).pdf: $(DOCNAME).dvi
 	@$(DVI2PDF) $^
@@ -36,5 +36,8 @@ $(DOCNAME).dvi: $(SRC)
 	@TEX=ptex texi2dvi -q --texinfo=@afourpaper -o $@ $<
 	@rm -rf $(DOCNAME).aux $(DOCNAME).cp $(DOCNAME).cps $(DOCNAME).fn $(DOCNAME).ky $(DOCNAME).log $(DOCNAME).pg $(DOCNAME).pgs $(DOCNAME).tmp $(DOCNAME).toc $(DOCNAME).tp $(DOCNAME).vr
 
+$(DOCNAME).xml: $(SRC)
+	@$(MAKEINFO) -o $@ --docbook $(SRC)
+
 clean:
-	@rm -rf html $(DOCNAME).info $(DOCNAME).pdf $(DOCNAME).html $(DOCNAME).dvi
+	@rm -rf html $(DOCNAME).info $(DOCNAME).pdf $(DOCNAME).html $(DOCNAME).dvi $(DOCNAME).xml
