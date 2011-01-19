@@ -101,7 +101,7 @@ TEST = $(notdir $(CURRDIR))
 # コマンドファイルのソース
 CMDSRC_FILE ?= $(CMD_FILE)
 
-.PHONY: check set reset time cleantime clean cleanall
+.PHONY: check set reset clean cleanall time cleantime
 
 check: clean $(DETAIL_FILE)
 	@$(call disp_test_log,$(LOG_FILE))
@@ -119,16 +119,17 @@ reset: cleanall $(CMD_FILE)
 	@-$(call exec_cmd,$(CMD_FILE),$(TEST0_FILE),$(ERR_FILE))
 	@$(CAT) $(TEST0_FILE)
 
-time: cleantime $(TIME_FILE)
-
-cleantime:
-	@$(RM) $(TIME_FILE)
-
 clean:
 	@$(RM) $(TEST_RES_FILES)
 
 cleanall: clean
 	@$(RM) $(TEST0_FILE)
+
+time: cleantime $(TIME_FILE)
+	@$(CAT) $(TIME_FILE)
+
+cleantime:
+	@$(RM) $(TIME_FILE)
 
 $(TEST1_FILE): $(CMD_FILE)
 	@-$(call exec_cmd,$^,$@,$(ERR_FILE))
