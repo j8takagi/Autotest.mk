@@ -5,7 +5,7 @@ Check Log\input texinfo   @c -*-texinfo-*-
 @end ifnottex
 @setfilename autotest_mk.info
 @documentencoding UTF-8
-@settitle Autotest.mk - GNU Makeを利用したテスト自動化ツール
+@settitle Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール
 @firstparagraphindent none
 @paragraphindent 1
 @c %**end of header
@@ -23,7 +23,7 @@ Copyright @copyright{} 2010 j8takagi
 
 @titlepage
 @title Autotest.mk
-@subtitle GNU Makeを利用したテスト自動化ツール
+@subtitle GNU Makeを利用したソフトウェアテスト自動化ツール
 @author j8takagi
 @insertcopying
 @end titlepage
@@ -39,7 +39,6 @@ Copyright @copyright{} 2010 j8takagi
 * Test dir::                    テストディレクトリー マニュアル
 
 @ifinfo
-
 @detailmenu
  --- The Detailed Node Listing ---
 
@@ -90,7 +89,6 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 * make clean at test::          @kbd{make clean} - テスト結果のクリア
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
 * Test Files::                  テストディレクトリーのファイル
-
 @end detailmenu
 @end ifinfo
 
@@ -101,7 +99,7 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 @node About, Install, Top, Top
 @chapter Autotest.mk 概要
 
-Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
+Autotest.mkは、GNU Makeを利用したソフトウェアテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
 Autotest.mkでは、次の3つのディレクトリーを使います。
 
