@@ -11,7 +11,7 @@ Check Log\input texinfo   @c -*-texinfo-*-
 @c %**end of header
 
 @copying
-Copyright @copyright{} 2010 j8takagi
+Copyright @copyright{} 2011 j8takagi
 @end copying
 
 @exampleindent 2
@@ -44,9 +44,11 @@ Copyright @copyright{} 2010 j8takagi
 
 Autotest.mk インストール
 
+* Requirements::                要件
 * Download::                    ダウンロード
-* Verify::                      Autotest.mkファイルの検証
-* Expand::                      ファイルの展開
+* Verify::                      検証
+* Expand::                      展開
+* Dir::                         ディレクトリー
 
 Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 
@@ -61,6 +63,7 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 * Check Test Log::              テストログファイルの確認
 * Group Execute::               テストグループの実行
 * Check Group Log::             テストグループログファイルの確認
+* Associate::                   ビルドとの連携
 
 テンプレートディレクトリー マニュアル
 
@@ -70,7 +73,7 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 グループディレクトリー マニュアル
 
 * make create::                 @kbd{make create} - テストの作成
-* Rename and Copy::                      テスト名の変更とコピー
+* Rename and Copy::             テスト名の変更とコピー
 * Delete::                      テストの削除
 * make check at group::         @kbd{make}または@kbd{make check} - テストグループの実行
 * make checkall::               @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
@@ -84,24 +87,95 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 * make set::                    @kbd{make set} - テスト想定の作成
 * make reset::                  @kbd{make reset} - テスト想定の作成または更新
 * make check at test::          @kbd{make}または@kbd{make check} - テストの実行
-* make time at test::           @kbd{make time} - テストの計時
-* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
 * make clean at test::          @kbd{make clean} - テスト結果のクリア
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* make time at test::           @kbd{make time} - テストの計時
+* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
 * Test Files::                  テストディレクトリーのファイル
+
 @end detailmenu
 @end ifinfo
-
 @end menu
 
 @contents
 
 @node About, Install, Top, Top
 @chapter Autotest.mk 概要
-
 Autotest.mkは、GNU Makeを利用したソフトウェアテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
-Autotest.mkでは、次の3つのディレクトリーを使います。
+@section 特徴
+Autotest.mkの特徴は次のとおりです。
+
+@itemize
+@item
+使い方がシンプル
+
+@item
+さまざまなプログラムや環境に対応
+
+@item
+ビルド作業と連携しやすい
+
+@item
+無償で使うことができ、自由に改造できる
+@end itemize
+
+@node Install, Tutorial, About, Top
+@chapter Autotest.mk インストール
+
+@menu
+* Requirements::                要件
+* Download::                    ダウンロード
+* Verify::                      検証
+* Expand::                      展開
+* Dir::                         ディレクトリー
+@end menu
+
+@node Requirements, Download, Install, Install
+@section 要件
+Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
+
+@itemize @bullet
+@item
+Ubuntu Linux 10.10
+
+@item
+Mac OS X バージョン 10.6.5
+@end itemize
+
+Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}をインストールしてください。
+
+@node Download, Verify, Requirements, Install
+@section ダウンロード
+
+@uref{http://www.j8takagi.net/autotest_mk/, Autotest_mkのサイト}または@uref{http://github.com/j8takagi/Autotest.mk/downloads/, githubのダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
+
+@node Verify, Expand, Download, Install
+@section 検証
+
+ダウンロードが完了したら、@kbd{openssl}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
+
+@example
+$ @kbd{openssl md5 autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -}
+Files autotest_mk.tar.gz.md5sum and - are identical
+@end example
+
+@node Expand, Dir, Verify, Install
+@section 展開
+
+@file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
+次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
+
+@example
+$ @kbd{cd ~}
+$ @kbd{tar xvzf autotest_mk.tar.gz}
+@end example
+
+展開したら、Autotest.mkは使えるようになります。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（@kbd{./configure}や@kbd{make}、@kbd{make install}）は必要ありません。
+
+@node Dir,  , Expand, Install
+@section ディレクトリー
+Autotest.mkでテストを実行するときは、次の3つのディレクトリーを使います。
 
 @table @option
 @item テンプレートディレクトリー
@@ -113,78 +187,6 @@ Autotest.mkでは、次の3つのディレクトリーを使います。
 @item テストディレクトリー
 テスト実行のためのファイルと、実行結果をあらわすファイルを含むディレクトリー
 @end table
-
-@unnumberedsec 要件
-Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
-
-@itemize @bullet
-
-@item
-Ubuntu Linux 10.10
-
-@item
-Mac OS X バージョン 10.6.5
-@end itemize
-
-Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}をインストールしてください。
-
-@node Install, Tutorial, About, Top
-@chapter Autotest.mk インストール
-
-@menu
-* Download::                    ダウンロード
-* Verify::                      Autotest.mkファイルの検証
-* Expand::                      ファイルの展開
-@end menu
-
-Autotest.mkをインストールするには、次の作業をします。
-
-
-@enumerate
-@item
-Autotest.mkファイルのダウンロード
-
-@item
-Autotest.mkファイルの展開
-@end enumerate
-
-@node Download, Verify, Install, Install
-@section Autotest.mkファイルのダウンロード
-
-次の場所から最新版の@file{tar.gz}ファイルをダウンロードします。
-
-@itemize
-@item
-@uref{autotest_mk.tar.gz} - Autotest.mkのファイル一式を@file{tar.gz}形式で圧縮したもの
-
-@item
-@uref{autotest_mk.tar.gz.md5sum} - @file{autotest_mk.tar.gz}のMD5ハッシュ値。@kbd{openssl}で作成
-@end itemize
-
-または、@uref{http://github.com/j8takagi/Autotest.mk/downloads/, githubのダウンロードページ}からダウンロードします。
-
-@node Verify, Expand, Download, Install
-@section Autotest.mkファイルの検証
-
-ダウンロードが完了したら、@kbd{openssl}と@kbd{diff}で正しくファイルがダウンロードができているかを検証します。
-
-@example
-$ @kbd{openssl md5 autotest_mk.tar.gz | diff -s autotest_mk.tar.gz.md5sum -}
-Files autotest_mk.tar.gz.md5sum and - are identical
-@end example
-
-@node Expand,  , Verify, Install
-@section ファイルの展開
-
-@file{autotest_mk}ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
-次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
-
-@example
-$ @kbd{cd ~}
-$ @kbd{tar xvzf autotest_mk.tar.gz}
-@end example
-
-展開したら、Autotest.mkは使えるようになります。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（@kbd{./configure}や@kbd{make}、@kbd{make install}）は必要ありません。
 
 @node Tutorial, Template dir, Install, Top
 @chapter Autotest.mk チュートリアル - 三角形判定プログラムのテスト
@@ -201,6 +203,7 @@ $ @kbd{tar xvzf autotest_mk.tar.gz}
 * Check Test Log::              テストログファイルの確認
 * Group Execute::               テストグループの実行
 * Check Group Log::             テストグループログファイルの確認
+* Associate::                   ビルドとの連携
 @end menu
 
 @node Tutorial About, Prepare, Tutorial, Tutorial
@@ -240,10 +243,10 @@ $ @kbd{tar xvzf autotest_mk.tar.gz}
 1辺の長さが他の2辺の長さの和に等しいことを3種類の順列のすべてに対してためすことのできるテスト・ケース
 
 @item
-ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテストケース
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテスト・ケース
 
 @item
-ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテストケース
+ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテスト・ケース
 
 @item
 すべての辺がゼロであるテスト・ケース
@@ -476,6 +479,7 @@ Detail in /home/foo/triangle/test/01_scalene/detail.log
 @end example
 
 表示される項目は、次のとおりです。
+
 @itemize
 @item
 <テスト説明ファイル@file{desc.txt}の内容>
@@ -504,6 +508,7 @@ Detail in /home/foo/triangle/test/01_scalene/detail.log
 @section テストログファイルの確認
 
 テストを実行して作成されたファイルを確認します。@file{1.txt}、@file{summary.log}、@file{detail.log}が作成されています。
+
 @example
 $ ls
 0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
@@ -620,7 +625,6 @@ $ @kbd{ls}
 
 ここでは、先に作成した@file{01_scalene}も含めて、次のようなディレクトリーとファイルを作成します。こうしたディレクトリーやファイルはAutotest.mkの@file{sample/triangle/test}以下にあるので、コピーして作成することもできます。
 
-
 @itemize
 @item
 01_scalene
@@ -670,7 +674,6 @@ $ @kbd{ls}
 @item
 @file{Makefile} @uref{sample_triangle/06_minus/desc.txt, @file{desc.txt}} @uref{sample_triangle/06_minus/cmd.txt, @file{cmd}} @uref{sample_triangle/06_minus/0.txt, @file{0.txt}}
 @end itemize
-
 
 @item
 07_line
@@ -727,7 +730,6 @@ $ @kbd{ls}
 @item
 @file{Makefile} @uref{sample_triangle/13_argcnt/desc.txt, @file{desc.txt}} @uref{sample_triangle/13_argcnt/cmd.txt, @file{cmd}} @uref{sample_triangle/13_argcnt/0.txt, @file{0.txt}}
 @end itemize
-
 @end itemize
 
 テストグループディレクトリーでは、@kbd{make}または@kbd{make check}で複数のテストをまとめて実行できます。
@@ -758,7 +760,7 @@ $ @kbd{make}
 test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 @end example
 
-@node Check Group Log,  , Group Execute, Tutorial
+@node Check Group Log, Associate, Group Execute, Tutorial
 @section テストグループログファイルの確認
 テストグループを実行すると作成されるファイルは、次のとおりです。
 
@@ -913,6 +915,38 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 
 @end example
 
+@node Associate,  , Check Group Log, Tutorial
+@section ビルドとの連携
+三角形判定プログラムでは、@file{~/triangle}など作業用ディレクトリーのトップで@kbd{make}を実行すればプログラムをビルドできました。作業用ディレクトリーの@file{Makefile}を次のように編集すると、ビルドと連携してテストを実行できるようになります。
+
+@example
+CC = gcc
+
+.PHONY: all @kbd{check} clean
+
+all:
+	$(CC) -o triangle triangle.c
+
+@kbd{check:}
+@kbd{	$(MAKE) -c test}
+
+clean:
+	rm -f triangle
+@end example
+
+ビルドとテストは、次のように実行します。
+
+@example
+$ @kbd{make}
+gcc -o triangle triangle.c
+$ @kbd{make check}
+make -C test
+test: 13 / 13 tests passed. Detail in /Users/kazubito/2011_01/triangle/test/TEST.log
+test: All tests are succeded.
+@end example
+
+こうした設定をしておけば、プログラムを変更するたびに簡単にビルドとテストを実行することができます。
+
 @node Template dir, Group dir, Tutorial, Top
 @chapter テンプレートディレクトリー マニュアル
 
@@ -939,7 +973,7 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 @file{Test.mk}
 @end itemize
 
-配置のため、通常はファイルをコピーされます。変数@code{LINKMK}を指定した場合は、シンボリックリンクが作成されます。
+通常、テストに必要なファイルテンプレートディレクトリーからグループディレクトリーにコピーされます。変数@code{LINKMK}を指定した場合は、シンボリックリンクが作成されます。
 
 @subsection 変数
 
@@ -948,9 +982,7 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 テストディレクトリーを指定します。指定しない場合や既存のディレクトリーを指定した場合は、エラーが発生してテストグループディレクトリーは作成されません。
 
 @item LINKMK
-指定した場合、グループディレクトリーにテストの実行に必要なファイルのシンボリックリンクが作成されます。値は任意です。
-
-シンボリックリンクのリンク先は、テンプレートディレクトリーの中です。指定しない場合、テストに必要なファイルはテンプレートディレクトリーからコピーされます。
+指定した場合、グループディレクトリーにテストの実行に必要なファイルのシンボリックリンクが作成されます。値は任意です。シンボリックリンクのリンク先は、テンプレートディレクトリーの中です。
 @end table
 
 @unnumberedsubsec 使用例
@@ -999,8 +1031,11 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 @node make create, Rename and Copy, Group dir, Group dir
 @section @kbd{make create} - テストの作成
 
-変数@code{TEST}で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
-テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、テストディレクトリーとして扱われません。
+変数@code{TEST}で指定されたディレクトリーをテストディレクトリーとして作成し、ディレクトリーの中に@code{Makefile}を作成します。
+
+テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、ディレクトリーや@code{Makefile}は作成されるものの、テストグループ実行の対象になりません。
+
+変数@code{SRC=c}を指定した場合は、C言語の関数テスト用の@code{Makefile}が作成されます。
 
 @unnumberedsubsec 使用例
 
@@ -1180,10 +1215,10 @@ real    0m0.012s
 * make set::                    @kbd{make set} - テスト想定の作成
 * make reset::                  @kbd{make reset} - テスト想定の作成または更新
 * make check at test::          @kbd{make}または@kbd{make check} - テストの実行
-* make time at test::           @kbd{make time} - テストの計時
-* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
 * make clean at test::          @kbd{make clean} - テスト結果のクリア
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* make time at test::           @kbd{make time} - テストの計時
+* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
 * Test Files::                  テストディレクトリーのファイル
 @end menu
 
@@ -1207,7 +1242,7 @@ $ @kbd{make reset}
 scalene triangle
 @end example
 
-@node make check at test, make time at test, make reset, Test dir
+@node make check at test, make clean at test, make reset, Test dir
 @section @kbd{make}または@kbd{make check} - テストの実行
 @kbd{make}または@kbd{make check}で、テストコマンド@file{cmd}が実行され、テスト結果ファイル@file{1.txt}が作成されます。また、実行時にテストの結果をあらわす次の項目が表示されます。
 
@@ -1230,7 +1265,7 @@ $ @kbd{make}
 Detail in /home/foo/triangle/test/01_scalene/detail.log
 @end example
 
-@node make clean at test, make cleanall at test, make cleantime at test, Test dir
+@node make clean at test, make cleanall at test, make check at test, Test dir
 @section @kbd{make clean} - テスト結果のクリア
 @kbd{make clean}で、テストの実行または計時の結果作成された次のファイルが削除されます。
 
@@ -1258,7 +1293,7 @@ $ @kbd{ls}
 0.txt  Makefile  cmd  desc.txt
 @end example
 
-@node make cleanall at test, Test Files, make clean at test, Test dir
+@node make cleanall at test, make time at test, make clean at test, Test dir
 @section @kbd{make cleanall} - テストの想定と結果をクリア
 @kbd{make clean}で次の、テストの想定ファイルとテストの実行または計時の結果作成されたファイルが削除されます。
 
@@ -1290,7 +1325,7 @@ Makefile  cmd  desc.txt
 @end example
 
 
-@node make time at test, make cleantime at test, make check at test, Test dir
+@node make time at test, make cleantime at test, make cleanall at test, Test dir
 @section @kbd{make time} - テストの計時
 @kbd{make time}で、テストを計時しその結果が表示されます。計時結果は、@file{time.log}に格納されます。
 
@@ -1300,16 +1335,16 @@ $ @kbd{make time}
 real  0m0.006s
 @end example
 
-@node make cleantime at test, make clean at test, make time at test, Test dir
+@node make cleantime at test, Test Files, make time at test, Test dir
 @section @kbd{make cleantime} - テスト計時結果のクリア
-@kbd{make clean}で、テストの計時の結果作成された次のファイルが削除されます。
+@kbd{make cleantime}で、テストの計時の結果作成された次のファイルが削除されます。
 
 @itemize
 @item
 @file{time.log}
 @end itemize
 
-@node Test Files,  , make cleanall at test, Test dir
+@node Test Files,  , make cleantime at test, Test dir
 @section テストディレクトリーのファイル
 @table @file
 @item Makefile
@@ -1339,5 +1374,4 @@ real  0m0.006s
 @item  detail.log
 テスト実行結果の詳細です。@file{summary.log} @file{cmd} @file{0.txt} @file{err.log} @file{diff.log} @file{1.txt}の内容がコピーされます。@kbd{make}または@kbd{make check}で作成されます。
 @end table
-
 @bye

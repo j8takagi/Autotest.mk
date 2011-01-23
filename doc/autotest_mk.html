@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 2010 j8takagi-->
+Copyright (C) 2011 j8takagi-->
 <meta http-equiv="Content-Style-Type" content="text/css">
 <style type="text/css"><!--
   pre.display { font-family:inherit }
@@ -32,6 +32,13 @@ h1, h2 {
 
 .node{
     margin-left: -3em;
+    color: inherit;
+    background-color: #DDF;
+}
+
+.menu, .node {
+    color: inherit;
+    background-color: #DDF;
 }
 
 h2 {
@@ -138,13 +145,15 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <ul>
 <li><a name="toc_About" href="#About">1 Autotest.mk 概要</a>
 <ul>
-<li><a href="#About">要件</a>
+<li><a href="#About">1.1 特徴</a>
 </li></ul>
 <li><a name="toc_Install" href="#Install">2 Autotest.mk インストール</a>
 <ul>
-<li><a href="#Download">2.1 Autotest.mkファイルのダウンロード</a>
-<li><a href="#Verify">2.2 Autotest.mkファイルの検証</a>
-<li><a href="#Expand">2.3 ファイルの展開</a>
+<li><a href="#Requirements">2.1 要件</a>
+<li><a href="#Download">2.2 ダウンロード</a>
+<li><a href="#Verify">2.3 検証</a>
+<li><a href="#Expand">2.4 展開</a>
+<li><a href="#Dir">2.5 ディレクトリー</a>
 </li></ul>
 <li><a name="toc_Tutorial" href="#Tutorial">3 Autotest.mk チュートリアル - 三角形判定プログラムのテスト</a>
 <ul>
@@ -182,6 +191,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <ul>
 <li><a href="#Check-Group-Log">バグを含む三角形判定プログラムの場合</a>
 </li></ul>
+<li><a href="#Associate">3.10 ビルドとの連携</a>
 </li></ul>
 <li><a name="toc_Template-dir" href="#Template-dir">4 テンプレートディレクトリー マニュアル</a>
 <ul>
@@ -270,27 +280,19 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <p>Autotest.mkは、GNU Makeを利用したソフトウェアテスト自動化ツールです。何回か<kbd>make</kbd>コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは<kbd>make</kbd>コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
- <p>Autotest.mkでは、次の3つのディレクトリーを使います。
+<h3 class="section">1.1 特徴</h3>
 
-     <dl>
-<dt><samp><span class="option">テンプレートディレクトリー</span></samp><dd>テストグループとテストのテンプレートとなるディレクトリー
-
-     <br><dt><samp><span class="option">テストグループディレクトリー</span></samp><dd>1つまたは複数のテストを含むディレクトリー
-
-     <br><dt><samp><span class="option">テストディレクトリー</span></samp><dd>テスト実行のためのファイルと、実行結果をあらわすファイルを含むディレクトリー
-</dl>
-
-<h3 class="unnumberedsec">要件</h3>
-
-<p>Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
+<p>Autotest.mkの特徴は次のとおりです。
 
      <ul>
-<li>Ubuntu Linux 10.10
+<li>使い方がシンプル
 
-     <li>Mac OS X バージョン 10.6.5
+     <li>さまざまなプログラムや環境に対応
+
+     <li>ビルド作業と連携しやすい
+
+     <li>無償で使うことができ、自由に改造できる
 </ul>
-
- <p>Mac OS Xでは、<a href="http://www.gnu.org/software/findutils/">GNU Findutils</a>をインストールしてください。
 
 <div class="node">
 <a name="Install"></a>
@@ -304,39 +306,46 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">2 Autotest.mk インストール</h2>
 
 <ul class="menu">
-<li><a accesskey="1" href="#Download">Download</a>:                     ダウンロード
-<li><a accesskey="2" href="#Verify">Verify</a>:                       Autotest.mkファイルの検証
-<li><a accesskey="3" href="#Expand">Expand</a>:                       ファイルの展開
+<li><a accesskey="1" href="#Requirements">Requirements</a>:                 要件
+<li><a accesskey="2" href="#Download">Download</a>:                     ダウンロード
+<li><a accesskey="3" href="#Verify">Verify</a>:                       検証
+<li><a accesskey="4" href="#Expand">Expand</a>:                       展開
+<li><a accesskey="5" href="#Dir">Dir</a>:                          ディレクトリー
 </ul>
 
-<p>Autotest.mkをインストールするには、次の作業をします。
-
-     <ol type=1 start=1>
-<li>Autotest.mkファイルのダウンロード
-
-     <li>Autotest.mkファイルの展開
-      </ol>
-
 <div class="node">
-<a name="Download"></a>
+<a name="Requirements"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Verify">Verify</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Download">Download</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Install">Install</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
 
 </div>
 
-<h3 class="section">2.1 Autotest.mkファイルのダウンロード</h3>
+<h3 class="section">2.1 要件</h3>
 
-<p>次の場所から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
+<p>Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
 
      <ul>
-<li><a href="autotest_mk.tar.gz">autotest_mk.tar.gz</a> - Autotest.mkのファイル一式を<samp><span class="file">tar.gz</span></samp>形式で圧縮したもの
+<li>Ubuntu Linux 10.10
 
-     <li><a href="autotest_mk.tar.gz.md5sum">autotest_mk.tar.gz.md5sum</a> - <samp><span class="file">autotest_mk.tar.gz</span></samp>のMD5ハッシュ値。<kbd>openssl</kbd>で作成
+     <li>Mac OS X バージョン 10.6.5
 </ul>
 
- <p>または、<a href="http://github.com/j8takagi/Autotest.mk/downloads/">githubのダウンロードページ</a>からダウンロードします。
+ <p>Mac OS Xでは、<a href="http://www.gnu.org/software/findutils/">GNU Findutils</a>をインストールしてください。
+
+<div class="node">
+<a name="Download"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Verify">Verify</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Requirements">Requirements</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
+
+</div>
+
+<h3 class="section">2.2 ダウンロード</h3>
+
+<p><a href="http://www.j8takagi.net/autotest_mk/">Autotest_mkのサイト</a>または<a href="http://github.com/j8takagi/Autotest.mk/downloads/">githubのダウンロードページ</a>から最新版の<samp><span class="file">tar.gz</span></samp>ファイルをダウンロードします。
 
 <div class="node">
 <a name="Verify"></a>
@@ -347,7 +356,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
 
 </div>
 
-<h3 class="section">2.2 Autotest.mkファイルの検証</h3>
+<h3 class="section">2.3 検証</h3>
 
 <p>ダウンロードが完了したら、<kbd>openssl</kbd>と<kbd>diff</kbd>で正しくファイルがダウンロードができているかを検証します。
 
@@ -357,12 +366,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
  <div class="node">
 <a name="Expand"></a>
 <p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Dir">Dir</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Verify">Verify</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
 
 </div>
 
-<h3 class="section">2.3 ファイルの展開</h3>
+<h3 class="section">2.4 展開</h3>
 
 <p><samp><span class="file">autotest_mk</span></samp>ファイルをダウンロードしたら、展開先のディレクトリーに移動してから、展開します。
 次のコマンドでは、現在ログインしているユーザーのホームディレクトリーに展開します。
@@ -371,6 +381,26 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
   $ <kbd>tar xvzf autotest_mk.tar.gz</kbd>
 </pre>
  <p>展開したら、Autotest.mkは使えるようになります。多くのプログラムをインストールするときに必要なコンパイルやビルド、システムディレクトリーへのインストール（<kbd>./configure</kbd>や<kbd>make</kbd>、<kbd>make install</kbd>）は必要ありません。
+
+<div class="node">
+<a name="Dir"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Expand">Expand</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Install">Install</a>
+
+</div>
+
+<h3 class="section">2.5 ディレクトリー</h3>
+
+<p>Autotest.mkでテストを実行するときは、次の3つのディレクトリーを使います。
+
+     <dl>
+<dt><samp><span class="option">テンプレートディレクトリー</span></samp><dd>テストグループとテストのテンプレートとなるディレクトリー
+
+     <br><dt><samp><span class="option">テストグループディレクトリー</span></samp><dd>1つまたは複数のテストを含むディレクトリー
+
+     <br><dt><samp><span class="option">テストディレクトリー</span></samp><dd>テスト実行のためのファイルと、実行結果をあらわすファイルを含むディレクトリー
+</dl>
 
 <div class="node">
 <a name="Tutorial"></a>
@@ -395,6 +425,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="9" href="#Check-Test-Log">Check Test Log</a>:               テストログファイルの確認
 <li><a href="#Group-Execute">Group Execute</a>:                テストグループの実行
 <li><a href="#Check-Group-Log">Check Group Log</a>:              テストグループログファイルの確認
+<li><a href="#Associate">Associate</a>:                    ビルドとの連携
 </ul>
 
 <div class="node">
@@ -434,9 +465,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
 
      <li>1辺の長さが他の2辺の長さの和に等しいことを3種類の順列のすべてに対してためすことのできるテスト・ケース
 
-     <li>ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテストケース
+     <li>ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなるテスト・ケース
 
-     <li>ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテストケース
+     <li>ゼロより大きな3つの整数のうち、2つの数の和がそれ以外の1つの数より小さくなることにおいて、3種類の順列すべてを考慮することのできるテスト・ケース
 
      <li>すべての辺がゼロであるテスト・ケース
 
@@ -680,6 +711,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
   Detail in /home/foo/triangle/test/01_scalene/detail.log
 </pre>
  <p>表示される項目は、次のとおりです。
+
      <ul>
 <li>&lt;テスト説明ファイル<samp><span class="file">desc.txt</span></samp>の内容&gt;
 
@@ -710,6 +742,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
 <h3 class="section">3.7 テストログファイルの確認</h3>
 
 <p>テストを実行して作成されたファイルを確認します。<samp><span class="file">1.txt</span></samp>、<samp><span class="file">summary.log</span></samp>、<samp><span class="file">detail.log</span></samp>が作成されています。
+
 <pre class="example">  $ ls
   0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
 </pre>
@@ -896,8 +929,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
           <ul>
 <li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/13_argcnt/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/13_argcnt/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/13_argcnt/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
-
- </ul>
+     </ul>
 
  <p>テストグループディレクトリーでは、<kbd>make</kbd>または<kbd>make check</kbd>で複数のテストをまとめて実行できます。
 
@@ -924,6 +956,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
  <div class="node">
 <a name="Check-Group-Log"></a>
 <p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Associate">Associate</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Group-Execute">Group Execute</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
 
@@ -1079,6 +1112,42 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
   
 </pre>
  <div class="node">
+<a name="Associate"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Check-Group-Log">Check Group Log</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
+
+<h3 class="section">3.10 ビルドとの連携</h3>
+
+<p>三角形判定プログラムでは、<samp><span class="file">~/triangle</span></samp>など作業用ディレクトリーのトップで<kbd>make</kbd>を実行すればプログラムをビルドできました。作業用ディレクトリーの<samp><span class="file">Makefile</span></samp>を次のように編集すると、ビルドと連携してテストを実行できるようになります。
+
+<pre class="example">  CC = gcc
+  
+  .PHONY: all <kbd>check</kbd> clean
+  
+  all:
+  	$(CC) -o triangle triangle.c
+  
+  <kbd>check:</kbd>
+  <kbd>	$(MAKE) -c test</kbd>
+  
+  clean:
+  	rm -f triangle
+</pre>
+ <p>ビルドとテストは、次のように実行します。
+
+<pre class="example">  $ <kbd>make</kbd>
+  gcc -o triangle triangle.c
+  $ <kbd>make check</kbd>
+  make -C test
+  test: 13 / 13 tests passed. Detail in /Users/kazubito/2011_01/triangle/test/TEST.log
+  test: All tests are succeded.
+</pre>
+ <p>こうした設定をしておけば、プログラムを変更するたびに簡単にビルドとテストを実行することができます。
+
+<div class="node">
 <a name="Template-dir"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Group-dir">Group dir</a>,
@@ -1117,16 +1186,14 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
      <li><samp><span class="file">Test.mk</span></samp>
 </ul>
 
- <p>配置のため、通常はファイルをコピーされます。変数<code>LINKMK</code>を指定した場合は、シンボリックリンクが作成されます。
+ <p>通常、テストに必要なファイルテンプレートディレクトリーからグループディレクトリーにコピーされます。変数<code>LINKMK</code>を指定した場合は、シンボリックリンクが作成されます。
 
 <h4 class="subsection">4.1.1 変数</h4>
 
      <dl>
 <dt><code>GROUPDIR</code><dd>テストディレクトリーを指定します。指定しない場合や既存のディレクトリーを指定した場合は、エラーが発生してテストグループディレクトリーは作成されません。
 
-     <br><dt><code>LINKMK</code><dd>指定した場合、グループディレクトリーにテストの実行に必要なファイルのシンボリックリンクが作成されます。値は任意です。
-
-     <p>シンボリックリンクのリンク先は、テンプレートディレクトリーの中です。指定しない場合、テストに必要なファイルはテンプレートディレクトリーからコピーされます。
+     <br><dt><code>LINKMK</code><dd>指定した場合、グループディレクトリーにテストの実行に必要なファイルのシンボリックリンクが作成されます。値は任意です。シンボリックリンクのリンク先は、テンプレートディレクトリーの中です。
 </dl>
 
 <h4 class="unnumberedsubsec">使用例</h4>
@@ -1192,8 +1259,11 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
 <h3 class="section">5.1 <kbd>make create</kbd> - テストの作成</h3>
 
-<p>変数<code>TEST</code>で指定されたディレクトリーをテストディレクトリーとして作成し、必要なファイルを配置します。
-テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、テストディレクトリーとして扱われません。
+<p>変数<code>TEST</code>で指定されたディレクトリーをテストディレクトリーとして作成し、ディレクトリーの中に<code>Makefile</code>を作成します。
+
+ <p>テスト名は、小文字のアルファベットと数字で指定します。大文字ではじまる名前を指定した場合、ディレクトリーや<code>Makefile</code>は作成されるものの、テストグループ実行の対象になりません。
+
+ <p>変数<code>SRC=c</code>を指定した場合は、C言語の関数テスト用の<code>Makefile</code>が作成されます。
 
 <h4 class="unnumberedsubsec">使用例</h4>
 
@@ -1419,10 +1489,10 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="1" href="#make-set">make set</a>:                     <kbd>make set</kbd> - テスト想定の作成
 <li><a accesskey="2" href="#make-reset">make reset</a>:                   <kbd>make reset</kbd> - テスト想定の作成または更新
 <li><a accesskey="3" href="#make-check-at-test">make check at test</a>:           <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行
-<li><a accesskey="4" href="#make-time-at-test">make time at test</a>:            <kbd>make time</kbd> - テストの計時
-<li><a accesskey="5" href="#make-cleantime-at-test">make cleantime at test</a>:       <kbd>make cleantime</kbd> - テスト計時結果のクリア
-<li><a accesskey="6" href="#make-clean-at-test">make clean at test</a>:           <kbd>make clean</kbd> - テスト結果のクリア
-<li><a accesskey="7" href="#make-cleanall-at-test">make cleanall at test</a>:        <kbd>make cleanall</kbd> - テストの想定と結果をクリア
+<li><a accesskey="4" href="#make-clean-at-test">make clean at test</a>:           <kbd>make clean</kbd> - テスト結果のクリア
+<li><a accesskey="5" href="#make-cleanall-at-test">make cleanall at test</a>:        <kbd>make cleanall</kbd> - テストの想定と結果をクリア
+<li><a accesskey="6" href="#make-time-at-test">make time at test</a>:            <kbd>make time</kbd> - テストの計時
+<li><a accesskey="7" href="#make-cleantime-at-test">make cleantime at test</a>:       <kbd>make cleantime</kbd> - テスト計時結果のクリア
 <li><a accesskey="8" href="#Test-Files">Test Files</a>:                   テストディレクトリーのファイル
 </ul>
 
@@ -1465,7 +1535,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <div class="node">
 <a name="make-check-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#make-time-at-test">make time at test</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-clean-at-test">make clean at test</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-reset">make reset</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
@@ -1494,7 +1564,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <a name="make-clean-at-test"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleanall-at-test">make cleanall at test</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-test">make cleantime at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-check-at-test">make check at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
@@ -1524,7 +1594,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <div class="node">
 <a name="make-cleanall-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Files">Test Files</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-time-at-test">make time at test</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-clean-at-test">make clean at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
@@ -1558,7 +1628,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <a name="make-time-at-test"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleantime-at-test">make cleantime at test</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-check-at-test">make check at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleanall-at-test">make cleanall at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
@@ -1575,7 +1645,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <div class="node">
 <a name="make-cleantime-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#make-clean-at-test">make clean at test</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Files">Test Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-test">make time at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
@@ -1583,7 +1653,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 <h3 class="section">6.7 <kbd>make cleantime</kbd> - テスト計時結果のクリア</h3>
 
-<p><kbd>make clean</kbd>で、テストの計時の結果作成された次のファイルが削除されます。
+<p><kbd>make cleantime</kbd>で、テストの計時の結果作成された次のファイルが削除されます。
 
      <ul>
 <li><samp><span class="file">time.log</span></samp>
@@ -1592,7 +1662,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <div class="node">
 <a name="Test-Files"></a>
 <p><hr>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleanall-at-test">make cleanall at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-test">make cleantime at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>

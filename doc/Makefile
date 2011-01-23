@@ -1,6 +1,8 @@
 DOCNAME = autotest_mk
 SRC = $(DOCNAME).texi
 CSS = style.css
+SAMPLETRIANGLE = sample_triangle
+
 PTEX = ptex
 TEXINDEX = texindex
 DVI2PDF = dvipdfmx
@@ -16,9 +18,10 @@ htmlnosplit: $(DOCNAME).html
 
 info: $(DOCNAME).info
 
-html: $(SRC) $(CSS)
+html: $(SRC) $(CSS) sample_triangle
 	@if test ! -s $@; then mkdir $@; fi;
-	@cp $(CSS) $@/$(CSS)
+	@cp $(CSS) $@/
+	@cp -r $(SAMPLETRIANGLE) $@/
 	@$(MAKEINFO) -o $@ --html --css-ref=style.css $(SRC)
 
 pdf: $(DOCNAME).pdf

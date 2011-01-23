@@ -11,6 +11,13 @@ h1, h2 {
 
 .node{
     margin-left: -3em;
+    color: inherit;
+    background-color: #DDF;
+}
+
+.menu, .node {
+    color: inherit;
+    background-color: #DDF;
 }
 
 h2 {
