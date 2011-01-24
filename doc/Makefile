@@ -1,7 +1,7 @@
 DOCNAME = autotest_mk
 SRC = $(DOCNAME).texi
 CSS = style.css
-SAMPLETRIANGLE = sample_triangle
+SAMPLES = sample_triangle sample_sort
 
 PTEX = ptex
 TEXINDEX = texindex
@@ -21,7 +21,7 @@ info: $(DOCNAME).info
 html: $(SRC) $(CSS) sample_triangle
 	@if test ! -s $@; then mkdir $@; fi;
 	@cp $(CSS) $@/
-	@cp -r $(SAMPLETRIANGLE) $@/
+	@cp -r $(SAMPLETS) $@/
 	@$(MAKEINFO) -o $@ --html --css-ref=style.css $(SRC)
 
 pdf: $(DOCNAME).pdf

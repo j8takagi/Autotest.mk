@@ -1,4 +1,4 @@
-Check Log\input texinfo   @c -*-texinfo-*-
+\input texinfo    @c -*-texinfo-*-
 @c %**start of header
 @ifnottex
 @documentlanguage ja_JP
@@ -6,15 +6,16 @@ Check Log\input texinfo   @c -*-texinfo-*-
 @setfilename autotest_mk.info
 @documentencoding UTF-8
 @settitle Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール
-@firstparagraphindent none
+@firstparagraphindent insert
 @paragraphindent 1
+@ifhtml
+@exampleindent 0
+@end ifhtml
 @c %**end of header
 
 @copying
 Copyright @copyright{} 2011 j8takagi
 @end copying
-
-@exampleindent 2
 
 @dircategory Basics
 @direntry
@@ -33,12 +34,14 @@ Copyright @copyright{} 2011 j8takagi
 @menu
 * About::                       Autotest.mk 概要
 * Install::                     Autotest.mk インストール
-* Tutorial::                    Autotest.mk チュートリアル
+* Tutorial triangle::           Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
+* Tutorial sort::               Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * Template dir::                テンプレートディレクトリー マニュアル
 * Group dir::                   グループディレクトリー マニュアル
 * Test dir::                    テストディレクトリー マニュアル
 
 @ifinfo
+
 @detailmenu
  --- The Detailed Node Listing ---
 
@@ -50,25 +53,41 @@ Autotest.mk インストール
 * Expand::                      展開
 * Dir::                         ディレクトリー
 
-Autotest.mk チュートリアル - 三角形判定プログラムのテスト
+Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
 
-* Tutorial About::              概要
-* Prepare::                     準備
-* Create Group::                グループディレクトリーの作成
-* Create Test::                 テストディレクトリーの作成
-* Edit desc::                   テスト説明ファイルの作成
-* Edit cmd::                    テストコマンドファイルの作成
-* Test Setting::                テスト想定ファイルの作成
-* Test Execute::                テストの実行
-* Check Test Log::              テストログファイルの確認
-* Group Execute::               テストグループの実行
-* Check Group Log::             テストグループログファイルの確認
-* Associate::                   ビルドとの連携
+* Tutorial triangle About::     概要
+* Prepare triangle::            準備
+* Create triangle group::       グループディレクトリーの作成
+* Create triangle test::        テストディレクトリーの作成
+* Edit triangle desc::          テスト説明ファイルの作成
+* Edit triangle cmd::           テストコマンドファイルの作成
+* Set triangle test::           テスト想定ファイルの作成
+* Execute triangle test::       テストの実行
+* Check triangle log::          テストログファイルの確認
+* Execute triangle group::      テストグループの実行
+* Check triangle group log::    テストグループログファイルの確認
+* Associate triangle::          ビルドとの連携
+
+Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
+
+* Tutorial sort About::         概要
+* Prepare sort::                準備
+* Create sort group::           グループディレクトリーの作成
+* Create sort test::            テストディレクトリーの作成
+* Create sort src::             関数テスト用プログラムのソース作成
+* Edit sort Makefile::          @file{Makefile}の編集
+* Edit sort desc::              テスト説明ファイルの作成
+* Set sort test::               テスト想定ファイルの作成
+* Execute sort test::           テストの実行
+* Check sort log::              テストログファイルの確認
+* Execute sort group::          テストグループの実行
+* Check sort group log::        テストグループログファイルの確認
+* Iteretive::                   開発とテストの反復
 
 テンプレートディレクトリー マニュアル
 
 * make group::                  @kbd{make}または@kbd{make group} - グループディレクトリーの作成
-* Template Files::              テンプレートのファイル
+* Template files::              テンプレートのファイル
 
 グループディレクトリー マニュアル
 
@@ -80,7 +99,7 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
 * make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
-* Group Files::                 グループのファイル
+* Group files::                 グループのファイル
 
 テストディレクトリー マニュアル
 
@@ -91,13 +110,15 @@ Autotest.mk チュートリアル - 三角形判定プログラムのテスト
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
 * make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
-* Test Files::                  テストディレクトリーのファイル
+* Test files::                  テストディレクトリーのファイル
 
 @end detailmenu
 @end ifinfo
 @end menu
 
+@ifnotinfo
 @contents
+@end ifnotinfo
 
 @node About, Install, Top, Top
 @chapter Autotest.mk 概要
@@ -120,7 +141,7 @@ Autotest.mkの特徴は次のとおりです。
 無償で使うことができ、自由に改造できる
 @end itemize
 
-@node Install, Tutorial, About, Top
+@node Install, Tutorial triangle, About, Top
 @chapter Autotest.mk インストール
 
 @menu
@@ -188,25 +209,25 @@ Autotest.mkでテストを実行するときは、次の3つのディレクト�
 テスト実行のためのファイルと、実行結果をあらわすファイルを含むディレクトリー
 @end table
 
-@node Tutorial, Template dir, Install, Top
-@chapter Autotest.mk チュートリアル - 三角形判定プログラムのテスト
+@node Tutorial triangle, Tutorial sort, Install, Top
+@chapter Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
 
 @menu
-* Tutorial About::              概要
-* Prepare::                     準備
-* Create Group::                グループディレクトリーの作成
-* Create Test::                 テストディレクトリーの作成
-* Edit desc::                   テスト説明ファイルの作成
-* Edit cmd::                    テストコマンドファイルの作成
-* Test Setting::                テスト想定ファイルの作成
-* Test Execute::                テストの実行
-* Check Test Log::              テストログファイルの確認
-* Group Execute::               テストグループの実行
-* Check Group Log::             テストグループログファイルの確認
-* Associate::                   ビルドとの連携
+* Tutorial triangle About::     概要
+* Prepare triangle::            準備
+* Create triangle group::       グループディレクトリーの作成
+* Create triangle test::        テストディレクトリーの作成
+* Edit triangle desc::          テスト説明ファイルの作成
+* Edit triangle cmd::           テストコマンドファイルの作成
+* Set triangle test::           テスト想定ファイルの作成
+* Execute triangle test::       テストの実行
+* Check triangle log::          テストログファイルの確認
+* Execute triangle group::      テストグループの実行
+* Check triangle group log::    テストグループログファイルの確認
+* Associate triangle::          ビルドとの連携
 @end menu
 
-@node Tutorial About, Prepare, Tutorial, Tutorial
+@node Tutorial triangle About, Prepare triangle, Tutorial triangle, Tutorial triangle
 @unnumberedsec 概要
 ここでは、Glenford J Myers『ソフトウェア・テストの技法』（近代科学社、1980）の記載を元にした、次の仕様の三角形判定プログラムをテストする手順を取り上げます@footnote{『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。}。
 
@@ -259,7 +280,7 @@ Autotest.mkでテストを実行するときは、次の3つのディレクト�
 @end enumerate
 @end quotation
 
-三角形判定プログラムは、サンプルとして用意されているものを@ref{Prepare, , 準備}するか、または自作してください。
+三角形判定プログラムは、サンプルとして用意されているものを@ref{Prepare triangle, , 準備}するか、または自作してください。
 
 準備ができたら、Autotest.mkを使った次の手順でテストを実行できます。
 
@@ -292,7 +313,7 @@ Autotest.mkでテストを実行するときは、次の3つのディレクト�
 テストグループログファイルの確認
 @end enumerate
 
-@node Prepare, Create Group, Tutorial About, Tutorial
+@node Prepare triangle, Create triangle group, Tutorial triangle About, Tutorial triangle
 @unnumberedsec 準備
 
 @unnumberedsubsec 作業用フォルダの作成
@@ -358,7 +379,7 @@ isosceles triangle
 
 @kbd{./triangle 3 4 5}で、仕様で`scalene triangle'となるべきところが、`futohen sankakukei'となっています。
 
-@node Create Group, Create Test, Prepare, Tutorial
+@node Create triangle group, Create triangle test, Prepare triangle, Tutorial triangle
 @section グループディレクトリーの作成
 
 テンプレートディレクトリーで@kbd{make}を実行し、グループディレクトリーを作成します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。ここでは、@kbd{~/triangle/test}をテストグループのディレクトリーにします。
@@ -376,10 +397,10 @@ $ @kbd{ls}
 Define.mk  Makefile  Test.mk
 @end example
 
-@node Create Test, Edit desc, Create Group, Tutorial
+@node Create triangle test, Edit triangle desc, Create triangle group, Tutorial triangle
 @section テストディレクトリーの作成
 
-グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{GROUPDIR}でテスト名を指定します。テスト名は、小文字のアルファベットと数字で指定します。ここでは、1つめのテスト・ケースに対応するテストディレクトリーを、@code{01_scalene}という名前で作成します。
+グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{GROUPDIR}でテスト名を指定します。テスト名は、小文字のアルファベットと数字で指定します。ここでは、1つめのテスト・ケースに対応するテストディレクトリーを、@file{01_scalene}という名前で作成します。
 
 @example
 $ @kbd{make create TEST=01_scalene}
@@ -393,7 +414,7 @@ $ @kbd{ls}
 Makefile
 @end example
 
-@node Edit desc, Edit cmd, Create Test, Tutorial
+@node Edit triangle desc, Edit triangle cmd, Create triangle test, Tutorial triangle
 @section テスト説明ファイルの作成
 テスト説明ファイル@file{desc.txt}はテストに関する説明をあらわし、テストの結果と一緒にログに出力されます。
 @file{desc.txt}をテキストエディターを使って次の内容で作成します。
@@ -402,7 +423,7 @@ Makefile
 @kbd{有効な不等辺三角形をあらわすテスト・ケース}
 @end example
 
-@node Edit cmd, Test Setting, Edit desc, Tutorial
+@node Edit triangle cmd, Set triangle test, Edit triangle desc, Tutorial triangle
 @section テストコマンドファイルの作成
 
 テストコマンドファイル@file{cmd}は、テスト時に実行されるコマンドをあらわします。
@@ -414,7 +435,7 @@ Makefile
 @kbd{../../triangle 3 4 5}
 @end example
 
-@node Test Setting, Test Execute, Edit cmd, Tutorial
+@node Set triangle test, Execute triangle test, Edit triangle cmd, Tutorial triangle
 @section テスト想定ファイルの作成
 
 テスト想定ファイル@file{0.txt}は、テストが正しく実行された場合の結果をあらわします。@file{0.txt}の作成方法は、次の3つがあります。
@@ -447,7 +468,7 @@ $ @kbd{make set}
 scalene triangle
 @end example
 
-この方法で@file{0.txt}を作成する場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。例えば、バグを含む三角形判定プログラムを準備して@kbd{make set}を実行すると、仕様と異なるテスト想定ファイルが作成され、テストを正しく実行できません。
+この方法で@file{0.txt}を作成する場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。例えば、バグを含む三角形判定プログラムを準備して@kbd{make set}を実行すると、仕様と異なる次のようなテスト想定となり、テストを正しく実行できません。
 
 @example
 $ @kbd{make set}
@@ -464,7 +485,7 @@ $ @kbd{make reset}
 scalene triangle
 @end example
 
-@node Test Execute, Check Test Log, Test Setting, Tutorial
+@node Execute triangle test, Check triangle log, Set triangle test, Tutorial triangle
 @section テストの実行
 
 コマンドファイルとテスト想定を用意したら、@kbd{make}または@kbd{make check}でテストを実行できます。
@@ -494,7 +515,7 @@ Detail in <テスト詳細ログファイルの絶対パス>
 
 @unnumberedsubsec バグを含む三角形判定プログラムの場合
 
-バグを含む三角形判定プログラムでテストを実行すると、次のように表示されます。
+正しいテスト想定を作成していた場合にバグを含む三角形判定プログラムでテストを実行すると、次のように表示されます。
 
 @example
 $ @kbd{make}
@@ -504,13 +525,13 @@ make: [diff.log] Error 1 (ignored)
 Detail in /home/foo/triangle/test/01_scalene/detail.log
 @end example
 
-@node Check Test Log, Group Execute, Test Execute, Tutorial
+@node Check triangle log, Execute triangle group, Execute triangle test, Tutorial triangle
 @section テストログファイルの確認
 
-テストを実行して作成されたファイルを確認します。@file{1.txt}、@file{summary.log}、@file{detail.log}が作成されています。
+テストを実行して作成されたファイルを確認します。@file{1.txt} @file{summary.log} @file{detail.log}が作成されています。
 
 @example
-$ ls
+$ @kbd{ls}
 0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
 @end example
 
@@ -562,7 +583,7 @@ scalene triangle
 
 @unnumberedsubsec バグを含む三角形判定プログラムの場合
 
-バグを含む三角形判定プログラムを準備してテストを実行した場合、@file{1.txt}、@file{summary.log}、@file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.log}が作成されます。
+バグを含む三角形判定プログラムを準備してテストを実行した場合、@file{1.txt} @file{summary.log} @file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.log}が作成されます。
 
 @example
 $ @kbd{ls}
@@ -591,8 +612,8 @@ scalene triangle
 
 == diff.log ==
 ----------------------------------------------------------------------
-*** 0.txt	Mon Jan 10 20:12:14 2011
---- 1.txt	Mon Jan 10 20:25:16 2011
+*** 0.txt    Mon Jan 10 20:12:14 2011
+--- 1.txt   Mon Jan 10 20:25:16 2011
 ***************
 *** 1 ****
 ! scalene triangle
@@ -618,14 +639,122 @@ $ @kbd{ls}
 @end example
 
 
-@node Group Execute, Check Group Log, Check Test Log, Tutorial
+@node Execute triangle group, Check triangle group log, Check triangle log, Tutorial triangle
 @section テストグループの実行
 
 2つめ以降のテスト・ケースについても、1つめと同じ手順でテストディレクトリーの作成後、テスト説明ファイルとテストコマンドファイル、テスト想定ファイルを作成します。
 
-ここでは、先に作成した@file{01_scalene}も含めて、次のようなディレクトリーとファイルを作成します。こうしたディレクトリーやファイルはAutotest.mkの@file{sample/triangle/test}以下にあるので、コピーして作成することもできます。
+ここでは、先に作成した@file{01_scalene}も含めて、次のようなディレクトリーとファイルを作成します。こうしたディレクトリーやファイルはAutotest.mkの@file{sample/triangle/test}以下にあります。
 
 @itemize
+@ifnothtml
+@item
+01_scalene
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+02_equilateral
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+03_isosceles
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+
+@item
+04_isosceles_c
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+05_zero
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+06_minus
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+07_line
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+08_lines
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+09_less
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+10_lesses
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+11_zeroall
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+12_notint
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+
+@item
+13_argcnt
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd} @file{0.txt}
+@end itemize
+@end ifnothtml
+
+@ifhtml
 @item
 01_scalene
 
@@ -730,6 +859,7 @@ $ @kbd{ls}
 @item
 @file{Makefile} @uref{sample_triangle/13_argcnt/desc.txt, @file{desc.txt}} @uref{sample_triangle/13_argcnt/cmd.txt, @file{cmd}} @uref{sample_triangle/13_argcnt/0.txt, @file{0.txt}}
 @end itemize
+@end ifhtml
 @end itemize
 
 テストグループディレクトリーでは、@kbd{make}または@kbd{make check}で複数のテストをまとめて実行できます。
@@ -760,7 +890,7 @@ $ @kbd{make}
 test: 11 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 @end example
 
-@node Check Group Log, Associate, Group Execute, Tutorial
+@node Check triangle group log, Associate triangle, Execute triangle group, Tutorial triangle
 @section テストグループログファイルの確認
 テストグループを実行すると作成されるファイルは、次のとおりです。
 
@@ -915,7 +1045,7 @@ Detail in /home/foo/triangle/test/04_isosceles_c/detail.log
 
 @end example
 
-@node Associate,  , Check Group Log, Tutorial
+@node Associate triangle,  , Check triangle group log, Tutorial triangle
 @section ビルドとの連携
 三角形判定プログラムでは、@file{~/triangle}など作業用ディレクトリーのトップで@kbd{make}を実行すればプログラムをビルドできました。作業用ディレクトリーの@file{Makefile}を次のように編集すると、ビルドと連携してテストを実行できるようになります。
 
@@ -928,7 +1058,7 @@ all:
 	$(CC) -o triangle triangle.c
 
 @kbd{check:}
-@kbd{	$(MAKE) -c test}
+@kbd{    $(MAKE) -c test}
 
 clean:
 	rm -f triangle
@@ -941,23 +1071,740 @@ $ @kbd{make}
 gcc -o triangle triangle.c
 $ @kbd{make check}
 make -C test
-test: 13 / 13 tests passed. Detail in /Users/kazubito/2011_01/triangle/test/TEST.log
+test: 13 / 13 tests passed. Detail in /home/foo/triangle/test/TEST.log
 test: All tests are succeded.
 @end example
 
 こうした設定をしておけば、プログラムを変更するたびに簡単にビルドとテストを実行することができます。
 
-@node Template dir, Group dir, Tutorial, Top
+@node Tutorial sort, Template dir, Tutorial triangle, Top
+@chapter Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
+
+@menu
+* Tutorial sort About::         概要
+* Prepare sort::                準備
+* Create sort group::           グループディレクトリーの作成
+* Create sort test::            テストディレクトリーの作成
+* Create sort src::             関数テスト用プログラムのソース作成
+* Edit sort Makefile::          @file{Makefile}の編集
+* Edit sort desc::              テスト説明ファイルの作成
+* Set sort test::               テスト想定ファイルの作成
+* Execute sort test::           テストの実行
+* Check sort log::              テストログファイルの確認
+* Execute sort group::          テストグループの実行
+* Check sort group log::        テストグループログファイルの確認
+* Iteretive::                   開発とテストの反復
+@end menu
+
+@node Tutorial sort About, Prepare sort, Tutorial sort, Tutorial sort
+@unnumberedsec 概要
+ここではC言語の関数テストの例として、@code{sort}関数をテストします。@uref{http://cunit.sourceforge.net/, CUnit}のわかりやすい日本語チュートリアル@uref{http://homepage3.nifty.com/kaku-chan/cunit/index.html, CUnit チュートリアル}で使われている関数です。
+
+@file{sort_normal.c}は、次の内容です。
+
+@example
+void sort(int array[], int num) @{
+    int i;
+    int j;
+    int val;
+
+    for(i=0; i<(num-1); i++) @{
+        for(j=(num-1); j>i; j--) @{
+            if (array[j-1] > array[j]) @{
+                val = array[j];
+                array[j] = array[j-1];
+                array[j-1] = val;
+            @}
+        @}
+    @}
+@}
+@end example
+
+バグを含む@file{sort_normal.c}は、次の内容です。
+
+@example
+void sort(int array[], int num) @{
+    int i;
+    int j;
+    int val;
+
+    for(i=0; i<(num-1); i++) @{
+        for(j=(num-1); j>i; j--) @{
+            if (array[j-1] > array[j]) @{
+                val = array[j];
+                array[j] = array[j]; // 本当は array[j] = array[j-1];
+                array[j-1] = val;
+            @}
+        @}
+    @}
+@}
+@end example
+
+プログラムは、サンプルとして用意されているものを@ref{Prepare sort, , 準備}してください。
+
+準備ができたら、Autotest.mkを使った次の手順でテストを実行できます。
+
+@enumerate
+@item
+グループディレクトリーの作成
+
+@item
+テストディレクトリーの作成
+
+@item
+テスト説明ファイルの作成
+
+@item
+関数テスト用プログラムのソース作成
+
+@item
+@file{Makefile}の編集
+
+@item
+テスト想定ファイルの作成
+
+@item
+テストの実行
+
+@item
+テストログファイルの確認
+
+@item
+テストグループの実行
+
+@item
+テストグループログファイルの確認
+@end enumerate
+
+@node Prepare sort, Create sort group, Tutorial sort About, Tutorial sort
+@unnumberedsec 準備
+
+@unnumberedsubsec 作業用フォルダの作成
+
+まず、Autotest.mkのパッケージに含まれている@file{sample/sort}以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、@file{~/sort}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、@file{~}に展開されているものとします。
+
+@example
+$ @kbd{cd}
+$ @kbd{mkdir sort}
+$ @kbd{cd autotest.mk/sample/sort}
+$ @kbd{cp sort_normal.c sort_bug.c Makefile ~/sort}
+@end example
+
+作業用ディレクトリーに移動し、中のファイルを確認します。
+
+@example
+$ @kbd{cd ~/sort}
+$ @kbd{ls}
+Makefile  sort_normal.c  sort_bug.c
+@end example
+
+@unnumberedsubsec @code{sort}関数ファイルの準備
+@kbd{make}または@kbd{make normal}で、@file{sort_normal.c}が@file{sort.c}にコピーされます。
+
+@example
+$ @kbd{make}
+rm -f sort.c
+cp sort_normal.c sort.c
+@end example
+
+@unnumberedsubsec バグを含む@code{sort}関数ファイルの準備
+@kbd{make bug}で、@file{sort_bug.c}が@file{sort.c}にコピーされます。
+この場合、@file{sort.c}はバグを含みます。
+
+@example
+$ @kbd{make bug}
+rm -f sort.c
+cp sort_bug.c sort.c
+@end example
+
+@node Create sort group, Create sort test, Prepare sort, Tutorial sort
+@section グループディレクトリーの作成
+
+テンプレートディレクトリーで@kbd{make}を実行し、グループディレクトリーを作成します。このとき、テストグループのディレクトリーを変数@code{GROUPDIR}で指定します。ここでは、@kbd{~/sort/test}をテストグループのディレクトリーにします。
+
+@example
+$ @kbd{cd ~/autotest.mk/template}
+$ @kbd{make GROUPDIR=~/sort/test}
+@end example
+
+次のコマンドでグループディレクトリーに移動し、その中を確認します。
+
+@example
+$ @kbd{cd ~/sort/test}
+$ @kbd{ls}
+Define.mk  Makefile  Test.mk
+@end example
+
+@node Create sort test, Create sort src, Create sort group, Tutorial sort
+@section テストディレクトリーの作成
+
+グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{GROUPDIR}でテスト名を指定し、さらにC言語の関数テスト用の@code{Makefile}を作成するため変数@code{SRC=c}を指定します。ここでは、1つめのテストを@file{sort_001}という名前で作成します@footnote{「CUnit チュートリアル」の「テスト関数1」と「テスト関数2」を、チュートリアルを説明しやすくするため入れ替えています。}。
+
+@example
+$ @kbd{make create TEST=sort_001 SRC=c}
+@end example
+
+次のコマンドでテストディレクトリーに移動し、その中を確認します。
+
+@example
+$ @kbd{cd sort_001}
+$ @kbd{ls}
+Makefile
+@end example
+
+@node Create sort src, Edit sort Makefile, Create sort test, Tutorial sort
+@section 関数テスト用プログラムのソース作成
+C言語の関数をテストするためのプログラムをC言語で記述した、プログラムのソースファイル@file{cmd.c}をテキストエディターで作成します。テスト対象の関数@code{sort}を呼び出してソートを実行し、その結果を表示するプログラムです。
+
+@example
+#include <stdio.h>
+#ifndef ARRAYSIZE
+#define ARRAYSIZE(array) (sizeof(array)/sizeof(array[0]))
+#endif
+
+void sort(int array[], int num);
+
+int main() @{
+    int i, array[] = @{11, 7, 5, 3, 2@};
+
+    sort(array, ARRAYSIZE(array));
+    for(i = 0; i < ARRAYSIZE(array); i++) @{
+        printf("%d\n", array[i]);
+    @}
+    return 0;
+@}
+@end example
+
+@node Edit sort Makefile, Edit sort desc, Create sort src, Tutorial sort
+@section @file{Makefile}の編集
+@file{Makefile}をテキストエディターで編集し、テスト対象ファイルをあらわす変数@code{TESTTARGET_FILES}を指定します。
+ここでは、@file{../../sort.c}を指定します。
+
+@example
+include ../Define.mk
+include ../Test.mk
+
+CC := gcc
+CFLAGS := -Wall
+
+.INTERMEDIATE: $(CMD_FILE)
+
+CMDSRC_FILE := cmd.c
+TESTTARGET_FILES := @kbd{../../sort.c}      # Set test target files
+
+COMPILE_FILE := compile.log
+
+$(CMD_FILE): $(CMDSRC_FILE) $(TESTTARGET_FILES)
+	$(CC) $(CFLAGS) -o $@ $^ >$(COMPILE_FILE) 2>&1
+	cat $(COMPILE_FILE)
+@end example
+
+
+@node Edit sort desc, Set sort test, Edit sort Makefile, Tutorial sort
+@section テスト説明ファイルの作成
+テスト説明ファイル@file{desc.txt}はテストに関する説明をあらわし、テストの結果と一緒にログに出力されます。
+@file{desc.txt}をテキストエディターを使って次の内容で作成します。
+
+@example
+@kbd{テスト関数1}
+@end example
+
+@node Set sort test, Execute sort test, Edit sort desc, Tutorial sort
+@section テスト想定ファイルの作成
+
+テスト想定ファイル@file{0.txt}は、テストが正しく実行された場合の結果をあらわします。@file{0.txt}の作成方法は、次の3つがあります。
+
+@itemize
+@item
+手動で作成
+
+@item
+@kbd{make set}
+
+@item
+@kbd{make reset}
+@end itemize
+
+エラーが発生するテストでは、標準出力想定の下にエラー出力想定を続けます。
+
+@subsection 手動で作成
+テスト想定ファイル@file{0.txt}をテキストエディターを使って次の内容で作成します。
+
+@example
+@kbd{3}
+@end example
+
+@subsection @kbd{make set}
+@kbd{make set}を実行すると、@file{Makefile}の設定に従い関数テスト用のプログラムソース@file{cmd.c}と関数ファイル@file{../../sort.c}からコマンドファイル@file{cmd}が作成されます。そのあと@file{cmd}が実行され、実行結果は@file{0.txt}ファイルに出力されます。実行後、次回のテストのため、@file{cmd}は自動的に削除されます。
+
+@example
+$ @kbd{make set}
+gcc -Wall -o cmd cmd.c ../../sort.c
+2
+3
+5
+7
+11
+rm cmd
+@end example
+
+この方法で@file{0.txt}を作成する場合は、作成された内容がテスト想定として本当に正しいかよく検討する必要があります。
+
+@file{0.txt}がすでに存在する場合は@kbd{make set}を実行するとエラーになり、@file{0.txt}は更新されません。例えば、バグを含む@code{sort}関数ファイルを準備して@kbd{make set}を実行すると、仕様と異なる次のようなテスト想定となり、テストを正しく実行できません。
+
+@example
+$ @kbd{make set}
+gcc -Wall -o cmd cmd.c ../../sort.c
+2
+2
+2
+2
+2
+rm cmd
+@end example
+
+@subsection @kbd{make reset}
+@file{0.txt}がすでに存在する場合は、@kbd{make reset}で更新できます。
+
+@example
+$ @kbd{make reset}
+gcc -Wall -o cmd cmd.c ../../sort.c
+2
+3
+5
+7
+11
+rm cmd
+@end example
+
+@node Execute sort test, Check sort log, Set sort test, Tutorial sort
+@section テストの実行
+
+コマンドファイルとテスト想定を用意したら、@kbd{make}または@kbd{make check}でテストを実行できます。
+
+@example
+$ @kbd{ls}
+0.txt  Makefile  cmd.c  desc.txt
+$ @kbd{make}
+sort_001: Test Success 2011-01-24 11:13:04
+Details in /home/foo/sort/test/sort_001/detail.log
+rm cmd
+@end example
+
+表示される項目は、次のとおりです。
+
+@itemize
+@item
+<テスト説明ファイル@file{desc.txt}の内容>
+
+@item
+<テスト名>: <テスト結果（Test SuccessまたはTest Failure）> <テスト実行日時>
+
+@item
+Detail in <テスト詳細ログファイルの絶対パス>
+@end itemize
+
+
+@unnumberedsubsec バグを含む@code{sort}関数の場合
+
+正しいテスト想定を作成していた場合にバグを含む@code{sort}関数でテストを実行すると、次のように表示されます。
+
+@example
+$ @kbd{make}
+gcc -Wall -o cmd cmd.c ../../sort.c
+make: [diff.log] Error 1 (ignored)
+テスト関数1
+sort_001: Test Failure 2011-01-24 11:09:34
+Details in /home/foo/sort/test/sort_001/detail.log
+rm cmd
+@end example
+
+@node Check sort log, Execute sort group, Execute sort test, Tutorial sort
+@section テストログファイルの確認
+
+テストを実行して作成されたファイルを確認します。@file{1.txt} @file{summary.log} @file{detail.log}が作成されています。
+
+@example
+$ @kbd{ls}
+0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  summary.log
+@end example
+
+テストを実行すると作成されるファイルは、次のとおりです。必要に応じてファイルの内容を確認します。
+
+@table @file
+@item 1.txt
+テスト結果をあらわします。エラー発生時は、標準出力のあとにエラー出力が続きます
+
+@item err.log
+エラー発生時に、エラーが出力されます。エラーが発生しない場合は作成されません
+
+@item diff.log
+テスト想定ファイル@file{0.txt}とテスト結果ファイル@file{1.txt}の差分をあらわします。想定と結果が同一の場合は、作成されません
+
+@item summary.log
+テストの実行結果を表します。テスト実行時に表示される項目です。
+
+@item detail.log
+テストの詳細ログを表します。上記の内容がすべて出力されます
+@end table
+
+@file{detail.log}は、次のようになります。
+
+@example
+== summary.log ==
+----------------------------------------------------------------------
+テスト関数1
+sort_001: Test Success 2011-01-24 11:13:04
+Details in /Users/kazubito/2011_01/sort/test/sort_001/detail.log
+----------------------------------------------------------------------
+
+== cmd.c ==
+----------------------------------------------------------------------
+#include <stdio.h>
+#ifndef ARRAYSIZE
+#define ARRAYSIZE(array) (sizeof(array)/sizeof(array[0]))
+#endif
+
+void sort(int array[], int num);
+
+int main() @{
+    int i, array[] = @{11, 7, 5, 3, 2@};
+
+    sort(array, ARRAYSIZE(array));
+    for(i = 0; i < ARRAYSIZE(array); i++) @{
+        printf("%d\n", array[i]);
+    @}
+    return 0;
+@}
+----------------------------------------------------------------------
+
+== 0.txt ==
+----------------------------------------------------------------------
+2
+3
+5
+7
+11
+----------------------------------------------------------------------
+
+== 1.txt ==
+----------------------------------------------------------------------
+2
+3
+5
+7
+11
+----------------------------------------------------------------------
+
+@end example
+
+@unnumberedsubsec バグを含む@code{sort}関数の場合
+
+バグを含む@code{sort}関数を準備してテストを実行した場合、@file{1.txt} @file{summary.log} @file{detail.log}のほかに、テスト想定とテスト結果が異なるため@kbd{diff.log}が作成されます。
+
+@example
+$ @kbd{ls}
+0.txt  1.txt  Makefile  cmd  desc.txt  detail.log  diff.log  summary.log
+@end example
+
+@file{detail.log}は次のようになります。
+
+@example
+== summary.log ==
+----------------------------------------------------------------------
+テスト関数1
+sort_001: Test Failure 2011-01-24 11:09:34
+Details in /home/foo/sort/test/sort_001/detail.log
+----------------------------------------------------------------------
+
+== cmd.c ==
+----------------------------------------------------------------------
+#include <stdio.h>
+#ifndef ARRAYSIZE
+#define ARRAYSIZE(array) (sizeof(array)/sizeof(array[0]))
+#endif
+
+void sort(int array[], int num);
+
+int main() @{
+    int i, array[] = @{11, 7, 5, 3, 2@};
+
+    sort(array, ARRAYSIZE(array));
+    for(i = 0; i < ARRAYSIZE(array); i++) @{
+        printf("%d\n", array[i]);
+    @}
+    return 0;
+@}
+----------------------------------------------------------------------
+
+== 0.txt ==
+----------------------------------------------------------------------
+2
+3
+5
+7
+11
+----------------------------------------------------------------------
+
+== diff.log ==
+----------------------------------------------------------------------
+*** 0.txt	2011-01-24 11:07:39.000000000 +0900
+--- 1.txt   2011-01-24 11:09:34.000000000 +0900
+***************
+*** 1,5 ****
+  2
+! 3
+! 5
+! 7
+! 11
+--- 1,5 ----
+  2
+! 2
+! 2
+! 2
+! 2
+----------------------------------------------------------------------
+
+== 1.txt ==
+----------------------------------------------------------------------
+2
+2
+2
+2
+2
+----------------------------------------------------------------------
+
+@end example
+
+@subsection テストのクリア
+
+@kbd{make clean}を実行すると、テストの結果作成されたファイルがクリアされます。
+
+@example
+$ @kbd{make clean}
+$ @kbd{ls}
+0.txt  Makefile  cmd.c  desc.txt
+@end example
+
+
+@node Execute sort group, Check sort group log, Check sort log, Tutorial sort
+@section テストグループの実行
+
+2つめ以降のテスト・ケースについても、1つめと同じ手順でテストディレクトリーの作成後、テスト説明ファイルとテストコマンドファイル、テスト想定ファイルを作成します。
+
+ここでは、先に作成した@file{sort_001}も含めて、次のようなディレクトリーとファイルを作成します。こうしたディレクトリーやファイルはAutotest.mkの@file{sample/sort/test}以下にあります。
+
+@itemize
+@ifnothtml
+@item
+sort_001
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd.c} @file{0.txt}
+@end itemize
+
+@item
+sort_002
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd.c} @file{0.txt}
+@end itemize
+
+@item
+sort_003
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd.c} @file{0.txt}
+@end itemize
+
+
+@item
+sort_004
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd.c} @file{0.txt}
+@end itemize
+
+@item
+sort_005
+
+@itemize
+@item
+@file{Makefile} @file{desc.txt} @file{cmd.c} @file{0.txt}
+@end itemize
+@end ifnothtml
+
+@ifhtml
+@item
+sort_001
+
+@itemize
+@item
+@file{Makefile} @uref{sample_sort/sort_001/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_001/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_001/0.txt, @file{0.txt}}
+@end itemize
+
+@item
+sort_002
+
+@itemize
+@item
+@file{Makefile} @uref{sample_sort/sort_002/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_002/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_002/0.txt, @file{0.txt}}
+@end itemize
+
+@item
+sort_003
+
+@itemize
+@item
+@file{Makefile} @uref{sample_sort/sort_003/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_003/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_003/0.txt, @file{0.txt}}
+@end itemize
+
+
+@item
+sort_004
+
+@itemize
+@item
+@file{Makefile} @uref{sample_sort/sort_004/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_004/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_004/0.txt, @file{0.txt}}
+@end itemize
+
+@item
+sort_005
+
+@itemize
+@item
+@file{Makefile} @uref{sample_sort/sort_005/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_005/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_005/0.txt, @file{0.txt}}
+@end itemize
+@end ifhtml
+@end itemize
+
+テストグループディレクトリーでは、@kbd{make}または@kbd{make check}で複数のテストをまとめて実行できます。
+
+@example
+$ @kbd{cd ~/sort/test}
+$ @kbd{make}
+test:        5 / 5 tests passed. Details in /home/foo/sort/test/TEST.log
+test: All tests are succeded.
+@end example
+
+表示されるのは、次の項目です。
+@itemize
+@item
+<テスト名>: <成功テスト数>/<全テスト数> test passed. Detail in <テストグループログファイルの絶対パス>
+
+@item
+（すべてのテストに成功した場合）<テスト名>: All tests are succeded.
+@end itemize
+
+@unnumberedsubsec バグを含む@code{sort}関数の場合
+
+バグを含む@code{sort}関数を準備してテストグループを実行した場合、次のように表示されます。失敗したテストがあることをあらわしています。
+
+@example
+$ @kbd{cd ~/sort/test}
+$ @kbd{make}
+test: 1 / 5 tests passed. Details in /home/foo/sort/test/TEST.log
+@end example
+
+@node Check sort group log, Iteretive, Execute sort group, Tutorial sort
+@section テストグループログファイルの確認
+テストグループを実行すると作成されるファイルは、次のとおりです。
+
+@table @file
+@item <テストグループ名を大文字にした文字列>.log
+テストグループに含まれるテストとその実行結果の一覧をあらわします。
+
+@item Summary.log
+テストの実行結果を表します。テストグループ実行時に表示される内容です。
+@end table
+
+ここではテストグループ名は@file{test}なので、@file{TEST.log}が次の内容で作成されます。
+
+@example
+sort_001/
+テスト関数1
+sort_001: Test Success 2011-01-24 11:37:46
+Details in /home/foo/sort/test/sort_001/detail.log
+
+sort_002/
+テスト関数1
+sort_002: Test Success 2011-01-24 11:37:46
+Details in /home/foo/sort/test/sort_002/detail.log
+
+sort_003/
+テスト関数3
+sort_003: Test Success 2011-01-24 11:37:46
+Details in /home/foo/sort/test/sort_003/detail.log
+
+sort_004/
+テスト関数4
+sort_004: Test Success 2011-01-24 11:37:46
+Details in /home/foo/sort/test/sort_004/detail.log
+
+sort_005/
+テスト関数5
+sort_005: Test Success 2011-01-24 11:37:47
+Details in /home/foo/sort/test/sort_005/detail.log
+
+@end example
+
+テストをまとめて実行した場合も、個別のテストを実行した場合と同様に、テストディレクトリーにテストログが出力されます。特定のテスト結果を詳細に検討する場合は、そのテストのテストディレクトリーを開いてテストログファイルの確認をします。
+
+@unnumberedsubsec バグを含む@code{sort}関数の場合
+
+バグを含む@code{sort}関数を準備してテストグループを実行した場合、@file{TEST.log}は次のように表示されます。sort_001、sort_003、sort_004、sort_005のテストで失敗していることがわかります。
+
+@example
+sort_001/
+テスト関数1
+sort_001: Test Failure 2011-01-24 12:03:02
+Details in /home/foo/sort/test/sort_001/detail.log
+
+sort_002/
+テスト関数1
+sort_002: Test Success 2011-01-24 12:03:02
+Details in /home/foo/sort/test/sort_002/detail.log
+
+sort_003/
+テスト関数3
+sort_003: Test Failure 2011-01-24 12:03:02
+Details in /home/foo/sort/test/sort_003/detail.log
+
+sort_004/
+テスト関数4
+sort_004: Test Failure 2011-01-24 12:03:02
+Details in /home/foo/sort/test/sort_004/detail.log
+
+sort_005/
+テスト関数5
+sort_005: Test Failure 2011-01-24 12:03:04
+Details in /home/foo/sort/test/sort_005/detail.log
+
+@end example
+
+@node Iteretive,  , Check sort group log, Tutorial sort
+@section 開発とテストの反復
+あとはテスト対象となっている関数を変更するたびに、テストを実行できるようになります。つまり、関数の単位で開発とテストを反復してできます。
+
+関数の実装だけが変更されて仕様が変わっていない場合は、テストグループのディレクトリーで@kbd{make}を実行するだけでテストができます。
+
+関数の入力または出力の仕様が変わった場合には、@file{0.txt}と@file{cmd.c}の変更を検討します。関数のコンパイル方法（依存するファイル）が変わった場合は、@file{Makefile}の変更を検討します。
+
+@node Template dir, Group dir, Tutorial sort, Top
 @chapter テンプレートディレクトリー マニュアル
 
 テンプレートディレクトリーは、Autotest.mkをインストールするときに展開により作成された@file{template}ディレクトリーです。
 
 @menu
 * make group::                  @kbd{make}または@kbd{make group} - グループディレクトリーの作成
-* Template Files::              テンプレートのファイル
+* Template files::              テンプレートのファイル
 @end menu
 
-@node make group, Template Files, Template dir, Template dir
+@node make group, Template files, Template dir, Template dir
 @section @kbd{make}または@kbd{make group} - グループディレクトリーの作成
 
 変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、テストの実行に必要な次のファイルを配置します。
@@ -993,7 +1840,7 @@ test: All tests are succeded.
 $ @kbd{make GROUPDIR=~/triangle/test}
 @end example
 
-@node Template Files,  , make group, Template dir
+@node Template files,  , make group, Template dir
 @section テンプレートのファイル
 
 テンプレートディレクトリーには、次のファイルが含まれます。
@@ -1025,7 +1872,7 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
 * make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
-* Group Files::                 グループのファイル
+* Group files::                 グループのファイル
 @end menu
 
 @node make create, Rename and Copy, Group dir, Group dir
@@ -1037,8 +1884,17 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 
 変数@code{SRC=c}を指定した場合は、C言語の関数テスト用の@code{Makefile}が作成されます。
 
-@unnumberedsubsec 使用例
+@subsection 変数
+@table @code
+@item TEST
+テストディレクトリー名を指定します。
 
+@item SRC
+値@code{c}を指定すると、C言語の関数テスト用の@code{Makefile}が作成されます。
+
+@end table
+
+@unnumberedsubsec 使用例
 テストディレクトリーを、@code{01_scalene}という名前で作成します。
 
 @example
@@ -1128,7 +1984,6 @@ test: All tests are succeded.
 @unnumberedsubsec 使用例
 
 @example
-$ @kbd{cd ~/triangle/test}
 $ @kbd{make clean}
 @end example
 
@@ -1181,12 +2036,18 @@ real    0m0.007s
 real    0m0.012s
 @end example
 
-@node make cleantime at group, Group Files, make time at group, Group dir
+@node make cleantime at group, Group files, make time at group, Group dir
 @section @kbd{make cleantime} - グループの計時結果をクリア
 
 @kbd{make cleatime}で、@kbd{make time}により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
 
-@node Group Files,  , make cleantime at group, Group dir
+@unnumberedsubsec 使用例
+
+@example
+$ @kbd{make cleantime}
+@end example
+
+@node Group files,  , make cleantime at group, Group dir
 @section グループディレクトリーのファイル
 
 グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
@@ -1219,7 +2080,7 @@ real    0m0.012s
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
 * make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
-* Test Files::                  テストディレクトリーのファイル
+* Test files::                  テストディレクトリーのファイル
 @end menu
 
 @node make set, make reset, Test dir, Test dir
@@ -1335,7 +2196,7 @@ $ @kbd{make time}
 real  0m0.006s
 @end example
 
-@node make cleantime at test, Test Files, make time at test, Test dir
+@node make cleantime at test, Test files, make time at test, Test dir
 @section @kbd{make cleantime} - テスト計時結果のクリア
 @kbd{make cleantime}で、テストの計時の結果作成された次のファイルが削除されます。
 
@@ -1344,7 +2205,13 @@ real  0m0.006s
 @file{time.log}
 @end itemize
 
-@node Test Files,  , make cleantime at test, Test dir
+@unnumberedsubsec 使用例
+
+@example
+$ @kbd{make cleantime}
+@end example
+
+@node Test files,  , make cleantime at test, Test dir
 @section テストディレクトリーのファイル
 @table @file
 @item Makefile

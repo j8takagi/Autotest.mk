@@ -77,8 +77,6 @@ define puts_cmd_c
     $(ECHO) "CMDSRC_FILE := cmd.c" >>$1
     $(ECHO) "TESTTARGET_FILES :=       # Set test target files" >>$1
     $(ECHO) >>$1
-    $(ECHO) "CCLOG_FILE := compile.log" >>$1
-    $(ECHO) >>$1
     $(ECHO) "$$""(CMD_FILE):" "$$""(CMDSRC_FILE)" "$$""(TESTTARGET_FILES)" >>$1
     $(ECHO) "	""$$""(CC)" "$$""(CFLAGS)" "-o" "$$""@" "$$""^" >>$1
 endef
