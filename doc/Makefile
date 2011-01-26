@@ -18,10 +18,10 @@ htmlnosplit: $(DOCNAME).html
 
 info: $(DOCNAME).info
 
-html: $(SRC) $(CSS) sample_triangle
+html: $(SRC) $(CSS) $(SAMPLES)
 	@if test ! -s $@; then mkdir $@; fi;
 	@cp $(CSS) $@/
-	@cp -r $(SAMPLETS) $@/
+	@cp -r $(SAMPLES) $@/
 	@$(MAKEINFO) -o $@ --html --css-ref=style.css $(SRC)
 
 pdf: $(DOCNAME).pdf
