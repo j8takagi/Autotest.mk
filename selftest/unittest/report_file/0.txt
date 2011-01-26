@@ -1,7 +1,6 @@
 == Makefile ==
 ----------------------------------------------------------------------
 include ../Define.mk
-include ../Define_test.mk
 include ../Test.mk
 
 .PHONY: utest utest_err1 utest_err2 clean_utest
@@ -21,5 +20,5 @@ clean_utest:
 	$(RM) detail.log
 ----------------------------------------------------------------------
 
-Makefile:13: *** NULL argument.  中止.
+Makefile:12: *** NULL argument.  Stop.
 cat: detail.log: No such file or directory

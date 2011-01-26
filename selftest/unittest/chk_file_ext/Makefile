@@ -1,5 +1,4 @@
 include ../Define.mk
-include ../Define_test.mk
 include ../Test.mk
 
 .PHONY: utest utest_err1 utest_err2

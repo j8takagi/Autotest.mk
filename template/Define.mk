@@ -47,6 +47,8 @@ EXPR ?= expr
 
 LN ?= ln -s
 
+SED ?= sed
+
 ######################################################################
 # テストグループとテストでの共通マクロ
 ######################################################################
@@ -61,6 +63,41 @@ endef
 # 用例: $(call chk_file_ext,file)
 define chk_file_ext
     $(if $(wildcard $1),$(error $1 exists in $(CURRDIR)))
+endef
+
+# 指定したディレクトリーを作成
+# 引数は、ディレクトリー名
+# 用例: $(call create_dir,name)
+define create_dir
+    $(call chk_var_null,$1)
+    $(call chk_file_ext,$1)
+    $(MKDIR) $1
+endef
+
+# テストディレクトリーのMakefileを作成
+# 引数は、Makefile名、依存ファイル群
+# 用例: $(call create_makefile,file,list_include_file)
+define create_makefile
+    $(RM) $1
+    $(foreach infile,$2,$(ECHO) "include ../$(infile)" >>$1; )
+    $(if $(filter $(SRC),c),$(call puts_cmd_c,$1))
+endef
+
+# C言語の関数をテストするための設定を、指定されたファイルに出力
+# 引数は、ファイル名
+# 用例: $(call puts_cmd_c,file)
+define puts_cmd_c
+    $(ECHO) >>$1
+    $(ECHO) "CC := gcc" >>$1
+    $(ECHO) "CFLAGS := -Wall" >>$1
+    $(ECHO) >>$1
+    $(ECHO) ".INTERMEDIATE:" "$$""(CMD_FILE)" >>$1
+    $(ECHO) >>$1
+    $(ECHO) "CMDSRC_FILE := cmd.c" >>$1
+    $(ECHO) "TESTTARGET_FILES :=       # Set test target files" >>$1
+    $(ECHO) >>$1
+    $(ECHO) "$$""(CMD_FILE):" "$$""(CMDSRC_FILE)" "$$""(TESTTARGET_FILES)" >>$1
+    $(ECHO) "	""$$""(CC)" "$$""(CFLAGS)" "-o" "$$""@" "$$""^" >>$1
 endef
 
 ######################################################################
