@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
-<title>Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール</title>
+<title>Autotest.mk - ソフトウェアテスト自動化のために</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール">
+<meta name="description" content="Autotest.mk - ソフトウェアテスト自動化のために">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
@@ -45,6 +45,17 @@ h2 {
     padding: 0.25em;
     color: white;
     background-color: navy;
+}
+
+.contents {
+    background-color: #DDF;
+    border: 4px double #000;
+}
+
+.contents h2 {
+    margin-left: 0;
+    color: inherit;
+    background-color: inherit;
 }
 
 h3, h4, h5 {
@@ -120,7 +131,7 @@ dt {
 }--></style>
 </head>
 <body>
-<h1 class="settitle">Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール</h1>
+<h1 class="settitle">Autotest.mk - ソフトウェアテスト自動化のために</h1>
 <div class="node">
 <a name="Top"></a>
 <p><hr>
@@ -240,7 +251,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <li><a href="#make-group">5.1.1 変数</a>
 <li><a href="#make-group">使用例</a>
 </li></ul>
-<li><a href="#Template-files">5.2 テンプレートのファイル</a>
+<li><a href="#Template-Files">5.2 テンプレートのファイル</a>
 </li></ul>
 <li><a name="toc_Group-dir" href="#Group-dir">6 グループディレクトリー マニュアル</a>
 <ul>
@@ -277,7 +288,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <ul>
 <li><a href="#make-cleantime-at-group">使用例</a>
 </li></ul>
-<li><a href="#Group-files">6.9 グループディレクトリーのファイル</a>
+<li><a href="#Group-Files">6.9 グループディレクトリーのファイル</a>
 </li></ul>
 <li><a name="toc_Test-dir" href="#Test-dir">7 テストディレクトリー マニュアル</a>
 <ul>
@@ -309,7 +320,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <ul>
 <li><a href="#make-cleantime-at-test">使用例</a>
 </li></ul>
-<li><a href="#Test-files">7.8 テストディレクトリーのファイル</a>
+<li><a href="#Test-Files">7.8 テストディレクトリーのファイル</a>
 </li></ul>
 </li></ul>
 </div>
@@ -325,7 +336,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">1 Autotest.mk 概要</h2>
 
- <p>Autotest.mkは、GNU Makeを利用したソフトウェアテスト自動化ツールです。何回か<kbd>make</kbd>コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは<kbd>make</kbd>コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
+ <p>Autotest.mkはソフトウェアテスト自動化のための、GNU Makeを利用したフレームワークです。何回か<kbd>make</kbd>コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは<kbd>make</kbd>コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
 <h3 class="section">1.1 特徴</h3>
 
@@ -1910,13 +1921,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <ul class="menu">
 <li><a accesskey="1" href="#make-group">make group</a>:                   <kbd>make</kbd>または<kbd>make group</kbd> - グループディレクトリーの作成
-<li><a accesskey="2" href="#Template-files">Template files</a>:               テンプレートのファイル
+<li><a accesskey="2" href="#Template-Files">Template Files</a>:               テンプレートのファイル
 </ul>
 
 <div class="node">
 <a name="make-group"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Template-files">Template files</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Template-Files">Template Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Template-dir">Template dir</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
 
@@ -1951,7 +1962,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
 <pre class="example">$ <kbd>make GROUPDIR=~/triangle/test</kbd>
 </pre>
  <div class="node">
-<a name="Template-files"></a>
+<a name="Template-Files"></a>
 <p><hr>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-group">make group</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Template-dir">Template dir</a>
@@ -1993,7 +2004,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="6" href="#make-clean-at-group">make clean at group</a>:          <kbd>make clean</kbd> - グループ内にあるすべてのテストで、実行結果をクリア
 <li><a accesskey="7" href="#make-time-at-group">make time at group</a>:           <kbd>make time</kbd> - グループ内にあるすべてのテストを計時
 <li><a accesskey="8" href="#make-cleantime-at-group">make cleantime at group</a>:      <kbd>make cleantime</kbd> - グループ内にあるすべてのテストで、計時結果をクリア
-<li><a accesskey="9" href="#Group-files">Group files</a>:                  グループのファイル
+<li><a accesskey="9" href="#Group-Files">Group Files</a>:                  グループのファイル
 </ul>
 
 <div class="node">
@@ -2197,7 +2208,7 @@ real    0m0.012s
  <div class="node">
 <a name="make-cleantime-at-group"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Group-files">Group files</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Group-Files">Group Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-group">make time at group</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
@@ -2212,7 +2223,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 <pre class="example">$ <kbd>make cleantime</kbd>
 </pre>
  <div class="node">
-<a name="Group-files"></a>
+<a name="Group-Files"></a>
 <p><hr>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-group">make cleantime at group</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
@@ -2253,7 +2264,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="5" href="#make-cleanall-at-test">make cleanall at test</a>:        <kbd>make cleanall</kbd> - テストの想定と結果をクリア
 <li><a accesskey="6" href="#make-time-at-test">make time at test</a>:            <kbd>make time</kbd> - テストの計時
 <li><a accesskey="7" href="#make-cleantime-at-test">make cleantime at test</a>:       <kbd>make cleantime</kbd> - テスト計時結果のクリア
-<li><a accesskey="8" href="#Test-files">Test files</a>:                   テストディレクトリーのファイル
+<li><a accesskey="8" href="#Test-Files">Test Files</a>:                   テストディレクトリーのファイル
 </ul>
 
 <div class="node">
@@ -2405,7 +2416,7 @@ real  0m0.006s
  <div class="node">
 <a name="make-cleantime-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Test-files">Test files</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Files">Test Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-test">make time at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
@@ -2424,7 +2435,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 <pre class="example">$ <kbd>make cleantime</kbd>
 </pre>
  <div class="node">
-<a name="Test-files"></a>
+<a name="Test-Files"></a>
 <p><hr>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-test">make cleantime at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>

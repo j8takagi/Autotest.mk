@@ -5,7 +5,7 @@
 @end ifnottex
 @setfilename autotest_mk.info
 @documentencoding UTF-8
-@settitle Autotest.mk - GNU Makeを利用したソフトウェアテスト自動化ツール
+@settitle Autotest.mk - ソフトウェアテスト自動化のために
 @firstparagraphindent insert
 @paragraphindent 1
 @ifhtml
@@ -24,7 +24,7 @@ Copyright @copyright{} 2011 j8takagi
 
 @titlepage
 @title Autotest.mk
-@subtitle GNU Makeを利用したソフトウェアテスト自動化ツール
+@subtitle ソフトウェアテスト自動化のための、GNU Makeを利用したフレームワーク
 @author j8takagi
 @insertcopying
 @end titlepage
@@ -87,7 +87,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 テンプレートディレクトリー マニュアル
 
 * make group::                  @kbd{make}または@kbd{make group} - グループディレクトリーの作成
-* Template files::              テンプレートのファイル
+* Template Files::              テンプレートのファイル
 
 グループディレクトリー マニュアル
 
@@ -99,7 +99,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
 * make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
-* Group files::                 グループのファイル
+* Group Files::                 グループのファイル
 
 テストディレクトリー マニュアル
 
@@ -110,7 +110,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
 * make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
-* Test files::                  テストディレクトリーのファイル
+* Test Files::                  テストディレクトリーのファイル
 
 @end detailmenu
 @end ifinfo
@@ -122,7 +122,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 
 @node About, Install, Top, Top
 @chapter Autotest.mk 概要
-Autotest.mkは、GNU Makeを利用したソフトウェアテスト自動化ツールです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
+Autotest.mkはソフトウェアテスト自動化のための、GNU Makeを利用したフレームワークです。何回か@kbd{make}コマンドを実行し、コマンドファイルとテスト結果の想定をあらわすファイルを作成すれば、テストの準備は完了です。あとは@kbd{make}コマンドを1回実行すれば、テストを実行できます。テストが実行されると、詳細なログが出力されます。
 
 @section 特徴
 Autotest.mkの特徴は次のとおりです。
@@ -1801,10 +1801,10 @@ Details in /home/foo/sort/test/sort_005/detail.log
 
 @menu
 * make group::                  @kbd{make}または@kbd{make group} - グループディレクトリーの作成
-* Template files::              テンプレートのファイル
+* Template Files::              テンプレートのファイル
 @end menu
 
-@node make group, Template files, Template dir, Template dir
+@node make group, Template Files, Template dir, Template dir
 @section @kbd{make}または@kbd{make group} - グループディレクトリーの作成
 
 変数@code{GROUPDIR}で指定されたディレクトリーをテストグループディレクトリーとして作成し、テストの実行に必要な次のファイルを配置します。
@@ -1840,7 +1840,7 @@ Details in /home/foo/sort/test/sort_005/detail.log
 $ @kbd{make GROUPDIR=~/triangle/test}
 @end example
 
-@node Template files,  , make group, Template dir
+@node Template Files,  , make group, Template dir
 @section テンプレートのファイル
 
 テンプレートディレクトリーには、次のファイルが含まれます。
@@ -1872,7 +1872,7 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
 * make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
-* Group files::                 グループのファイル
+* Group Files::                 グループのファイル
 @end menu
 
 @node make create, Rename and Copy, Group dir, Group dir
@@ -2036,7 +2036,7 @@ real    0m0.007s
 real    0m0.012s
 @end example
 
-@node make cleantime at group, Group files, make time at group, Group dir
+@node make cleantime at group, Group Files, make time at group, Group dir
 @section @kbd{make cleantime} - グループの計時結果をクリア
 
 @kbd{make cleatime}で、@kbd{make time}により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
@@ -2047,7 +2047,7 @@ real    0m0.012s
 $ @kbd{make cleantime}
 @end example
 
-@node Group files,  , make cleantime at group, Group dir
+@node Group Files,  , make cleantime at group, Group dir
 @section グループディレクトリーのファイル
 
 グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
@@ -2080,7 +2080,7 @@ $ @kbd{make cleantime}
 * make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
 * make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
-* Test files::                  テストディレクトリーのファイル
+* Test Files::                  テストディレクトリーのファイル
 @end menu
 
 @node make set, make reset, Test dir, Test dir
@@ -2196,7 +2196,7 @@ $ @kbd{make time}
 real  0m0.006s
 @end example
 
-@node make cleantime at test, Test files, make time at test, Test dir
+@node make cleantime at test, Test Files, make time at test, Test dir
 @section @kbd{make cleantime} - テスト計時結果のクリア
 @kbd{make cleantime}で、テストの計時の結果作成された次のファイルが削除されます。
 
@@ -2211,7 +2211,7 @@ real  0m0.006s
 $ @kbd{make cleantime}
 @end example
 
-@node Test files,  , make cleantime at test, Test dir
+@node Test Files,  , make cleantime at test, Test dir
 @section テストディレクトリーのファイル
 @table @file
 @item Makefile

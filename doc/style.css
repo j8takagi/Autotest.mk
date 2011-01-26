@@ -26,6 +26,17 @@ h2 {
     background-color: navy;
 }
 
+.contents {
+    background-color: #DDF;
+    border: 4px double #000;
+}
+
+.contents h2 {
+    margin-left: 0;
+    color: inherit;
+    background-color: inherit;
+}
+
 h3, h4, h5 {
     color: navy;
     margin-left: -1em;

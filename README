@@ -1,7 +1,7 @@
 このファイルは、Autotest.mkのREADMEファイルです。
 
 ■Autotest.mkの概要
-Autotest.mkは、GNU Makeを利用したテスト自動化ツールです。
+Autotest.mkは、ソフトウェアテスト自動化のための、GNU Makeを利用したフレームワークです。
 
 ■ドキュメント
 Autotest.mkのインストール方法、チュートリアル、マニュアルは、次のドキュメントを参照してください。
