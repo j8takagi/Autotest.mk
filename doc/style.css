@@ -33,8 +33,21 @@ h2 {
 
 .contents h2 {
     margin-left: 0;
-    color: inherit;
-    background-color: inherit;
+    color: black;
+    background-color: #DDF;
+}
+
+.shortcontents {
+    background-color: #DDF;
+    border: 4px double #000;
+ }
+
+.shortcontents h2{
+    display: none;
+}
+
+.shortcontents a {
+   margin-right: 1em;
 }
 
 h3, h4, h5 {
