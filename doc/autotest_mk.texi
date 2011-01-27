@@ -5,7 +5,7 @@
 @end ifnottex
 @setfilename autotest_mk.info
 @documentencoding UTF-8
-@settitle Autotest.mk - ソフトウェアテスト自動化のために
+@settitle Autotest.mk - ソフトウェアテストの自動化
 @firstparagraphindent insert
 @paragraphindent 1
 @ifhtml
@@ -29,6 +29,7 @@ Copyright @copyright{} 2011 j8takagi
 @insertcopying
 @end titlepage
 
+@ifinfo
 @node Top, About, (dir), (dir)
 
 @menu
@@ -40,7 +41,6 @@ Copyright @copyright{} 2011 j8takagi
 * Group dir::                   グループディレクトリー マニュアル
 * Test dir::                    テストディレクトリー マニュアル
 
-@ifinfo
 
 @detailmenu
  --- The Detailed Node Listing ---
@@ -113,10 +113,22 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * Test Files::                  テストディレクトリーのファイル
 
 @end detailmenu
-@end ifinfo
 @end menu
+@end ifinfo
 
 @ifnotinfo
+@node Top, About
+
+@menu
+* About::                       Autotest.mk 概要
+* Install::                     Autotest.mk インストール
+* Tutorial triangle::           Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
+* Tutorial sort::               Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
+* Template dir::                テンプレートディレクトリー マニュアル
+* Group dir::                   グループディレクトリー マニュアル
+* Test dir::                    テストディレクトリー マニュアル
+@end menu
+
 @contents
 @end ifnotinfo
 
