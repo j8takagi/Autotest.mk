@@ -41,9 +41,18 @@ Copyright @copyright{} 2011 j8takagi
 * Group dir::                   グループディレクトリー マニュアル
 * Test dir::                    テストディレクトリー マニュアル
 
-
 @detailmenu
  --- The Detailed Node Listing ---
+
+
+
+* About::                       Autotest.mk 概要
+* Install::                     Autotest.mk インストール
+* Tutorial triangle::           Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
+* Tutorial sort::               Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
+* Template dir::                テンプレートディレクトリー マニュアル
+* Group dir::                   グループディレクトリー マニュアル
+* Test dir::                    テストディレクトリー マニュアル
 
 Autotest.mk インストール
 
@@ -114,6 +123,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 
 @end detailmenu
 @end menu
+
 @end ifinfo
 
 @ifnotinfo
