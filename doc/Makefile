@@ -10,7 +10,7 @@ MAKEINFO = makeinfo
 
 .PHONY: all htmlnosplit pdf clean
 
-.INTERMEDIATE: yacasl2.dvi
+.INTERMEDIATE: $(DOCNAME).dvi
 
 all: info htmlnosplit html pdf
 

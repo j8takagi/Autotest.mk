@@ -191,7 +191,7 @@ Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}を
 @node Download, Verify, Requirements, Install
 @section ダウンロード
 
-@uref{http://www.j8takagi.net/autotest_mk/, Autotest_mkのサイト}または@uref{http://github.com/j8takagi/Autotest.mk/downloads/, githubのダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
+@uref{http://www.j8takagi.net/autotest_mk/, Autotest.mkのサイト}または@uref{http://github.com/j8takagi/Autotest.mk/downloads/, githubのダウンロードページ}から最新版の@file{tar.gz}ファイルをダウンロードします。
 
 @node Verify, Expand, Download, Install
 @section 検証
