@@ -422,7 +422,7 @@ Define.mk  Makefile  Test.mk
 @node Create triangle test, Edit triangle desc, Create triangle group, Tutorial triangle
 @section テストディレクトリーの作成
 
-グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{GROUPDIR}でテスト名を指定します。テスト名は、小文字のアルファベットと数字で指定します。ここでは、1つめのテスト・ケースに対応するテストディレクトリーを、@file{01_scalene}という名前で作成します。
+グループディレクトリーで@kbd{make create}を実行し、テストディレクトリーを作成します。このとき、変数@code{TEST}でテスト名を指定します。テスト名は、小文字のアルファベットと数字で指定します。ここでは、1つめのテスト・ケースに対応するテストディレクトリーを、@file{01_scalene}という名前で作成します。
 
 @example
 $ @kbd{make create TEST=01_scalene}
