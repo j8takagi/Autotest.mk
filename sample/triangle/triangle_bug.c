@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         else if(argc > 4) {
             fprintf(stderr, "too many argument.\n");
         }
-        return -1;
+        return 1;
     }
     for(i = 0; i < 3; i++) {
         /* 引数を整数に変換 */
@@ -35,12 +35,12 @@ int main(int argc, char *argv[])
         /* 整数以外の場合はエラー終了 */
         if(*check != '\0') {
             fprintf(stderr, "%s: not integer\n", argv[i+1]);
-            return -1;
+            return 1;
         }
         /* 0未満の場合はエラー終了 */
         if(l[i] < 0) {
             fprintf(stderr, "%s: less than zero\n", argv[i+1]);
-            return -1;
+            return 1;
         }
     }
     /* 3辺の長さが等しい場合は、正三角形 */
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         /* 三角不等式により、三角形になるかを判定 */
         if(l[0] + l[1] <= l[2] || l[1] + l[2] <= l[0] || l[2] + l[0] <= l[1]) {
             puts("not triangle");
-            return -1;
+            return 1;
         }
         /* 2辺の長さが等しい場合は、二等辺三角形 */
         if (l[0] == l[1] || l[1] == l[2] || l[2] == l[0]) {
