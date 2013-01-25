@@ -7,7 +7,7 @@
 <link title="Top" rel="top" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 2011 j8takagi-->
+Copyright (C) 2011-2013 j8takagi-->
 <meta http-equiv="Content-Style-Type" content="text/css">
 <style type="text/css"><!--
   pre.display { font-family:inherit }
@@ -294,9 +294,9 @@ Next:&nbsp;<a rel="next" accesskey="n" href="#About">About</a>
 <ul>
 <li><a href="#make-time-at-group">使用例</a>
 </li></ul>
-<li><a href="#make-cleantime-at-group">6.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</a>
+<li><a href="#make-time_002dclean-at-group">6.8 <kbd>make time-clean</kbd> - グループの計時結果をクリア</a>
 <ul>
-<li><a href="#make-cleantime-at-group">使用例</a>
+<li><a href="#make-time_002dclean-at-group">使用例</a>
 </li></ul>
 <li><a href="#Group-Files">6.9 グループディレクトリーのファイル</a>
 </li></ul>
@@ -318,17 +318,17 @@ Next:&nbsp;<a rel="next" accesskey="n" href="#About">About</a>
 <ul>
 <li><a href="#make-clean-at-test">使用例</a>
 </li></ul>
-<li><a href="#make-cleanall-at-test">7.5 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</a>
+<li><a href="#make-all_002dclean-at-test">7.5 <kbd>make all-clean</kbd> - テストの想定と結果をクリア</a>
 <ul>
-<li><a href="#make-cleanall-at-test">使用例</a>
+<li><a href="#make-all_002dclean-at-test">使用例</a>
 </li></ul>
 <li><a href="#make-time-at-test">7.6 <kbd>make time</kbd> - テストの計時</a>
 <ul>
 <li><a href="#make-time-at-test">使用例</a>
 </li></ul>
-<li><a href="#make-cleantime-at-test">7.7 <kbd>make cleantime</kbd> - テスト計時結果のクリア</a>
+<li><a href="#make-time_002dclean-at-test">7.7 <kbd>make time-clean</kbd> - テスト計時結果のクリア</a>
 <ul>
-<li><a href="#make-cleantime-at-test">使用例</a>
+<li><a href="#make-time_002dclean-at-test">使用例</a>
 </li></ul>
 <li><a href="#Test-Files">7.8 テストディレクトリーのファイル</a>
 </li></ul>
@@ -924,79 +924,79 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial-triangle">Tutorial triangle</
      <li>01_scalene
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>02_equilateral
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/02_equilateral/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/02_equilateral/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/02_equilateral/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/02_equilateral/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/02_equilateral/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/02_equilateral/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>03_isosceles
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/03_isosceles/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/03_isosceles/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/03_isosceles/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/03_isosceles/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/03_isosceles/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/03_isosceles/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>04_isosceles_c
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/04_isosceles_c/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/04_isosceles_c/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/04_isosceles_c/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/04_isosceles_c/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/04_isosceles_c/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/04_isosceles_c/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>05_zero
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/05_zero/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/05_zero/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/05_zero/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/05_zero/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/05_zero/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/05_zero/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>06_minus
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/06_minus/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/06_minus/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/06_minus/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/06_minus/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/06_minus/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/06_minus/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>07_line
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/01_scalene/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/01_scalene/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/01_scalene/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>08_lines
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/08_lines/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/08_lines/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/08_lines/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/08_lines/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/08_lines/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/08_lines/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>09_less
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/09_less/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/09_less/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/09_less/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/09_less/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/09_less/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/09_less/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>10_lesses
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/10_lesses/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/10_lesses/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/10_lesses/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/10_lesses/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/10_lesses/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/10_lesses/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>11_zeroall
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/11_zeroall/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/11_zeroall/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/11_zeroall/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/11_zeroall/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/11_zeroall/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/11_zeroall/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>12_notint
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/12_notint/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/12_notint/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/12_notint/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/12_notint/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/12_notint/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/12_notint/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>13_argcnt
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_triangle/13_argcnt/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_triangle/13_argcnt/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample_triangle/13_argcnt/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/triangle/13_argcnt/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/triangle/13_argcnt/cmd.txt"><samp><span class="file">cmd</span></samp></a> <a href="sample/triangle/13_argcnt/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
      </ul>
 
@@ -1771,31 +1771,31 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial-sort">Tutorial sort</a>
      <li>sort_001
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_sort/sort_001/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_sort/sort_001/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample_sort/sort_001/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/sort/sort_001/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/sort/sort_001/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample/sort/sort_001/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>sort_002
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_sort/sort_002/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_sort/sort_002/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample_sort/sort_002/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/sort/sort_002/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/sort/sort_002/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample/sort/sort_002/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>sort_003
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_sort/sort_003/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_sort/sort_003/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample_sort/sort_003/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/sort/sort_003/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/sort/sort_003/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample/sort/sort_003/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>sort_004
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_sort/sort_004/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_sort/sort_004/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample_sort/sort_004/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/sort/sort_004/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/sort/sort_004/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample/sort/sort_004/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
 
      <li>sort_005
 
           <ul>
-<li><samp><span class="file">Makefile</span></samp> <a href="sample_sort/sort_005/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample_sort/sort_005/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample_sort/sort_005/0.txt"><samp><span class="file">0.txt</span></samp></a>
+<li><samp><span class="file">Makefile</span></samp> <a href="sample/sort/sort_005/desc.txt"><samp><span class="file">desc.txt</span></samp></a> <a href="sample/sort/sort_005/cmd.c.txt"><samp><span class="file">cmd.c</span></samp></a> <a href="sample/sort/sort_005/0.txt"><samp><span class="file">0.txt</span></samp></a>
 </ul>
      </ul>
 
@@ -2013,7 +2013,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="5" href="#make-checkall">make checkall</a>:                <kbd>make checkall</kbd> - グループ内にあるすべてのテストの実行、計時
 <li><a accesskey="6" href="#make-clean-at-group">make clean at group</a>:          <kbd>make clean</kbd> - グループ内にあるすべてのテストで、実行結果をクリア
 <li><a accesskey="7" href="#make-time-at-group">make time at group</a>:           <kbd>make time</kbd> - グループ内にあるすべてのテストを計時
-<li><a accesskey="8" href="#make-cleantime-at-group">make cleantime at group</a>:      <kbd>make cleantime</kbd> - グループ内にあるすべてのテストで、計時結果をクリア
+<li><a accesskey="8" href="#make-time_002dclean-at-group">make time-clean at group</a>:      <kbd>make time-clean</kbd> - グループ内にあるすべてのテストで、計時結果をクリア
 <li><a accesskey="9" href="#Group-Files">Group Files</a>:                  グループのファイル
 </ul>
 
@@ -2163,7 +2163,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
  <div class="node">
 <a name="make-time-at-group"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleantime-at-group">make cleantime at group</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-time_002dclean-at-group">make time-clean at group</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-clean-at-group">make clean at group</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
@@ -2216,7 +2216,8 @@ real    0m0.007s
 real    0m0.012s
 </pre>
  <div class="node">
-<a name="make-cleantime-at-group"></a>
+<a name="make-time-clean-at-group"></a>
+<a name="make-time_002dclean-at-group"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Group-Files">Group Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-group">make time at group</a>,
@@ -2224,18 +2225,18 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
 </div>
 
-<h3 class="section">6.8 <kbd>make cleantime</kbd> - グループの計時結果をクリア</h3>
+<h3 class="section">6.8 <kbd>make time-clean</kbd> - グループの計時結果をクリア</h3>
 
  <p><kbd>make cleatime</kbd>で、<kbd>make time</kbd>により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
 
 <h4 class="unnumberedsubsec">使用例</h4>
 
-<pre class="example">$ <kbd>make cleantime</kbd>
+<pre class="example">$ <kbd>make time-clean</kbd>
 </pre>
  <div class="node">
 <a name="Group-Files"></a>
 <p><hr>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-group">make cleantime at group</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time_002dclean-at-group">make time-clean at group</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Group-dir">Group dir</a>
 
 </div>
@@ -2271,9 +2272,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <li><a accesskey="2" href="#make-reset">make reset</a>:                   <kbd>make reset</kbd> - テスト想定の作成または更新
 <li><a accesskey="3" href="#make-check-at-test">make check at test</a>:           <kbd>make</kbd>または<kbd>make check</kbd> - テストの実行
 <li><a accesskey="4" href="#make-clean-at-test">make clean at test</a>:           <kbd>make clean</kbd> - テスト結果のクリア
-<li><a accesskey="5" href="#make-cleanall-at-test">make cleanall at test</a>:        <kbd>make cleanall</kbd> - テストの想定と結果をクリア
+<li><a accesskey="5" href="#make-all_002dclean-at-test">make all-clean at test</a>:        <kbd>make all-clean</kbd> - テストの想定と結果をクリア
 <li><a accesskey="6" href="#make-time-at-test">make time at test</a>:            <kbd>make time</kbd> - テストの計時
-<li><a accesskey="7" href="#make-cleantime-at-test">make cleantime at test</a>:       <kbd>make cleantime</kbd> - テスト計時結果のクリア
+<li><a accesskey="7" href="#make-time_002dclean-at-test">make time-clean at test</a>:       <kbd>make time-clean</kbd> - テスト計時結果のクリア
 <li><a accesskey="8" href="#Test-Files">Test Files</a>:                   テストディレクトリーのファイル
 </ul>
 
@@ -2344,7 +2345,7 @@ Detail in /home/foo/triangle/test/01_scalene/detail.log
  <div class="node">
 <a name="make-clean-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleanall-at-test">make cleanall at test</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-all_002dclean-at-test">make all-clean at test</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-check-at-test">make check at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
@@ -2373,7 +2374,8 @@ $ <kbd>ls</kbd>
 0.txt  Makefile  cmd  desc.txt
 </pre>
  <div class="node">
-<a name="make-cleanall-at-test"></a>
+<a name="make-all-clean-at-test"></a>
+<a name="make-all_002dclean-at-test"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#make-time-at-test">make time at test</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-clean-at-test">make clean at test</a>,
@@ -2381,7 +2383,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
 
-<h3 class="section">7.5 <kbd>make cleanall</kbd> - テストの想定と結果をクリア</h3>
+<h3 class="section">7.5 <kbd>make all-clean</kbd> - テストの想定と結果をクリア</h3>
 
  <p><kbd>make clean</kbd>で次の、テストの想定ファイルとテストの実行または計時の結果作成されたファイルが削除されます。
 
@@ -2401,15 +2403,15 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 <h4 class="unnumberedsubsec">使用例</h4>
 
-<pre class="example">$ <kbd>make cleanall</kbd>
+<pre class="example">$ <kbd>make all-clean</kbd>
 $ <kbd>ls</kbd>
 Makefile  cmd  desc.txt
 </pre>
  <div class="node">
 <a name="make-time-at-test"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#make-cleantime-at-test">make cleantime at test</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleanall-at-test">make cleanall at test</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#make-time_002dclean-at-test">make time-clean at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-all_002dclean-at-test">make all-clean at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
@@ -2424,7 +2426,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 real  0m0.006s
 </pre>
  <div class="node">
-<a name="make-cleantime-at-test"></a>
+<a name="make-time-clean-at-test"></a>
+<a name="make-time_002dclean-at-test"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Test-Files">Test Files</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time-at-test">make time at test</a>,
@@ -2432,9 +2435,9 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
 
-<h3 class="section">7.7 <kbd>make cleantime</kbd> - テスト計時結果のクリア</h3>
+<h3 class="section">7.7 <kbd>make time-clean</kbd> - テスト計時結果のクリア</h3>
 
- <p><kbd>make cleantime</kbd>で、テストの計時の結果作成された次のファイルが削除されます。
+ <p><kbd>make time-clean</kbd>で、テストの計時の結果作成された次のファイルが削除されます。
 
      <ul>
 <li><samp><span class="file">time.log</span></samp>
@@ -2442,12 +2445,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 <h4 class="unnumberedsubsec">使用例</h4>
 
-<pre class="example">$ <kbd>make cleantime</kbd>
+<pre class="example">$ <kbd>make time-clean</kbd>
 </pre>
  <div class="node">
 <a name="Test-Files"></a>
 <p><hr>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-cleantime-at-test">make cleantime at test</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#make-time_002dclean-at-test">make time-clean at test</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
 </div>
@@ -2476,7 +2479,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Test-dir">Test dir</a>
 
  <div class="footnote">
 <hr>
-<a name="texinfo-footnotes-in-document"></a><h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> 『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。</p>
+<a name="texinfo-footnotes-in-document"></a><h4>脚注</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> 『ソフトウェア・テストの技法』では「カードから3つの整数を読む」となっているのを、「3つの引数をとる」に変更しています。</p>
 
  <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> 『ソフトウェア・テストの技法』では下記の13個に加え、「それぞれのテスト・ケースについて、入力の値に対して予想される値をしめしたか」というテスト・ケースが記載されています。このテスト・ケースは、Autotest.mkを実行している場合は自動的に満たされると考えています。</p>
 

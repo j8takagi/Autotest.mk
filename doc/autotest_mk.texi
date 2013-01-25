@@ -14,7 +14,7 @@
 @c %**end of header
 
 @copying
-Copyright @copyright{} 2011 j8takagi
+Copyright @copyright{} 2011-2013 j8takagi
 @end copying
 
 @dircategory Basics
@@ -107,7 +107,7 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * make checkall::               @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
-* make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
+* make time-clean at group::     @kbd{make time-clean} - グループ内にあるすべてのテストで、計時結果をクリア
 * Group Files::                 グループのファイル
 
 テストディレクトリー マニュアル
@@ -116,9 +116,9 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * make reset::                  @kbd{make reset} - テスト想定の作成または更新
 * make check at test::          @kbd{make}または@kbd{make check} - テストの実行
 * make clean at test::          @kbd{make clean} - テスト結果のクリア
-* make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* make all-clean at test::       @kbd{make all-clean} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
-* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
+* make time-clean at test::      @kbd{make time-clean} - テスト計時結果のクリア
 * Test Files::                  テストディレクトリーのファイル
 
 @end detailmenu
@@ -782,7 +782,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/01_scalene/desc.txt, @file{desc.txt}} @uref{sample_triangle/01_scalene/cmd.txt, @file{cmd}} @uref{sample_triangle/01_scalene/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/01_scalene/desc.txt, @file{desc.txt}} @uref{sample/triangle/01_scalene/cmd.txt, @file{cmd}} @uref{sample/triangle/01_scalene/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -790,7 +790,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/02_equilateral/desc.txt, @file{desc.txt}} @uref{sample_triangle/02_equilateral/cmd.txt, @file{cmd}} @uref{sample_triangle/02_equilateral/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/02_equilateral/desc.txt, @file{desc.txt}} @uref{sample/triangle/02_equilateral/cmd.txt, @file{cmd}} @uref{sample/triangle/02_equilateral/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -798,7 +798,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/03_isosceles/desc.txt, @file{desc.txt}} @uref{sample_triangle/03_isosceles/cmd.txt, @file{cmd}} @uref{sample_triangle/03_isosceles/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/03_isosceles/desc.txt, @file{desc.txt}} @uref{sample/triangle/03_isosceles/cmd.txt, @file{cmd}} @uref{sample/triangle/03_isosceles/0.txt, @file{0.txt}}
 @end itemize
 
 
@@ -807,7 +807,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/04_isosceles_c/desc.txt, @file{desc.txt}} @uref{sample_triangle/04_isosceles_c/cmd.txt, @file{cmd}} @uref{sample_triangle/04_isosceles_c/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/04_isosceles_c/desc.txt, @file{desc.txt}} @uref{sample/triangle/04_isosceles_c/cmd.txt, @file{cmd}} @uref{sample/triangle/04_isosceles_c/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -815,7 +815,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/05_zero/desc.txt, @file{desc.txt}} @uref{sample_triangle/05_zero/cmd.txt, @file{cmd}} @uref{sample_triangle/05_zero/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/05_zero/desc.txt, @file{desc.txt}} @uref{sample/triangle/05_zero/cmd.txt, @file{cmd}} @uref{sample/triangle/05_zero/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -823,7 +823,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/06_minus/desc.txt, @file{desc.txt}} @uref{sample_triangle/06_minus/cmd.txt, @file{cmd}} @uref{sample_triangle/06_minus/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/06_minus/desc.txt, @file{desc.txt}} @uref{sample/triangle/06_minus/cmd.txt, @file{cmd}} @uref{sample/triangle/06_minus/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -831,7 +831,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/01_scalene/desc.txt, @file{desc.txt}} @uref{sample_triangle/01_scalene/cmd.txt, @file{cmd}} @uref{sample_triangle/01_scalene/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/01_scalene/desc.txt, @file{desc.txt}} @uref{sample/triangle/01_scalene/cmd.txt, @file{cmd}} @uref{sample/triangle/01_scalene/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -839,7 +839,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/08_lines/desc.txt, @file{desc.txt}} @uref{sample_triangle/08_lines/cmd.txt, @file{cmd}} @uref{sample_triangle/08_lines/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/08_lines/desc.txt, @file{desc.txt}} @uref{sample/triangle/08_lines/cmd.txt, @file{cmd}} @uref{sample/triangle/08_lines/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -847,7 +847,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/09_less/desc.txt, @file{desc.txt}} @uref{sample_triangle/09_less/cmd.txt, @file{cmd}} @uref{sample_triangle/09_less/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/09_less/desc.txt, @file{desc.txt}} @uref{sample/triangle/09_less/cmd.txt, @file{cmd}} @uref{sample/triangle/09_less/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -855,7 +855,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/10_lesses/desc.txt, @file{desc.txt}} @uref{sample_triangle/10_lesses/cmd.txt, @file{cmd}} @uref{sample_triangle/10_lesses/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/10_lesses/desc.txt, @file{desc.txt}} @uref{sample/triangle/10_lesses/cmd.txt, @file{cmd}} @uref{sample/triangle/10_lesses/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -863,7 +863,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/11_zeroall/desc.txt, @file{desc.txt}} @uref{sample_triangle/11_zeroall/cmd.txt, @file{cmd}} @uref{sample_triangle/11_zeroall/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/11_zeroall/desc.txt, @file{desc.txt}} @uref{sample/triangle/11_zeroall/cmd.txt, @file{cmd}} @uref{sample/triangle/11_zeroall/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -871,7 +871,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/12_notint/desc.txt, @file{desc.txt}} @uref{sample_triangle/12_notint/cmd.txt, @file{cmd}} @uref{sample_triangle/12_notint/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/12_notint/desc.txt, @file{desc.txt}} @uref{sample/triangle/12_notint/cmd.txt, @file{cmd}} @uref{sample/triangle/12_notint/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -879,7 +879,7 @@ $ @kbd{ls}
 
 @itemize
 @item
-@file{Makefile} @uref{sample_triangle/13_argcnt/desc.txt, @file{desc.txt}} @uref{sample_triangle/13_argcnt/cmd.txt, @file{cmd}} @uref{sample_triangle/13_argcnt/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/triangle/13_argcnt/desc.txt, @file{desc.txt}} @uref{sample/triangle/13_argcnt/cmd.txt, @file{cmd}} @uref{sample/triangle/13_argcnt/0.txt, @file{0.txt}}
 @end itemize
 @end ifhtml
 @end itemize
@@ -1666,7 +1666,7 @@ sort_001
 
 @itemize
 @item
-@file{Makefile} @uref{sample_sort/sort_001/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_001/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_001/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/sort/sort_001/desc.txt, @file{desc.txt}} @uref{sample/sort/sort_001/cmd.c.txt, @file{cmd.c}} @uref{sample/sort/sort_001/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -1674,7 +1674,7 @@ sort_002
 
 @itemize
 @item
-@file{Makefile} @uref{sample_sort/sort_002/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_002/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_002/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/sort/sort_002/desc.txt, @file{desc.txt}} @uref{sample/sort/sort_002/cmd.c.txt, @file{cmd.c}} @uref{sample/sort/sort_002/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -1682,7 +1682,7 @@ sort_003
 
 @itemize
 @item
-@file{Makefile} @uref{sample_sort/sort_003/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_003/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_003/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/sort/sort_003/desc.txt, @file{desc.txt}} @uref{sample/sort/sort_003/cmd.c.txt, @file{cmd.c}} @uref{sample/sort/sort_003/0.txt, @file{0.txt}}
 @end itemize
 
 
@@ -1691,7 +1691,7 @@ sort_004
 
 @itemize
 @item
-@file{Makefile} @uref{sample_sort/sort_004/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_004/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_004/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/sort/sort_004/desc.txt, @file{desc.txt}} @uref{sample/sort/sort_004/cmd.c.txt, @file{cmd.c}} @uref{sample/sort/sort_004/0.txt, @file{0.txt}}
 @end itemize
 
 @item
@@ -1699,7 +1699,7 @@ sort_005
 
 @itemize
 @item
-@file{Makefile} @uref{sample_sort/sort_005/desc.txt, @file{desc.txt}} @uref{sample_sort/sort_005/cmd.c.txt, @file{cmd.c}} @uref{sample_sort/sort_005/0.txt, @file{0.txt}}
+@file{Makefile} @uref{sample/sort/sort_005/desc.txt, @file{desc.txt}} @uref{sample/sort/sort_005/cmd.c.txt, @file{cmd.c}} @uref{sample/sort/sort_005/0.txt, @file{0.txt}}
 @end itemize
 @end ifhtml
 @end itemize
@@ -1893,7 +1893,7 @@ $ @kbd{make GROUPDIR=~/triangle/test}
 * make checkall::               @kbd{make checkall} - グループ内にあるすべてのテストの実行、計時
 * make clean at group::         @kbd{make clean} - グループ内にあるすべてのテストで、実行結果をクリア
 * make time at group::          @kbd{make time} - グループ内にあるすべてのテストを計時
-* make cleantime at group::     @kbd{make cleantime} - グループ内にあるすべてのテストで、計時結果をクリア
+* make time-clean at group::     @kbd{make time-clean} - グループ内にあるすべてのテストで、計時結果をクリア
 * Group Files::                 グループのファイル
 @end menu
 
@@ -2009,7 +2009,7 @@ test: All tests are succeded.
 $ @kbd{make clean}
 @end example
 
-@node make time at group, make cleantime at group, make clean at group, Group dir
+@node make time at group, make time-clean at group, make clean at group, Group dir
 @section @kbd{make time} - グループ内にあるすべてのテストを計時
 
 @kbd{make time}で、グループ内にあるすべてのテストを計時し、その結果が表示されます。計時結果は、@file{<テストグループ名を大文字にした文字列>_time.log}に格納されます。
@@ -2058,18 +2058,18 @@ real    0m0.007s
 real    0m0.012s
 @end example
 
-@node make cleantime at group, Group Files, make time at group, Group dir
-@section @kbd{make cleantime} - グループの計時結果をクリア
+@node make time-clean at group, Group Files, make time at group, Group dir
+@section @kbd{make time-clean} - グループの計時結果をクリア
 
 @kbd{make cleatime}で、@kbd{make time}により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
 
 @unnumberedsubsec 使用例
 
 @example
-$ @kbd{make cleantime}
+$ @kbd{make time-clean}
 @end example
 
-@node Group Files,  , make cleantime at group, Group dir
+@node Group Files,  , make time-clean at group, Group dir
 @section グループディレクトリーのファイル
 
 グループディレクトリーには、テストディレクトリーに加えて、次のファイルが含まれます。
@@ -2099,9 +2099,9 @@ $ @kbd{make cleantime}
 * make reset::                  @kbd{make reset} - テスト想定の作成または更新
 * make check at test::          @kbd{make}または@kbd{make check} - テストの実行
 * make clean at test::          @kbd{make clean} - テスト結果のクリア
-* make cleanall at test::       @kbd{make cleanall} - テストの想定と結果をクリア
+* make all-clean at test::       @kbd{make all-clean} - テストの想定と結果をクリア
 * make time at test::           @kbd{make time} - テストの計時
-* make cleantime at test::      @kbd{make cleantime} - テスト計時結果のクリア
+* make time-clean at test::      @kbd{make time-clean} - テスト計時結果のクリア
 * Test Files::                  テストディレクトリーのファイル
 @end menu
 
@@ -2148,7 +2148,7 @@ $ @kbd{make}
 Detail in /home/foo/triangle/test/01_scalene/detail.log
 @end example
 
-@node make clean at test, make cleanall at test, make check at test, Test dir
+@node make clean at test, make all-clean at test, make check at test, Test dir
 @section @kbd{make clean} - テスト結果のクリア
 @kbd{make clean}で、テストの実行または計時の結果作成された次のファイルが削除されます。
 
@@ -2176,8 +2176,8 @@ $ @kbd{ls}
 0.txt  Makefile  cmd  desc.txt
 @end example
 
-@node make cleanall at test, make time at test, make clean at test, Test dir
-@section @kbd{make cleanall} - テストの想定と結果をクリア
+@node make all-clean at test, make time at test, make clean at test, Test dir
+@section @kbd{make all-clean} - テストの想定と結果をクリア
 @kbd{make clean}で次の、テストの想定ファイルとテストの実行または計時の結果作成されたファイルが削除されます。
 
 @itemize
@@ -2202,13 +2202,13 @@ $ @kbd{ls}
 
 @unnumberedsubsec 使用例
 @example
-$ @kbd{make cleanall}
+$ @kbd{make all-clean}
 $ @kbd{ls}
 Makefile  cmd  desc.txt
 @end example
 
 
-@node make time at test, make cleantime at test, make cleanall at test, Test dir
+@node make time at test, make time-clean at test, make all-clean at test, Test dir
 @section @kbd{make time} - テストの計時
 @kbd{make time}で、テストを計時しその結果が表示されます。計時結果は、@file{time.log}に格納されます。
 
@@ -2218,9 +2218,9 @@ $ @kbd{make time}
 real  0m0.006s
 @end example
 
-@node make cleantime at test, Test Files, make time at test, Test dir
-@section @kbd{make cleantime} - テスト計時結果のクリア
-@kbd{make cleantime}で、テストの計時の結果作成された次のファイルが削除されます。
+@node make time-clean at test, Test Files, make time at test, Test dir
+@section @kbd{make time-clean} - テスト計時結果のクリア
+@kbd{make time-clean}で、テストの計時の結果作成された次のファイルが削除されます。
 
 @itemize
 @item
@@ -2230,10 +2230,10 @@ real  0m0.006s
 @unnumberedsubsec 使用例
 
 @example
-$ @kbd{make cleantime}
+$ @kbd{make time-clean}
 @end example
 
-@node Test Files,  , make cleantime at test, Test dir
+@node Test Files,  , make time-clean at test, Test dir
 @section テストディレクトリーのファイル
 @table @file
 @item Makefile

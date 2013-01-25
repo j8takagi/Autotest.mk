@@ -4,8 +4,12 @@ XARGS := xargs
 
 .PHONY: docall gittag
 
-gittag: VERSION
-	$(CAT) $^ | $(XARGS) $(GITTAG)
+doc:
+	$(MAKE) -C doc base
 
 docall:
 	$(MAKE) -C doc all
+
+gittag: VERSION
+	$(CAT) $^ | $(XARGS) $(GITTAG)
+

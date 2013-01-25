@@ -1,46 +1,38 @@
-DOCNAME = autotest_mk
-SRC = $(DOCNAME).texi
-CSS = style.css
-SAMPLES = sample_triangle sample_sort
+DOC := autotest_mk
+CSS := style.css
+SAMPLE := sample
 
-PTEX = ptex
-TEXINDEX = texindex
-DVI2PDF = dvipdfmx
-MAKEINFO = makeinfo
+MKDIR := mkdir -p
+RMRF := rm -rf
+RSYNC := rsync
 
-.PHONY: all htmlnosplit pdf clean
+.PHONY: base all clean
 
-.INTERMEDIATE: $(DOCNAME).dvi
+base: $(DOC).info $(DOC).html
 
-all: info htmlnosplit html pdf
+all: base $(DOC)_html $(DOC).pdf
 
-htmlnosplit: $(DOCNAME).html
+$(DOC).html: $(SAMPLE)
 
-info: $(DOCNAME).info
+$(SAMPLE): $(SAMPLE)/triangle $(SAMPLE)/sort
 
-html: $(SRC) $(CSS) $(SAMPLES)
-	@if test ! -s $@; then mkdir $@; fi;
-	@cp $(CSS) $@/
-	@cp -r $(SAMPLES) $@/
-	@$(MAKEINFO) -o $@ --html --css-ref=style.css $(SRC)
+$(SAMPLE)/triangle: ../sample/triangle/test
+	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
+	$(RSYNC) -az $</ $@
 
-pdf: $(DOCNAME).pdf
+$(SAMPLE)/sort: ../sample/sort/test
+	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
+	$(RSYNC) -az $</ $@
 
-$(DOCNAME).info: $(SRC)
-	@$(MAKEINFO) -o $@ $^
+$(DOC)_html: $(DOC)_html/$(SAMPLE)
 
-$(DOCNAME).html: $(SRC) $(CSS)
-	@$(MAKEINFO) -o $@ --no-split --html --css-include=$(CSS) $(SRC)
+$(DOC)_html/$(SAMPLE): $(SAMPLE)
+	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
+	$(RSYNC) -az $</ $@
 
-$(DOCNAME).pdf: $(DOCNAME).dvi
-	@$(DVI2PDF) $^
+include texinfo.mk
 
-$(DOCNAME).dvi: $(SRC)
-	@TEX=ptex texi2dvi -q --texinfo=@afourpaper -o $@ $<
-	@rm -rf $(DOCNAME).aux $(DOCNAME).cp $(DOCNAME).cps $(DOCNAME).fn $(DOCNAME).ky $(DOCNAME).log $(DOCNAME).pg $(DOCNAME).pgs $(DOCNAME).tmp $(DOCNAME).toc $(DOCNAME).tp $(DOCNAME).vr
+distclean: texinfo-distclean
+	$(RMRF) $(DOC).info $(DOC).html $(SAMPLE) $(DOC)_html $(DOC).pdf
 
-$(DOCNAME).xml: $(SRC)
-	@$(MAKEINFO) -o $@ --docbook $(SRC)
-
-clean:
-	@rm -rf html $(DOCNAME).info $(DOCNAME).pdf $(DOCNAME).html $(DOCNAME).dvi $(DOCNAME).xml
+clean: texinfo-clean
