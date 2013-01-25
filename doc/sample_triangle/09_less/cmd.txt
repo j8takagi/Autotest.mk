@@ -1,2 +1,0 @@
-../../triangle 1 2 4
-../../triangle 12 15 30
