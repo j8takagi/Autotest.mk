@@ -1142,7 +1142,7 @@ void sort(int array[], int num) @{
 @}
 @end example
 
-バグを含む@file{sort_normal.c}は、次の内容です。
+バグを含む@file{sort_bug.c}は、次の内容です。
 
 @example
 void sort(int array[], int num) @{
@@ -1154,7 +1154,7 @@ void sort(int array[], int num) @{
         for(j=(num-1); j>i; j--) @{
             if (array[j-1] > array[j]) @{
                 val = array[j];
-                array[j] = array[j]; // 本当は array[j] = array[j-1];
+                array[j] = array[j]; /* 本当は array[j] = array[j-1]; */
                 array[j-1] = val;
             @}
         @}

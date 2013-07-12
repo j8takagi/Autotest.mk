@@ -7,7 +7,7 @@ void sort(int array[], int num) {
         for(j=(num-1); j>i; j--) {
             if (array[j-1] > array[j]) {
                 val = array[j];
-                array[j] = array[j]; // 本当は array[j] = array[j-1];
+                array[j] = array[j]; /* 本当は array[j] = array[j-1]; */
                 array[j-1] = val;
             }
         }
