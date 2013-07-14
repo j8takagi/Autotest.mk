@@ -20,6 +20,10 @@ h1, h2 {
     background-color: #DDF;
 }
 
+table.menu, table.menu th, table.menu td {
+    border-style: none;
+}
+
 h2 {
     padding: 0.25em;
     color: white;
@@ -43,6 +47,14 @@ h2 {
  }
 
 .shortcontents h2{
+    display: none;
+}
+
+h1.node-heading {
+    display: none;
+}
+
+h2.shortcontents-heading{
     display: none;
 }
 
@@ -120,4 +132,8 @@ pre.example strong {
 
 dt {
     font-weight: bold;
+}
+
+dfn {
+    font-style: normal;
 }
