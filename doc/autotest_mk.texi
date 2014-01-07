@@ -14,7 +14,7 @@
 @c %**end of header
 
 @copying
-Copyright @copyright{} 2011-2013 j8takagi
+Copyright @copyright{} 2011-2014 j8takagi
 @end copying
 
 @dircategory Basics
@@ -29,9 +29,7 @@ Copyright @copyright{} 2011-2013 j8takagi
 @insertcopying
 @end titlepage
 
-@ifinfo
-@node Top, About, (dir), (dir)
-
+@node Top, Top, (dir), (dir)
 @menu
 * About::                       Autotest.mk 概要
 * Install::                     Autotest.mk インストール
@@ -40,11 +38,11 @@ Copyright @copyright{} 2011-2013 j8takagi
 * Template dir::                テンプレートディレクトリー マニュアル
 * Group dir::                   グループディレクトリー マニュアル
 * Test dir::                    テストディレクトリー マニュアル
+@end menu
 
+@ifinfo
 @detailmenu
  --- The Detailed Node Listing ---
-
-
 
 * About::                       Autotest.mk 概要
 * Install::                     Autotest.mk インストール
@@ -122,23 +120,9 @@ Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
 * Test Files::                  テストディレクトリーのファイル
 
 @end detailmenu
-@end menu
-
 @end ifinfo
 
 @ifnotinfo
-@node Top, About
-
-@menu
-* About::                       Autotest.mk 概要
-* Install::                     Autotest.mk インストール
-* Tutorial triangle::           Autotest.mk チュートリアルI - 三角形判定プログラムのテスト
-* Tutorial sort::               Autotest.mk チュートリアルII - C言語@code{sort}関数のテスト
-* Template dir::                テンプレートディレクトリー マニュアル
-* Group dir::                   グループディレクトリー マニュアル
-* Test dir::                    テストディレクトリー マニュアル
-@end menu
-
 @contents
 @end ifnotinfo
 
@@ -338,7 +322,7 @@ Autotest.mkでテストを実行するときは、次の3つのディレクト�
 @node Prepare triangle, Create triangle group, Tutorial triangle About, Tutorial triangle
 @unnumberedsec 準備
 
-@unnumberedsubsec 作業用フォルダの作成
+@unnumberedsubsec 作業用ディレクトリーの作成
 
 まず、Autotest.mkのパッケージに含まれている@file{sample/triangle}以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、@file{~/triangle}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、@file{~}に展開されているものとします。
 
@@ -1201,7 +1185,7 @@ void sort(int array[], int num) @{
 @node Prepare sort, Create sort group, Tutorial sort About, Tutorial sort
 @unnumberedsec 準備
 
-@unnumberedsubsec 作業用フォルダの作成
+@unnumberedsubsec 作業用ディレクトリーの作成
 
 まず、Autotest.mkのパッケージに含まれている@file{sample/sort}以下のファイルを、任意の作業用ディレクトリーにコピーします。ここでは、@file{~/sort}（@file{~}は、現在ログインしているユーザーのホームディレクトリー）を作業用ディレクトリーにします。また、@file{autotest.mk}は、@file{~}に展開されているものとします。
 
