@@ -82,11 +82,13 @@ a:hover {
     text-decoration: underline;
 }
 
-pre.example {
+pre.example, pre.verbatim {
     padding: 0.5em 1em 0.5em 1em;
-    color: #CCC;
-    background: black;
     font-size: 90%;
+}
+
+pre.example, pre.verbatim {
+    border: 1px solid navy;
 }
 
 a {
@@ -98,11 +100,10 @@ blockquote {
     border: 1px solid #00F;
 }
 
-kbd {
+kbd, code, .file, var {
+    font-style: normal;
     font-family: monospace;
-}
-
-kbd, code, .file {
+    font-size: 90%;
     margin-left:0.5em;
     margin-right: 0.5em;
 }
@@ -119,8 +120,7 @@ table.cartouche, table.cartouche th, table.cartouche td  {
 pre.example .command, pre.example .option, pre.example kbd {
     font-weight: bold;
     font-family: monospace;
-    background-color: inherit;
-    color: white;
+    font-style: normal;
     margin-left:0;
     margin-right: 0;
 }
@@ -136,4 +136,8 @@ dt {
 
 dfn {
     font-style: normal;
+}
+
+.header, .menu {
+    display: none;
 }
