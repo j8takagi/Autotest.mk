@@ -59,13 +59,11 @@ TEST_LOG_FILES := $(foreach test,$(TESTS),$(test)/$(LOG_FILE))
 define group_log
     $(if $(filter 1,$(verbose)),$(ECHO) '$(CURDIR) - $(words $1) tests')
     $(foreach target,$1,$(call group_log_each,$(target),$2))
-    $(if $(filter 1,$(verbose)),$(ECHO))
 endef
 
 # テストのログファイルをグループログファイルに出力。引数は、テスト、グループログファイル
 # 用例: $(call group_log_each,file_test_log,file_group_log)
 define group_log_each
-    $(if $(filter 1,$(verbose)),$(ECHO) -n '.')
     $(ECHO) $(dir $1) >>$2;
     if test -s $1; then $(CAT) $1 >>$2; else $(ECHO) $(dir $1)": no log" >>$2; fi
     $(ECHO) >>$2;
