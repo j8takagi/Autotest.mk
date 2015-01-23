@@ -2045,7 +2045,7 @@ real    0m0.012s
 @node make time-clean at group, Group Files, make time at group, Group dir
 @section @kbd{make time-clean} - グループの計時結果をクリア
 
-@kbd{make cleatime}で、@kbd{make time}により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
+@kbd{make time-clean}で、@kbd{make time}により作成されたテストグループディレクトリーと各テストディレクトリーのファイルをすべて削除します。
 
 @unnumberedsubsec 使用例
 
