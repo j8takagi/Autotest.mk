@@ -3,6 +3,12 @@ body {
     margin-right: 12em;
     color: black;
     background-color: #EEE;
+    font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: navy;
+    background-color: inherit;
 }
 
 h1, h2 {
@@ -26,19 +32,23 @@ table.menu, table.menu th, table.menu td {
 
 h2 {
     padding: 0.25em;
-    color: white;
-    background-color: navy;
+    border: 2px solid navy;
 }
 
 .contents {
     background-color: #DDF;
     border: 4px double #000;
+    padding: 0.5em 1em 0.5em 1em;
 }
 
 .contents h2 {
     margin-left: 0;
     color: black;
     background-color: #DDF;
+}
+
+.contents li {
+    list-style-type: none;
 }
 
 .shortcontents {
@@ -54,6 +64,10 @@ h1.node-heading {
     display: none;
 }
 
+h2.contents-heading{
+    display: none;
+}
+
 h2.shortcontents-heading{
     display: none;
 }
@@ -63,7 +77,6 @@ h2.shortcontents-heading{
 }
 
 h3, h4, h5 {
-    color: navy;
     margin-left: -1em;
 }
 
@@ -84,11 +97,7 @@ a:hover {
 
 pre.example, pre.verbatim {
     padding: 0.5em 1em 0.5em 1em;
-    font-size: 90%;
-}
-
-pre.example, pre.verbatim {
-    border: 1px solid navy;
+    border: 1px solid #CCC;
 }
 
 a {
@@ -102,15 +111,17 @@ blockquote {
 
 kbd, code, .file, var {
     font-style: normal;
+    font-weight: normal;
     font-family: monospace;
-    font-size: 90%;
-    margin-left:0.5em;
-    margin-right: 0.5em;
+    font-size: 120%;
+    margin-left:0.25em;
+    margin-right: 0.25em;
 }
 
 table, th, td {
-    border: 1px solid #CCC;
+    border: 1px solid black;
     border-collapse: collapse; /* 枠線の表示方法 */
+    margin-bottom: 1em;
 }
 
 table.cartouche, table.cartouche th, table.cartouche td  {
@@ -120,6 +131,8 @@ table.cartouche, table.cartouche th, table.cartouche td  {
 pre.example .command, pre.example .option, pre.example kbd {
     font-weight: bold;
     font-family: monospace;
+    font-size: 110%;
+    background-color: inherit;
     font-style: normal;
     margin-left:0;
     margin-right: 0;
@@ -130,8 +143,14 @@ pre.example strong {
     border: 2px solid green;
 }
 
-dt {
+th, em {
+    font-style: normal;
     font-weight: bold;
+    font-family: sans-serif;
+}
+
+th {
+    text-align: center;
 }
 
 dfn {
