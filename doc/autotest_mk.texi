@@ -170,8 +170,6 @@ Ubuntu Linux 10.10
 Mac OS X バージョン 10.6.5
 @end itemize
 
-Mac OS Xでは、@uref{http://www.gnu.org/software/findutils/, GNU Findutils}をインストールしてください。
-
 @node Download, Verify, Requirements, Install
 @section ダウンロード
 
