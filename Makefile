@@ -9,7 +9,7 @@ VERSIONGITREF := $(shell $(GIT) show-ref -s --tags $(VERSION))
 
 MASTERGITREF := $(shell $(GIT) show-ref -s refs/heads/master)
 
-.PHONY: docall gittag
+.PHONY: docall gittag version
 
 doc:
 	$(MAKE) -C doc base
@@ -19,3 +19,6 @@ docall:
 
 gittag:
 	if test `$(GIT) status -s | $(WC) -l` -gt 0; then $(ECHO) "Error: commit, first."; exit 1; fi; if test "$(VERSIONGITREF)" != "$(MASTERGITREF)"; then $(GIT) tag $(VERSION); fi
+
+version: VERSION
+	@$(ECHO) "YACASL2 Version: $(VERSION)"
