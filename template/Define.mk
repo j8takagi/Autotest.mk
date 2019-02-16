@@ -27,18 +27,21 @@ DEV_NULL := /dev/null
 DIFF := diff -c
 ECHO := echo
 EXPR := expr
+FILE := file -b -e ascii
 FIND := find
 GREP := grep
 LINECOUNT := wc -l
 LN := ln -s
 MKDIR := mkdir -p
 MV := mv
+PRINTF := printf
+REALPATH := realpath
 SED := sed
 TEST := test
 TIME := time
 TR := tr
 VALGRIND := valgrind
-VALGRINDFLAG :=  -q --leak-check=full --log-file=valgrind.log
+VALGRINDFLAG :=  -q --leak-check=full --show-leak-kinds=all --log-file=valgrind.log
 
 ######################################################################
 # テストグループとテストでの共通マクロ
