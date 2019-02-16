@@ -1,5 +1,6 @@
 CAT := cat
 GIT := git
+PRINTF := printf
 WC = wc
 XARGS := xargs
 
@@ -21,4 +22,4 @@ gittag:
 	if test `$(GIT) status -s | $(WC) -l` -gt 0; then $(ECHO) "Error: commit, first."; exit 1; fi; if test "$(VERSIONGITREF)" != "$(MASTERGITREF)"; then $(GIT) tag $(VERSION); fi
 
 version: VERSION
-	@$(ECHO) "YACASL2 Version: $(VERSION)"
+	@$(PRINTF) "Autotest.mk Version: $(VERSION)"
