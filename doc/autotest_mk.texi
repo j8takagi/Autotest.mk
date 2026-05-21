@@ -14,7 +14,7 @@
 @c %**end of header
 
 @copying
-Copyright @copyright{} 2011-2019 j8takagi
+Copyright @copyright{} 2011-2026 j8takagi
 @end copying
 
 @dircategory Basics
@@ -29,7 +29,11 @@ Copyright @copyright{} 2011-2019 j8takagi
 @insertcopying
 @end titlepage
 
-@node Top, Top, (dir), (dir)
+@node Top, Top
+@ifhtml
+@top Autotest.mk - ソフトウェアテストの自動化
+@end ifhtml
+
 @menu
 * About::                       Autotest.mk 概要
 * Install::                     Autotest.mk インストール

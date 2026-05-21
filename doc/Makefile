@@ -12,7 +12,7 @@ base: $(DOC).info $(DOC).html
 
 all: base $(DOC)_html $(DOC).pdf
 
-$(DOC).html: $(SAMPLE)
+$(DOC).html: $(SAMPLE) style.css
 
 $(SAMPLE): $(SAMPLE)/triangle $(SAMPLE)/sort
 
@@ -24,7 +24,7 @@ $(SAMPLE)/sort: ../sample/sort/test
 	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
 	$(RSYNC) -az $</ $@
 
-$(DOC)_html: $(DOC)_html/$(SAMPLE)
+$(DOC)_html: $(DOC)_html/$(SAMPLE) style.css
 
 $(DOC)_html/$(SAMPLE): $(SAMPLE)
 	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
