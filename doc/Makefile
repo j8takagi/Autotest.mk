@@ -30,6 +30,8 @@ $(DOC)_html/$(SAMPLE): $(SAMPLE)
 	if test ! -e $(dir $@); then $(MKDIR) $(dir $@); fi
 	$(RSYNC) -az $</ $@
 
+$(DOC).pdf: texinfo.tex
+
 include texinfo.mk
 
 distclean: texinfo-distclean
