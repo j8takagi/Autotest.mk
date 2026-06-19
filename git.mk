@@ -20,7 +20,7 @@ gittag___stamp: commit___stamp
 
 commit___stamp: version_up___stamp
 	$(GIT) add VERSION
-	$(GIT) commit --allow-empty
+	$(GIT) commit --allow-empty -m "version up"
 	$(GIT) rev-parse HEAD > $@
 
 version_up___stamp: VERSION

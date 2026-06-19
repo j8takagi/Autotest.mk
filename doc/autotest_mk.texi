@@ -164,14 +164,19 @@ Autotest.mkの特徴は次のとおりです。
 
 @node Requirements, Download, Install, Install
 @section 要件
-Autotest.mkは、LinuxやMac OS Xなどで動作します。現在動作を確認しているのは、次のディストリビューションです。
+Autotest.mkは、@uref{https://www.gnu.org/software/bash/, Bash}などのシェル環境と@kbd{@uref{https://www.gnu.org/software/make/, GNU Make}}、@kbd{diff}（@uref{https://www.gnu.org/software/diffutils/, GNU Diffutils}）が必要です。
+これらのツールは、OSインストール時に一緒にインストールさせることも多いです。
+現在、以下のOS環境で動作を確認しています。
 
 @itemize @bullet
 @item
-Ubuntu Linux 10.10
+Linux（Ubuntu、Debian、Arch Linux）
 
 @item
-Mac OS X バージョン 10.6.5
+macOS
+
+@item
+Windows WSL2上のUbuntu
 @end itemize
 
 @node Download, Verify, Requirements, Install
