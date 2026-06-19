@@ -1,6 +1,6 @@
 .PHONY: release docbase docall gitpush gittag clean distclean
 
-release:
+release: docbase gitpush
 
 docbase:
 	$(MAKE) -C doc base
